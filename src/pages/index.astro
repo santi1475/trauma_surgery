@@ -1,6 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header'
+import Hero from '../components/Hero'
+import Soluciones from '../components/Soluciones'
+import InfoCards from '../components/InfoCards'
+import InstagramFeed from '../components/InstagramFeed'
+import Contacto from '../components/Contacto'
+import Footer from '../components/Footer'
+import About from '../components/About'
 ---
 <Layout>
-  <h1 class="text-3xl font-bold underline">¡Hola, Antigravity!</h1>
+  <Header client:only="react" />
+  <main>
+    <Hero client:only="react" />
+    <About client:only="react" />
+    <Soluciones client:only="react" />
+    <InfoCards client:only="react" />
+    <InstagramFeed client:only="react" />
+    <Contacto client:only="react" />
+  </main>
+  <Footer client:only="react" />
 </Layout>
