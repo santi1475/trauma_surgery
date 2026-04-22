@@ -52,7 +52,7 @@ export default function About() {
     >
       {/* Elementos decorativos del fondo principal para potenciar el efecto glass */}
       <div 
-        className="absolute top-0 right-0 w-[800px] h-[800px] opacity-30 pointer-events-none rounded-full"
+        className="absolute top-0 right-0 w-200 h-200 opacity-30 pointer-events-none rounded-full"
         style={{
           background: 'radial-gradient(circle at center, rgba(0,168,204,0.12) 0%, transparent 60%)',
           transform: 'translate(20%, -20%)'
