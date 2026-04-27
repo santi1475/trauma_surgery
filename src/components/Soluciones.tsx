@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { useReducedMotion } from 'framer-motion'
 import { staggerContainer, fadeInUp, reducedMotion } from '@/animations/variants'
+import { BorderBeam } from './ui/border-beam'
 
 const PRODUCTOS = [
   {
@@ -76,7 +77,7 @@ export default function Soluciones() {
     <section
       id="soluciones"
       className="py-24 lg:py-32"
-      style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}
+      style={{ background: 'var(--bg-deep, #020d1a)' }}
       aria-labelledby="soluciones-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -100,7 +101,7 @@ export default function Soluciones() {
             variants={item}
             style={{
               fontWeight: 700,
-              color: 'var(--color-primary)',
+              color: '#ffffff',
               fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
               letterSpacing: '-0.02em',
               lineHeight: 1.15,
@@ -112,7 +113,7 @@ export default function Soluciones() {
             variants={item}
             className="mt-4"
             style={{
-              color: 'var(--color-text)',
+              color: 'rgba(255,255,255,0.6)',
               fontWeight: 400,
               fontSize: '1rem',
               lineHeight: 1.7,
@@ -137,27 +138,35 @@ export default function Soluciones() {
               key={producto.id}
               variants={item}
               whileHover={prefersReduced ? {} : { y: -6, transition: { duration: 0.25 } }}
-              className="group flex flex-col p-7 rounded-2xl cursor-default transition-shadow duration-300"
+              className="group flex flex-col p-7 rounded-2xl cursor-default transition-shadow duration-300 relative overflow-hidden"
               style={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid rgba(10,58,96,0.08)',
-                boxShadow: '0 2px 12px rgba(10,58,96,0.04)',
+                backgroundColor: 'rgba(4,24,48,0.5)',
+                border: '1px solid rgba(0,217,255,0.1)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
               }}
               onMouseEnter={(e) => {
                 ;(e.currentTarget as HTMLElement).style.boxShadow =
-                  '0 16px 40px rgba(0,168,204,0.12), 0 4px 16px rgba(10,58,96,0.06)'
-                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,168,204,0.25)'
+                  '0 8px 30px rgba(0,217,255,0.15), 0 4px 16px rgba(0,0,0,0.4)'
+                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.3)'
               }}
               onMouseLeave={(e) => {
                 ;(e.currentTarget as HTMLElement).style.boxShadow =
-                  '0 2px 12px rgba(10,58,96,0.04)'
-                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(10,58,96,0.08)'
+                  '0 4px 20px rgba(0,0,0,0.3)'
+                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.1)'
               }}
             >
+              <BorderBeam
+                size={60}
+                duration={8}
+                delay={producto.id === 'mano' ? 0 : producto.id === 'placas' ? 2 : producto.id === 'protesis' ? 4 : 6}
+                colorFrom="rgba(0,168,204,0.8)"
+                colorTo="transparent"
+                borderWidth={1.5}
+              />
               {/* Icono del producto */}
               <div
                 className="w-12 h-12 mb-6 transition-colors duration-300"
-                style={{ color: 'var(--color-primary)' }}
+                style={{ color: 'var(--color-accent, #00d9ff)' }}
               >
                 {producto.icon}
               </div>
@@ -167,7 +176,7 @@ export default function Soluciones() {
                 className="mb-3"
                 style={{
                   fontWeight: 700,
-                  color: 'var(--color-primary)',
+                  color: '#ffffff',
                   fontSize: '1.05rem',
                   lineHeight: 1.25,
                 }}
@@ -179,7 +188,7 @@ export default function Soluciones() {
               <p
                 className="flex-1 leading-relaxed"
                 style={{
-                  color: 'var(--color-text)',
+                  color: 'rgba(255,255,255,0.6)',
                   fontWeight: 400,
                   fontSize: '0.875rem',
                   lineHeight: 1.65,

@@ -55,24 +55,29 @@
 }
 
 :root {
-    /* Variables TraumaSurgery — acceso directo vía var() */
-    --ts-primary: #0A3A60;
-    --ts-accent:  #00A8CC;
-    --ts-text:    #666666;
-    --ts-gold:    #D4AF37;
+    /* Variables TraumaSurgery — Dark Theme (estándar) */
+    --ts-primary:  #0A3A60;
+    --ts-accent:   #00d9ff;
+    --ts-text:     rgba(255,255,255,0.6);
+    --ts-gold:     #D4AF37;
 
-    /* Alias con nombres exactos del design system */
+    /* Alias design system */
     --color-primary: #0A3A60;
-    --color-accent:  #00A8CC;
-    --color-text:    #666666;
+    --color-accent:  #00d9ff;
+    --color-text:    rgba(255,255,255,0.6);
     --color-gold:    #D4AF37;
 
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.141 0.005 285.823);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.141 0.005 285.823);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.141 0.005 285.823);
+    /* Paleta de fondos oscuros */
+    --bg-deep:  #020d1a;
+    --bg-mid:   #061826;
+    --bg-card:  #0a1e30;
+
+    --background: #020d1a;
+    --foreground: #ffffff;
+    --card: #0a1e30;
+    --card-foreground: #ffffff;
+    --popover: #061826;
+    --popover-foreground: #ffffff;
     --primary: oklch(0.488 0.243 264.376);
     --primary-foreground: oklch(0.97 0.014 254.604);
     --secondary: oklch(0.967 0.001 286.375);
@@ -82,9 +87,9 @@
     --accent: oklch(0.967 0.001 286.375);
     --accent-foreground: oklch(0.21 0.006 285.885);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.92 0.004 286.32);
-    --input: oklch(0.92 0.004 286.32);
-    --ring: oklch(0.705 0.015 286.067);
+    --border: rgba(0,217,255,0.12);
+    --input: rgba(0,217,255,0.12);
+    --ring: rgba(0,217,255,0.3);
     --chart-1: oklch(0.828 0.111 230.318);
     --chart-2: oklch(0.685 0.169 237.323);
     --chart-3: oklch(0.588 0.158 241.966);
@@ -148,5 +153,15 @@
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
+  }
+}
+
+/* ─── Magic UI: shiny text animation ─── */
+@keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width, 120px)) 0;
+  }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width, 120px)) 0;
   }
 }

@@ -26,7 +26,7 @@ export default function InfoCards() {
     <section
       id="recursos"
       className="py-24 lg:py-32"
-      style={{ backgroundColor: 'rgba(247, 249, 252, 1)' }} // Fondo sutilmente gris/azulado para realzar el contraste del cristal
+      style={{ background: 'var(--bg-deep, #020d1a)' }}
       aria-label="Ventajas y certificaciones"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -39,7 +39,7 @@ export default function InfoCards() {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
             className="rounded-3xl p-10 lg:p-12 flex flex-col"
-            style={{ backgroundColor: 'var(--color-primary)' }}
+            style={{ backgroundColor: 'rgba(4,24,48,0.85)', border: '1px solid rgba(0,217,255,0.2)' }}
           >
             <motion.span
               variants={item}
@@ -143,7 +143,7 @@ export default function InfoCards() {
             viewport={{ once: true, margin: '-60px' }}
             className="rounded-3xl p-10 lg:p-12 flex flex-col"
             style={{
-              backgroundColor: '#FDFAF3',
+              backgroundColor: 'rgba(4,24,48,0.85)',
               border: '1px solid rgba(212,175,55,0.2)',
             }}
           >
@@ -160,7 +160,7 @@ export default function InfoCards() {
               className="mb-5"
               style={{
                 fontWeight: 700,
-                color: 'var(--color-primary)',
+                color: '#ffffff',
                 fontSize: 'clamp(1.5rem, 2.8vw, 2rem)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.2,
@@ -173,7 +173,7 @@ export default function InfoCards() {
               variants={item}
               className="mb-10"
               style={{
-                color: 'var(--color-text)',
+                color: 'rgba(255,255,255,0.6)',
                 fontWeight: 400,
                 fontSize: '0.95rem',
                 lineHeight: 1.7,
@@ -192,9 +192,9 @@ export default function InfoCards() {
                   variants={badge}
                   className="flex flex-col p-5 rounded-2xl"
                   style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid rgba(212,175,55,0.25)',
-                    boxShadow: '0 2px 8px rgba(212,175,55,0.06)',
+                    backgroundColor: 'rgba(2,13,26,0.5)',
+                    border: '1px solid rgba(212,175,55,0.15)',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
                   }}
                 >
                   <span
@@ -205,7 +205,7 @@ export default function InfoCards() {
                   </span>
                   <span
                     style={{
-                      color: 'var(--color-text)',
+                      color: 'rgba(255,255,255,0.6)',
                       fontWeight: 400,
                       fontSize: '0.78rem',
                       lineHeight: 1.5,
@@ -234,8 +234,8 @@ export default function InfoCards() {
                   />
                 </svg>
               </div>
-              <p style={{ color: 'var(--color-text)', fontSize: '0.8rem', lineHeight: 1.5 }}>
-                <strong style={{ color: 'var(--color-primary)', fontWeight: 600 }}>Excelencia verificada</strong>{' '}
+              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', lineHeight: 1.5 }}>
+                <strong style={{ color: '#ffffff', fontWeight: 600 }}>Excelencia verificada</strong>{' '}
                 — trazabilidad completa de implante a paciente.
               </p>
             </motion.div>

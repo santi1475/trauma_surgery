@@ -34,7 +34,7 @@ export default function InstagramFeed() {
     <section
       id="aliados"
       className="py-24 lg:py-32"
-      style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}
+      style={{ background: 'var(--bg-deep, #020d1a)' }}
       aria-labelledby="instagram-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -59,7 +59,7 @@ export default function InstagramFeed() {
               variants={item}
               style={{
                 fontWeight: 700,
-                color: 'var(--color-primary)',
+                color: '#ffffff',
                 fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,
@@ -76,12 +76,14 @@ export default function InstagramFeed() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 self-start sm:self-auto text-sm transition-all duration-200 hover:opacity-85 shrink-0"
             style={{
-              backgroundColor: 'var(--color-primary)',
-              color: '#FFFFFF',
+              backgroundColor: 'rgba(0,217,255,0.05)',
+              color: '#00d9ff',
+              border: '1px solid rgba(0,217,255,0.2)',
               fontWeight: 600,
               padding: '10px 22px',
               borderRadius: '8px',
               textDecoration: 'none',
+              boxShadow: '0 4px 14px rgba(0,217,255,0.1)',
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -105,7 +107,8 @@ export default function InstagramFeed() {
               variants={cardAnim}
               whileHover={prefersReduced ? {} : { scale: 1.02, y: -4 }}
               onClick={() => setSelectedImage(post.src)}
-              className="relative aspect-square rounded-2xl overflow-hidden group shadow-sm bg-white border border-gray-100"
+              className="relative aspect-square rounded-2xl overflow-hidden group shadow-lg border"
+              style={{ background: 'rgba(4,24,48,0.5)', borderColor: 'rgba(0,217,255,0.1)' }}
               aria-label={`Ver imagen: ${post.tag}`}
             >
               {/* Imagen del post */}
@@ -118,7 +121,7 @@ export default function InstagramFeed() {
               {/* Overlay al hover */}
               <div
                 className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ backgroundColor: 'rgba(10,58,96,0.6)', backdropFilter: 'blur(2px)' }}
+                style={{ backgroundColor: 'rgba(2,13,26,0.7)', backdropFilter: 'blur(3px)' }}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-2">
                   <circle cx="11" cy="11" r="8" />
@@ -131,11 +134,12 @@ export default function InstagramFeed() {
               {/* Etiqueta del post */}
               <div className="absolute bottom-3 left-3 right-3 flex justify-start pointer-events-none">
                 <span
-                  className="text-[10px] font-bold px-2.5 py-1 rounded-full text-white"
+                  className="text-[10px] font-bold px-3 py-1.5 rounded-full text-white"
                   style={{
-                    backgroundColor: 'rgba(10,58,96,0.7)',
+                    backgroundColor: 'rgba(0,217,255,0.15)',
                     backdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(255,255,255,0.2)',
+                    border: '1px solid rgba(0,217,255,0.3)',
+                    color: '#00d9ff'
                   }}
                 >
                   {post.tag}
@@ -153,8 +157,8 @@ export default function InstagramFeed() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedImage(null)}
-              className="fixed inset-0 z-100 flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
-              style={{ backgroundColor: 'rgba(10,58,96,0.92)', backdropFilter: 'blur(10px)' }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+              style={{ backgroundColor: 'rgba(2,13,26,0.95)', backdropFilter: 'blur(12px)' }}
             >
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}

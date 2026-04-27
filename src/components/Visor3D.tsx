@@ -6,19 +6,27 @@ import { ModelSkeleton } from './ModelSkeleton';
 import type { VistaAnatomica } from '@/interface/vistas';
 import { VISTAS_ANATOMICAS } from '@/data/vistasAnatomicas';
 
-
+interface Visor3DProps {
+  showPanel?: boolean
+  externalViewIndex?: number | null
+  externalAutoRotate?: boolean
+}
 
 function Cargador() {
   const { progress } = useProgress();
-  return <Html center className="text-black font-bold">{progress.toFixed(0)} %</Html>;
+  return (
+    <Html center>
+      <span style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
+        {progress.toFixed(0)}%
+      </span>
+    </Html>
+  );
 }
 
-// --- COMPONENTE DEL MODELO ---
 function EscenaInteractiva() {
   const groupRef = useRef<THREE.Group>(null);
-
   return (
-    <group 
+    <group
       ref={groupRef}
       onPointerDown={(e: ThreeEvent<PointerEvent>) => {
         e.stopPropagation();
@@ -32,7 +40,6 @@ function EscenaInteractiva() {
   );
 }
 
-// --- ROTADOR ---
 interface RotadorProps {
   rotacionActiva: boolean;
   animando: boolean;
@@ -48,8 +55,7 @@ function Rotador({ rotacionActiva, animando, cameraControlsRef }: RotadorProps) 
   return null;
 }
 
-// --- COMPONENTE PRINCIPAL ---
-export default function Visor3D() {
+export default function Visor3D({ showPanel = true, externalViewIndex = null, externalAutoRotate }: Visor3DProps) {
   const cameraControlsRef = useRef<CameraControls>(null);
   const [rotacionActiva, setRotacionActiva] = useState(true);
   const [animando, setAnimando] = useState(false);
@@ -60,13 +66,7 @@ export default function Visor3D() {
       setRotacionActiva(false);
       setAnimando(true);
       setVistaSeleccionada(indiceVista);
-      
-      await cameraControlsRef.current.setLookAt(
-        ...vista.cameraPosition,
-        ...vista.target,
-        true
-      );
-      
+      await cameraControlsRef.current.setLookAt(...vista.cameraPosition, ...vista.target, true);
       setAnimando(false);
     }
   }, []);
@@ -84,6 +84,22 @@ export default function Visor3D() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Control externo de vista
+  useEffect(() => {
+    if (externalViewIndex !== null && externalViewIndex !== undefined) {
+      const vista = VISTAS_ANATOMICAS[externalViewIndex];
+      if (vista) irAVista(vista, externalViewIndex);
+    }
+  }, [externalViewIndex, irAVista]);
+
+  // Control externo de rotación
+  useEffect(() => {
+    if (externalAutoRotate !== undefined) {
+      setRotacionActiva(externalAutoRotate);
+      if (externalAutoRotate) setVistaSeleccionada(null);
+    }
+  }, [externalAutoRotate]);
+
   const manejarInteraccionUsuario = useCallback(() => {
     if (!animando) {
       setRotacionActiva(false);
@@ -94,54 +110,83 @@ export default function Visor3D() {
   const toggleRotacion = () => {
     if (!animando) {
       setRotacionActiva(!rotacionActiva);
-      if (!rotacionActiva) {
-        setVistaSeleccionada(null);
-      }
+      if (!rotacionActiva) setVistaSeleccionada(null);
     }
   };
 
   return (
-    <div className="relative w-full h-screen bg-white">
-      {/* UI: BOTONES DE VISTA */}
-      <div className="absolute top-10 right-10 z-10 flex flex-col gap-2 p-4 bg-white/80 backdrop-blur-md rounded-xl shadow-lg border border-gray-200">
-        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Enfoque Anatómico</h3>
-        {VISTAS_ANATOMICAS.map((vista, index) => (
-          <button
-            key={vista.label}
-            onClick={() => irAVista(vista, index)}
-            className={`flex items-center gap-3 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-              vistaSeleccionada === index 
-                ? 'bg-blue-100 text-blue-700' 
-                : 'text-gray-700 hover:bg-gray-100'
-            }`}
-          >
-            <span>{vista.icon}</span>
-            {vista.label}
-          </button>
-        ))}
-        
-        <hr className="my-2 border-gray-100" />
-        
-        <button
-          onClick={toggleRotacion}
-          disabled={animando}
-          className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${
-            animando 
-              ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
-              : rotacionActiva 
-                ? 'bg-blue-50 text-blue-600' 
-                : 'bg-gray-100 text-gray-500'
-          }`}
+    <section className="relative w-full h-screen" style={{ background: 'linear-gradient(180deg, #041830 0%, #020d1a 40%, #041830 100%)' }}>
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(0,82,163,0.25) 0%, transparent 70%)' }} />
+      {/* Panel anatómico — ocultable */}
+      {showPanel && (
+        <div
+          className="absolute top-10 right-10 z-10 flex flex-col gap-2 p-4 rounded-xl"
+          style={{
+            background: 'rgba(2,13,26,0.75)',
+            backdropFilter: 'blur(16px)',
+            border: '1px solid rgba(0,168,204,0.2)',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+          }}
         >
-          {animando ? '⏳ TRANSITANDO...' : rotacionActiva ? '🟢 ROTACIÓN ACTIVA' : '⚪ ROTACIÓN PAUSADA'}
-        </button>
-      </div>
+          <h3
+            className="text-xs uppercase tracking-widest mb-2"
+            style={{ color: 'rgba(0,168,204,0.7)', fontWeight: 600 }}
+          >
+            Enfoque Anatómico
+          </h3>
+          {VISTAS_ANATOMICAS.map((vista, index) => (
+            <button
+              key={vista.label}
+              onClick={() => irAVista(vista, index)}
+              className="flex items-center gap-3 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+              style={{
+                background: vistaSeleccionada === index
+                  ? 'rgba(0,168,204,0.15)'
+                  : 'transparent',
+                color: vistaSeleccionada === index
+                  ? 'var(--color-accent)'
+                  : 'rgba(255,255,255,0.6)',
+                border: vistaSeleccionada === index
+                  ? '1px solid rgba(0,168,204,0.4)'
+                  : '1px solid transparent',
+              }}
+            >
+              <span>{vista.icon}</span>
+              {vista.label}
+            </button>
+          ))}
 
-      {/* CANVAS 3D */}
-      <Canvas 
-        shadows 
+          <hr style={{ borderColor: 'rgba(255,255,255,0.08)', margin: '4px 0' }} />
+
+          <button
+            onClick={toggleRotacion}
+            disabled={animando}
+            className="px-4 py-2 text-xs font-bold rounded-lg transition-all"
+            style={{
+              background: animando
+                ? 'rgba(255,255,255,0.05)'
+                : rotacionActiva
+                  ? 'rgba(0,168,204,0.1)'
+                  : 'rgba(255,255,255,0.05)',
+              color: animando
+                ? 'rgba(255,255,255,0.3)'
+                : rotacionActiva
+                  ? 'var(--color-accent)'
+                  : 'rgba(255,255,255,0.4)',
+              cursor: animando ? 'not-allowed' : 'pointer',
+            }}
+          >
+            {animando ? '⏳ TRANSITANDO...' : rotacionActiva ? '● ROTACIÓN ACTIVA' : '○ ROTACIÓN PAUSADA'}
+          </button>
+        </div>
+      )}
+
+      <Canvas
+        shadows
+        gl={{ alpha: true, antialias: true }}
         onCreated={({ gl }) => {
           gl.shadowMap.type = THREE.PCFShadowMap;
+          gl.setClearColor(0x000000, 0);
         }}
         camera={{ position: [-0.8, 1.8, 3.8], fov: 45 }}
       >
@@ -153,20 +198,20 @@ export default function Visor3D() {
           <EscenaInteractiva />
         </Suspense>
 
-        <Rotador 
+        <Rotador
           rotacionActiva={rotacionActiva}
           animando={animando}
-          cameraControlsRef={cameraControlsRef} 
+          cameraControlsRef={cameraControlsRef}
         />
 
-        <CameraControls 
-          ref={cameraControlsRef} 
-          makeDefault 
-          minPolarAngle={0} 
+        <CameraControls
+          ref={cameraControlsRef}
+          makeDefault
+          minPolarAngle={0}
           maxPolarAngle={Math.PI / 1.75}
           onStart={manejarInteraccionUsuario}
         />
       </Canvas>
-    </div>
+    </section>
   );
 }

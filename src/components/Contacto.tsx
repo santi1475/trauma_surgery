@@ -81,7 +81,7 @@ export default function Contacto() {
     <section
       id="contacto"
       className="py-24 lg:py-32"
-      style={{ backgroundColor: 'rgba(247, 249, 252, 1)' }} // Fondo sutilmente gris/azulado para realzar el contraste del cristal
+      style={{ background: 'linear-gradient(180deg, var(--bg-deep, #020d1a) 0%, #000c18 100%)', borderTop: '1px solid rgba(0,217,255,0.08)' }}
       aria-labelledby="contacto-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -108,7 +108,7 @@ export default function Contacto() {
               className="mb-5"
               style={{
                 fontWeight: 700,
-                color: 'var(--color-primary)',
+                color: '#ffffff',
                 fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,
@@ -121,7 +121,7 @@ export default function Contacto() {
               variants={item}
               className="mb-10"
               style={{
-                color: 'var(--color-text)',
+                color: 'rgba(255,255,255,0.6)',
                 fontWeight: 400,
                 fontSize: '0.95rem',
                 lineHeight: 1.7,
@@ -147,8 +147,9 @@ export default function Contacto() {
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-200 group-hover:bg-opacity-100"
                     style={{
-                      backgroundColor: 'rgba(10,58,96,0.06)',
-                      color: 'var(--color-primary)',
+                      backgroundColor: 'rgba(0,217,255,0.05)',
+                      color: '#00d9ff',
+                      border: '1px solid rgba(0,217,255,0.2)',
                     }}
                   >
                     {dato.icon}
@@ -156,14 +157,14 @@ export default function Contacto() {
                   <div>
                     <p
                       className="text-xs mb-0.5"
-                      style={{ color: 'var(--color-text)', opacity: 0.6, fontWeight: 400 }}
+                      style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}
                     >
                       {dato.label}
                     </p>
                     <p
                       className="font-mono transition-colors duration-200 group-hover:opacity-80"
                       style={{
-                        color: 'var(--color-primary)',
+                        color: '#ffffff',
                         fontWeight: 700,
                         fontSize: '0.95rem',
                         fontVariantNumeric: 'tabular-nums',
@@ -180,11 +181,11 @@ export default function Contacto() {
             <motion.div
               variants={item}
               className="flex items-start gap-4 pt-8"
-              style={{ borderTop: '1px solid rgba(10,58,96,0.08)' }}
+              style={{ borderTop: '1px solid rgba(0,217,255,0.1)' }}
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                style={{ backgroundColor: 'rgba(10,58,96,0.06)', color: 'var(--color-primary)' }}
+                style={{ backgroundColor: 'rgba(0,217,255,0.05)', color: '#00d9ff', border: '1px solid rgba(0,217,255,0.2)' }}
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M9 1.5C6.51 1.5 4.5 3.51 4.5 6c0 3.75 4.5 10.5 4.5 10.5s4.5-6.75 4.5-10.5c0-2.49-2.01-4.5-4.5-4.5z"/>
@@ -192,13 +193,13 @@ export default function Contacto() {
                 </svg>
               </div>
               <div>
-                <p className="text-xs mb-1" style={{ color: 'var(--color-text)', opacity: 0.6, fontWeight: 400 }}>
+                <p className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
                   Sede principal
                 </p>
                 <address
                   className="not-italic"
                   style={{
-                    color: 'var(--color-primary)',
+                    color: '#ffffff',
                     fontWeight: 600,
                     fontSize: '0.9rem',
                     lineHeight: 1.5,
@@ -224,8 +225,8 @@ export default function Contacto() {
             <div
               className="rounded-3xl overflow-hidden"
               style={{
-                border: '1px solid rgba(10,58,96,0.1)',
-                boxShadow: '0 8px 32px rgba(10,58,96,0.08)',
+                border: '1px solid rgba(0,217,255,0.2)',
+                boxShadow: '0 8px 32px rgba(0,217,255,0.05)',
                 height: '400px',
               }}
             >
@@ -245,26 +246,26 @@ export default function Contacto() {
             <div
               className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl flex items-center gap-4"
               style={{
-                backgroundColor: 'rgba(255,255,255,0.95)',
-                backdropFilter: 'blur(12px)',
-                boxShadow: '0 4px 20px rgba(10,58,96,0.12)',
-                border: '1px solid rgba(10,58,96,0.08)',
+                backgroundColor: 'rgba(4,24,48,0.85)',
+                backdropFilter: 'blur(16px)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+                border: '1px solid rgba(0,217,255,0.2)',
               }}
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                style={{ backgroundColor: 'var(--color-primary)' }}
+                style={{ backgroundColor: 'var(--color-accent, #00d9ff)' }}
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#020d1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M9 1.5C6.51 1.5 4.5 3.51 4.5 6c0 3.75 4.5 10.5 4.5 10.5s4.5-6.75 4.5-10.5c0-2.49-2.01-4.5-4.5-4.5z"/>
                   <circle cx="9" cy="6" r="1.5"/>
                 </svg>
               </div>
               <div>
-                <p style={{ fontWeight: 700, color: 'var(--color-primary)', fontSize: '0.85rem' }}>
+                <p style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.85rem' }}>
                   TraumaSurgery EIRL
                 </p>
-                <p style={{ color: 'var(--color-text)', fontSize: '0.78rem', opacity: 0.8 }}>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.78rem' }}>
                   San Isidro, Lima · Perú
                 </p>
               </div>

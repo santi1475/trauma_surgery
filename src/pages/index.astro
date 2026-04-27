@@ -4,20 +4,20 @@ import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Soluciones from '../components/Soluciones'
 import InfoCards from '../components/InfoCards'
+import ProductosSection from '../components/ProductosSection'
+import GlobalStats from '../components/GlobalStats'
 import InstagramFeed from '../components/InstagramFeed'
 import Contacto from '../components/Contacto'
 import Footer from '../components/Footer'
-import About from '../components/About'
-import Visor3D from '../components/Visor3D'
 ---
 <Layout>
   <Header client:only="react" />
   <main>
     <Hero client:only="react" />
-    <About client:only="react" />
     <Soluciones client:only="react" />
     <InfoCards client:only="react" />
-    <Visor3D client:only="react" />
+    <ProductosSection client:only="react" />
+    <GlobalStats client:only="react" />
     <InstagramFeed client:only="react" />
     <Contacto client:only="react" />
   </main>
