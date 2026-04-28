@@ -13,7 +13,7 @@ export const staggerContainer: Variants = {
 
 // Elemento que sube con fade — uso principal en Hero y secciones
 export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 32, willChange: 'transform, opacity' },
   visible: {
     opacity: 1,
     y: 0,
@@ -35,7 +35,7 @@ export const fadeIn: Variants = {
 
 // Escala desde el centro — para sellos y badges
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.85 },
+  hidden: { opacity: 0, scale: 0.85, willChange: 'transform, opacity' },
   visible: {
     opacity: 1,
     scale: 1,

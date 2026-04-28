@@ -39,29 +39,27 @@ export function BorderBeam({
         maskComposite: 'exclude',
         WebkitMaskComposite: 'destination-out',
         pointerEvents: 'none',
+        
       }}
     >
       <motion.div
-        style={
-          {
-            position: 'absolute',
-            width: size,
-            height: size,
-            background: `linear-gradient(to left, ${colorFrom}, ${colorTo})`,
-            offsetPath: `rect(0 auto auto 0 round ${size}px)`,
-          } as React.CSSProperties
-        }
-        initial={{ offsetDistance: `${initialOffset}%` } as React.CSSProperties}
-        animate={
-          {
-            offsetDistance: reverse
-              ? [`${100 - initialOffset}%`, `${-initialOffset}%`]
-              : [`${initialOffset}%`, `${100 + initialOffset}%`],
-          } as any
-        }
+        style={{
+          position: 'absolute',
+          width: size,
+          height: size,
+          borderRadius: '20%',
+          background: `linear-gradient(to left, ${colorFrom}, ${colorTo})`,
+          offsetPath: `rect(0 auto auto 0 round 24px)`,
+        } as React.CSSProperties}
+        initial={{ offsetDistance: `${initialOffset}%` }}
+        animate={{
+          offsetDistance: reverse
+            ? [`${100 - initialOffset}%`, `${-initialOffset}%`]
+            : [`${initialOffset}%`, `${100 + initialOffset}%`],
+        }}
         transition={{
           repeat: Infinity,
-          ease: 'linear',
+          ease: 'easeInOut',
           duration,
           delay: -delay,
         }}

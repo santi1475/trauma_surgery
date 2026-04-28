@@ -1,7 +1,7 @@
 'use client'
 import { useRef, Suspense } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Float } from '@react-three/drei'
+import { Environment, Float, Instances, Instance } from '@react-three/drei'
 import * as THREE from 'three'
 
 function FallbackOrb() {
@@ -116,17 +116,14 @@ function BoneTech() {
             />
           </mesh>
 
-          {/* Nodos de datos — puntos brillantes en la diáfisis */}
-          {([-0.8, -0.3, 0.3, 0.8] as number[]).map((y, i) => (
-            <mesh key={i} position={[0.21, y, 0]}>
-              <sphereGeometry args={[0.055, 8, 8]} />
-              <meshStandardMaterial
-                color="#00A8CC"
-                emissive="#00A8CC"
-                emissiveIntensity={3}
-              />
-            </mesh>
-          ))}
+          {/* Nodos de datos — InstancedMesh: 4 draw calls → 1 */}
+          <Instances limit={4}>
+            <sphereGeometry args={[0.055, 8, 8]} />
+            <meshStandardMaterial color="#00A8CC" emissive="#00A8CC" emissiveIntensity={3} />
+            {([-0.8, -0.3, 0.3, 0.8] as number[]).map((y, i) => (
+              <Instance key={i} position={[0.21, y, 0]} />
+            ))}
+          </Instances>
 
           {/* Anillo de escaneo — se desplaza por la longitud del hueso */}
           <mesh ref={scanRef} rotation={[Math.PI / 2, 0, 0]}>

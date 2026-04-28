@@ -23,4 +23,5 @@ export function ModelSkeleton(props: ComponentProps<'group'>) {
   )
 }
 
+useGLTF.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
 useGLTF.preload('/models/esqueleto2.glb')

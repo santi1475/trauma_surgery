@@ -47,7 +47,7 @@ export default function Header() {
       >
         {/* Icono hexagonal */}
         <div className='w-10 h-10 rounded-full'>
-          <img src="/public/IMG_7229.PNG" alt="Logo" className="h-10 w-auto" />
+          <img src="/IMG_7229.PNG" alt="Logo" className="h-10 w-auto" />
         </div>
         <span
           style={{

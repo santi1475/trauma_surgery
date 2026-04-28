@@ -138,30 +138,31 @@ export default function Soluciones() {
               key={producto.id}
               variants={item}
               whileHover={prefersReduced ? {} : { y: -6, transition: { duration: 0.25 } }}
-              className="group flex flex-col p-7 rounded-2xl cursor-default transition-shadow duration-300 relative overflow-hidden"
+              className="group flex flex-col p-7 rounded-3xl cursor-default transition-shadow duration-300 relative overflow-hidden"
               style={{
                 backgroundColor: 'rgba(4,24,48,0.5)',
                 border: '1px solid rgba(0,217,255,0.1)',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
               }}
               onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLElement).style.boxShadow =
+                ; (e.currentTarget as HTMLElement).style.boxShadow =
                   '0 8px 30px rgba(0,217,255,0.15), 0 4px 16px rgba(0,0,0,0.4)'
-                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.3)'
+                  ; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.3)'
               }}
               onMouseLeave={(e) => {
-                ;(e.currentTarget as HTMLElement).style.boxShadow =
+                ; (e.currentTarget as HTMLElement).style.boxShadow =
                   '0 4px 20px rgba(0,0,0,0.3)'
-                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.1)'
+                  ; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.1)'
               }}
             >
               <BorderBeam
                 size={60}
-                duration={8}
+                duration={10}
+                initialOffset={20}
                 delay={producto.id === 'mano' ? 0 : producto.id === 'placas' ? 2 : producto.id === 'protesis' ? 4 : 6}
                 colorFrom="rgba(0,168,204,0.8)"
                 colorTo="transparent"
-                borderWidth={1.5}
+                borderWidth={3}
               />
               {/* Icono del producto */}
               <div

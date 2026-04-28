@@ -139,7 +139,7 @@ export default function InstagramFeed() {
                     backgroundColor: 'rgba(0,217,255,0.15)',
                     backdropFilter: 'blur(8px)',
                     border: '1px solid rgba(0,217,255,0.3)',
-                    color: '#00d9ff'
+                    color: '#04223bff'
                   }}
                 >
                   {post.tag}

@@ -182,16 +182,15 @@ export default function Visor3D({ showPanel = true, externalViewIndex = null, ex
       )}
 
       <Canvas
-        shadows
+        dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
         onCreated={({ gl }) => {
-          gl.shadowMap.type = THREE.PCFShadowMap;
           gl.setClearColor(0x000000, 0);
         }}
         camera={{ position: [-0.8, 1.8, 3.8], fov: 45 }}
       >
         <ambientLight intensity={1.5} />
-        <directionalLight position={[10, 10, 10]} intensity={1.5} castShadow />
+        <directionalLight position={[10, 10, 10]} intensity={1.5} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} />
 
         <Suspense fallback={<Cargador />}>

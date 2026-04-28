@@ -10,8 +10,6 @@ type VistaMode = 'anterior' | 'completa'
 export default function ProductosSection() {
   const [modo, setModo] = useState<VistaMode>('anterior')
 
-  // "Vista anterior" → Vista General (index 0), sin rotación
-  // "Vista completa" → rotación libre activa
   const externalViewIndex = modo === 'anterior' ? 0 : null
   const externalAutoRotate = modo === 'completa' ? true : false
 
@@ -58,6 +56,7 @@ export default function ProductosSection() {
             border: '1px solid rgba(0,168,204,0.3)',
             color: 'var(--color-accent)',
             letterSpacing: '0.15em',
+            willChange: 'transform, opacity',
           }}
         >
           Productos
