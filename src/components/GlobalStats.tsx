@@ -26,7 +26,7 @@ export default function GlobalStats() {
 
   return (
     <section
-      id="aliados"
+      id="stats"
       className="relative py-24 lg:py-32 overflow-hidden"
       style={{
         background:

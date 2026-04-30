@@ -6,9 +6,18 @@ const NAV_LINKS = [
   { label: 'Soluciones', href: '#soluciones' },
   { label: 'Productos',  href: '#productos' },
   { label: 'Recursos',   href: '#recursos' },
+  { label: 'Instagram',    href: '#aliados' },
   { label: 'Contacto',   href: '#contacto' },
 ]
 
+const COUNTRIES = [
+  { flag: '🇵🇪', name: 'Perú',     code: 'PE' },
+  { flag: '🇧🇴', name: 'Bolivia',  code: 'BO' },
+  { flag: '🇨🇴', name: 'Colombia', code: 'CO' },
+  { flag: '🇺🇾', name: 'Uruguay',  code: 'UY' },
+]
+
+const TOP_H = 36
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -21,198 +30,393 @@ export default function Header() {
   }, [])
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      role="banner"
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between transition-all duration-300"
-      style={{
-        padding: scrolled ? '14px 60px' : '20px 60px',
-        backgroundColor: scrolled ? 'rgba(2,13,26,0.72)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-        borderBottom: scrolled
-          ? '1px solid rgba(0,217,255,0.18)'
-          : '1px solid transparent',
-        boxShadow: scrolled ? '0 4px 40px rgba(0,0,0,0.4)' : 'none',
-      }}
-    >
-      {/* Logo */}
-      <a
-        href="/"
-        className="flex items-center gap-2.5 shrink-0"
-        style={{ textDecoration: 'none' }}
-        aria-label="TraumaSurgery — Inicio"
+    <>
+      {/* ── Top Bar ── */}
+      <div
+        role="complementary"
+        aria-label="Presencia internacional"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 60,
+          height: TOP_H,
+          background: 'rgba(2,6,16,0.94)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          borderBottom: '1px solid rgba(0,217,255,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 60px',
+        }}
       >
-        {/* Icono hexagonal */}
-        <div className='w-10 h-10 rounded-full'>
-          <img src="/IMG_7229.PNG" alt="Logo" className="h-10 w-auto" />
-        </div>
-        <span
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontWeight: 700,
-            fontSize: 18,
-            letterSpacing: '0.12em',
-            color: '#ffffff',
-          }}
-        >
-          TRAUMA<span style={{ color: '#00d9ff' }}>SURGERY</span>
-        </span>
-      </a>
-
-      {/* Nav desktop */}
-      <nav className="hidden lg:flex items-center gap-10" aria-label="Navegación principal">
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="text-sm relative group"
+        {/* Países con banderas circulares */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <span
             style={{
-              color: 'rgba(255,255,255,0.6)',
+              fontSize: 9,
+              letterSpacing: '0.14em',
+              color: 'rgba(255,255,255,0.25)',
+              fontFamily: 'var(--font-mono)',
+              textTransform: 'uppercase',
+            }}
+          >
+            Presencia
+          </span>
+          <div
+            style={{
+              width: 1,
+              height: 10,
+              background: 'rgba(0,217,255,0.15)',
+            }}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            {COUNTRIES.map((c) => (
+              <div
+                key={c.code}
+                title={c.name}
+                style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+              >
+                {/* Bandera circular */}
+                <div
+                  style={{
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(0,217,255,0.18)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 14,
+                    background: 'rgba(255,255,255,0.03)',
+                    flexShrink: 0,
+                    lineHeight: 1,
+                  }}
+                >
+                  {c.flag}
+                </div>
+                <span
+                  style={{
+                    fontSize: 10,
+                    color: 'rgba(255,255,255,0.38)',
+                    fontFamily: 'var(--font-mono)',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  {c.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Contacto rápido */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+          <a
+            href="tel:+51998436284"
+            style={{
+              fontSize: 10,
+              color: 'rgba(255,255,255,0.35)',
+              fontFamily: 'var(--font-mono)',
               textDecoration: 'none',
-              fontWeight: 400,
-              letterSpacing: '0.05em',
+              letterSpacing: '0.06em',
               transition: 'color 0.2s',
             }}
             onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.color = '#ffffff')
+              ((e.currentTarget as HTMLElement).style.color = '#00d9ff')
             }
             onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)')
+              ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.35)')
             }
           >
-            {link.label}
-            {/* Subrayado animado */}
-            <span
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                bottom: -4, left: 0,
-                width: 0, height: 1,
-                background: '#00d9ff',
-                transition: 'width 0.3s',
-              }}
-              className="group-hover:w-full"
-            />
+            +51 998 436 284
           </a>
-        ))}
-      </nav>
-
-      {/* Derecha: banderas + CTA */}
-      <div className="hidden lg:flex items-center gap-5">
-
-        <a
-          href="#contacto"
-          className="text-sm transition-all duration-250 active:scale-95"
-          style={{
-            background: 'transparent',
-            border: '1px solid #00d9ff',
-            color: '#00d9ff',
-            fontWeight: 500,
-            padding: '9px 22px',
-            borderRadius: 6,
-            textDecoration: 'none',
-            letterSpacing: '0.05em',
-          }}
-          onMouseEnter={(e) => {
-            ;(e.currentTarget as HTMLElement).style.background = '#00d9ff'
-            ;(e.currentTarget as HTMLElement).style.color = '#020d1a'
-            ;(e.currentTarget as HTMLElement).style.boxShadow =
-              '0 0 20px rgba(0,217,255,0.4)'
-          }}
-          onMouseLeave={(e) => {
-            ;(e.currentTarget as HTMLElement).style.background = 'transparent'
-            ;(e.currentTarget as HTMLElement).style.color = '#00d9ff'
-            ;(e.currentTarget as HTMLElement).style.boxShadow = 'none'
-          }}
-        >
-          Solicitar demo
-        </a>
+          <span
+            style={{
+              width: 1,
+              height: 10,
+              background: 'rgba(255,255,255,0.10)',
+              display: 'inline-block',
+            }}
+          />
+          <a
+            href="mailto:traumasurgery.eirl@gmail.com"
+            style={{
+              fontSize: 10,
+              color: 'rgba(255,255,255,0.35)',
+              fontFamily: 'var(--font-mono)',
+              textDecoration: 'none',
+              letterSpacing: '0.06em',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLElement).style.color = '#00d9ff')
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.35)')
+            }
+          >
+            traumasurgery.eirl@gmail.com
+          </a>
+        </div>
       </div>
 
-      {/* Hamburguesa mobile */}
-      <button
-        className="lg:hidden p-2 rounded-md"
-        aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen(!menuOpen)}
-        style={{ color: '#00d9ff' }}
+      {/* ── Main Header ── */}
+      <motion.header
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        role="banner"
+        className="fixed left-0 right-0 z-50 flex items-center justify-between transition-all duration-300"
+        style={{
+          top: TOP_H,
+          padding: scrolled ? '12px 60px' : '18px 60px',
+          background: scrolled
+            ? 'rgba(2,13,26,0.82)'
+            : 'rgba(2,13,26,0.28)',
+          backdropFilter: 'blur(28px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+          borderBottom: scrolled
+            ? '1px solid rgba(0,217,255,0.18)'
+            : '1px solid rgba(255,255,255,0.05)',
+          boxShadow: scrolled
+            ? '0 4px 48px rgba(0,0,0,0.45)'
+            : 'none',
+        }}
       >
-        <svg
-          width="22" height="22"
-          viewBox="0 0 22 22"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
+        {/* Logo */}
+        <a
+          href="/"
+          className="flex items-center gap-2.5 shrink-0"
+          style={{ textDecoration: 'none' }}
+          aria-label="TraumaSurgery — Inicio"
         >
-          {menuOpen ? (
-            <>
-              <line x1="4" y1="4" x2="18" y2="18" />
-              <line x1="18" y1="4" x2="4" y2="18" />
-            </>
-          ) : (
-            <>
-              <line x1="3" y1="7"  x2="19" y2="7" />
-              <line x1="3" y1="11" x2="19" y2="11" />
-              <line x1="3" y1="15" x2="19" y2="15" />
-            </>
-          )}
-        </svg>
-      </button>
+          <div className="w-10 h-10 rounded-full overflow-hidden">
+            <img src="/IMG_7229.PNG" alt="Logo TraumaSurgery" className="h-10 w-auto" />
+          </div>
+          <span
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 700,
+              fontSize: 18,
+              letterSpacing: '0.12em',
+              color: '#ffffff',
+            }}
+          >
+            TRAUMA<span style={{ color: '#00d9ff' }}>SURGERY</span>
+          </span>
+        </a>
 
-      {/* Menú mobile */}
-      {menuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.2 }}
-          className="lg:hidden absolute top-full left-0 right-0 pb-4 border-t"
-          style={{
-            backgroundColor: 'rgba(2,13,26,0.95)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            borderColor: 'rgba(0,217,255,0.15)',
-          }}
+        {/* Nav desktop */}
+        <nav
+          className="hidden lg:flex items-center gap-7"
+          aria-label="Navegación principal"
         >
-          <nav className="flex flex-col gap-1 pt-3 px-6">
-            {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map((link) => (
+            <a
+              key={`${link.label}-${link.href}`}
+              href={link.href}
+              className="relative group"
+              style={{
+                color: 'rgba(255,255,255,0.55)',
+                textDecoration: 'none',
+                fontWeight: 400,
+                letterSpacing: '0.08em',
+                fontSize: 12,
+                textTransform: 'uppercase',
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLElement).style.color = '#ffffff')
+              }
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.55)')
+              }
+            >
+              {link.label}
+              {/* Subrayado animado cian */}
+              <span
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  bottom: -3,
+                  left: 0,
+                  width: 0,
+                  height: 1,
+                  background: 'linear-gradient(90deg, #00d9ff, #0088aa)',
+                  transition: 'width 0.3s ease',
+                }}
+                className="group-hover:w-full"
+              />
+            </a>
+          ))}
+        </nav>
+
+        {/* Derecha: CTA */}
+        <div className="hidden lg:flex items-center gap-5">
+          <a
+            href="#contacto"
+            className="text-sm transition-all duration-200 active:scale-95"
+            style={{
+              background: 'transparent',
+              border: '1px solid rgba(0,217,255,0.6)',
+              color: '#00d9ff',
+              fontWeight: 500,
+              padding: '8px 22px',
+              borderRadius: 6,
+              textDecoration: 'none',
+              letterSpacing: '0.06em',
+              fontSize: 12,
+              textTransform: 'uppercase',
+            }}
+            onMouseEnter={(e) => {
+              ;(e.currentTarget as HTMLElement).style.background = '#00d9ff'
+              ;(e.currentTarget as HTMLElement).style.color = '#020d1a'
+              ;(e.currentTarget as HTMLElement).style.boxShadow =
+                '0 0 24px rgba(0,217,255,0.35)'
+            }}
+            onMouseLeave={(e) => {
+              ;(e.currentTarget as HTMLElement).style.background = 'transparent'
+              ;(e.currentTarget as HTMLElement).style.color = '#00d9ff'
+              ;(e.currentTarget as HTMLElement).style.boxShadow = 'none'
+            }}
+          >
+            Contacto
+          </a>
+        </div>
+
+        {/* Hamburguesa mobile */}
+        <button
+          className="lg:hidden p-2 rounded-md"
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{ color: '#00d9ff' }}
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            {menuOpen ? (
+              <>
+                <line x1="4" y1="4" x2="18" y2="18" />
+                <line x1="18" y1="4" x2="4" y2="18" />
+              </>
+            ) : (
+              <>
+                <line x1="3" y1="7"  x2="19" y2="7" />
+                <line x1="3" y1="11" x2="19" y2="11" />
+                <line x1="3" y1="15" x2="19" y2="15" />
+              </>
+            )}
+          </svg>
+        </button>
+
+        {/* Menú mobile desplegable */}
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden absolute top-full left-0 right-0 pb-4 border-t"
+            style={{
+              backgroundColor: 'rgba(2,13,26,0.97)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              borderColor: 'rgba(0,217,255,0.12)',
+            }}
+          >
+            <nav className="flex flex-col gap-1 pt-3 px-6" aria-label="Menú móvil">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={`mobile-${link.label}`}
+                  href={link.href}
+                  className="py-2.5 px-2 rounded"
+                  style={{
+                    color: 'rgba(255,255,255,0.65)',
+                    fontWeight: 400,
+                    fontSize: 12,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    textDecoration: 'none',
+                  }}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+            {/* Banderas mobile */}
+            <div
+              className="flex items-center gap-2 mt-3 px-8"
+              style={{ flexWrap: 'wrap' }}
+            >
+              {COUNTRIES.map((c) => (
+                <div
+                  key={`m-${c.code}`}
+                  style={{ display: 'flex', alignItems: 'center', gap: 4 }}
+                >
+                  <div
+                    style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      border: '1px solid rgba(0,217,255,0.15)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 13,
+                    }}
+                  >
+                    {c.flag}
+                  </div>
+                  <span
+                    style={{
+                      fontSize: 9,
+                      color: 'rgba(255,255,255,0.3)',
+                      fontFamily: 'var(--font-mono)',
+                    }}
+                  >
+                    {c.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div
+              className="flex items-center justify-between mt-4 pt-3 border-t px-6"
+              style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+            >
               <a
-                key={link.href}
-                href={link.href}
-                className="py-2.5 px-2 rounded text-sm"
-                style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 400 }}
+                href="#contacto"
+                style={{
+                  background: '#00d9ff',
+                  color: '#020d1a',
+                  fontWeight: 700,
+                  padding: '8px 18px',
+                  borderRadius: 6,
+                  textDecoration: 'none',
+                  fontSize: 12,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                }}
                 onClick={() => setMenuOpen(false)}
               >
-                {link.label}
+                Solicitar demo
               </a>
-            ))}
-          </nav>
-          <div
-            className="flex items-center justify-between mt-4 pt-3 border-t px-6"
-            style={{ borderColor: 'rgba(255,255,255,0.08)' }}
-          >
-            <a
-              href="#contacto"
-              className="text-sm"
-              style={{
-                background: '#00d9ff',
-                color: '#020d1a',
-                fontWeight: 700,
-                padding: '8px 18px',
-                borderRadius: 6,
-                textDecoration: 'none',
-              }}
-              onClick={() => setMenuOpen(false)}
-            >
-              Solicitar demo
-            </a>
-          </div>
-        </motion.div>
-      )}
-    </motion.header>
+            </div>
+          </motion.div>
+        )}
+      </motion.header>
+    </>
   )
 }

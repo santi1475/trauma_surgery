@@ -2,9 +2,11 @@
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
+import IngenieriaSinLimites from '../components/IngenieriaSinLimites'
 import Soluciones from '../components/Soluciones'
 import InfoCards from '../components/InfoCards'
 import ProductosSection from '../components/ProductosSection'
+import VuelveAHacerLoQueAmas from '../components/VuelveAHacerLoQueAmas'
 import GlobalStats from '../components/GlobalStats'
 import InstagramFeed from '../components/InstagramFeed'
 import Contacto from '../components/Contacto'
@@ -13,12 +15,22 @@ import Footer from '../components/Footer'
 <Layout>
   <Header client:only="react" />
   <main>
+    <!-- S1: Hero slider interactivo -->
     <Hero client:only="react" />
+    <!-- S2: Ingeniería Sin Límites -->
+    <IngenieriaSinLimites client:only="react" />
+    <!-- S3: Soluciones destacadas -->
     <Soluciones client:only="react" />
     <InfoCards client:only="react" />
+    <!-- S3: Visor 3D interactivo -->
     <ProductosSection client:only="react" />
+    <!-- S4: Vuelve a hacer lo que amas -->
+    <VuelveAHacerLoQueAmas client:only="react" />
+    <!-- Stats regionales -->
     <GlobalStats client:only="react" />
+    <!-- Instagram Feed -->
     <InstagramFeed client:only="react" />
+    <!-- Contacto -->
     <Contacto client:only="react" />
   </main>
   <Footer client:only="react" />
