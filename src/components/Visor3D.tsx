@@ -1,10 +1,17 @@
 import React, { Suspense, useRef, useState, useEffect, useCallback } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { CameraControls, Html, useProgress } from '@react-three/drei'
+import { CameraControls, Environment, Html, useProgress } from '@react-three/drei'
+import * as THREE from 'three'
 import { ModelSkeleton } from './ModelSkeleton'
+import { LightingRig } from './3d/LightingRig'
+import { AmbientParticles } from './3d/AmbientParticles'
+import { AnatomicHotspots } from './3d/AnatomicHotspots'
 import type { VistaAnatomica } from '@/interface/vistas'
 import { VISTAS_ANATOMICAS } from '@/data/vistasAnatomicas'
 import { ZONAS_ANATOMICAS, type ZonaAnatomica } from '@/data/zonasAnatomicas'
+import { HOTSPOTS } from '@/data/hotspots'
+
+export type CameraState = 'free' | 'focusing' | 'focused' | 'returning'
 
 interface Visor3DProps {
   showPanel?: boolean
@@ -12,9 +19,9 @@ interface Visor3DProps {
   externalAutoRotate?: boolean
   onZoneSelect?: (zone: ZonaAnatomica | null) => void
   selectedZoneId?: string | null
+  debug?: boolean
 }
 
-// Barra de progreso de carga futurista
 function Cargador() {
   const { progress } = useProgress()
   return (
@@ -48,26 +55,6 @@ function Cargador() {
   )
 }
 
-interface EscenaProps {
-  hoveredZoneId: string | null
-  selectedZoneId: string | null
-  onZoneHover: (id: string | null) => void
-  onZoneClick: (zone: ZonaAnatomica) => void
-}
-
-function EscenaInteractiva({ hoveredZoneId, selectedZoneId, onZoneHover, onZoneClick }: EscenaProps) {
-  return (
-    <group>
-      <ModelSkeleton
-        hoveredZoneId={hoveredZoneId}
-        selectedZoneId={selectedZoneId}
-        onZoneHover={onZoneHover}
-        onZoneClick={onZoneClick}
-      />
-    </group>
-  )
-}
-
 interface RotadorProps {
   rotacionActiva: boolean
   animando: boolean
@@ -83,7 +70,6 @@ function Rotador({ rotacionActiva, animando, cameraControlsRef }: RotadorProps) 
   return null
 }
 
-// Botón de zona anatómica — estilo futurista
 function ZoneButton({
   zone,
   active,
@@ -122,7 +108,6 @@ function ZoneButton({
         ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.05)'
       }}
     >
-      {/* Indicador de estado */}
       <div style={{
         width: 5,
         height: 5,
@@ -144,12 +129,7 @@ function ZoneButton({
         {zone.label}
       </span>
       {active && (
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 8,
-          color: zone.color,
-          opacity: 0.8,
-        }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8, color: zone.color, opacity: 0.8 }}>
           ▶
         </span>
       )}
@@ -163,12 +143,22 @@ export default function Visor3D({
   externalAutoRotate,
   onZoneSelect,
   selectedZoneId: externalSelectedZoneId = null,
+  debug = false,
 }: Visor3DProps) {
   const cameraControlsRef = useRef<CameraControls>(null)
   const [rotacionActiva, setRotacionActiva] = useState(true)
   const [animando, setAnimando] = useState(false)
   const [vistaSeleccionada, setVistaSeleccionada] = useState<number | null>(null)
   const [hoveredZoneId, setHoveredZoneId] = useState<string | null>(null)
+  const [internalSelectedZone, setInternalSelectedZone] = useState<string | null>(null)
+
+  const selectedZone = externalSelectedZoneId ?? internalSelectedZone
+
+  const cameraState: CameraState = animando
+    ? (selectedZone ? 'focusing' : 'returning')
+    : selectedZone
+      ? 'focused'
+      : 'free'
 
   const irAVista = useCallback(async (vista: VistaAnatomica, indice: number) => {
     if (!cameraControlsRef.current) return
@@ -182,8 +172,31 @@ export default function Visor3D({
   const handleZoneClick = useCallback((zone: ZonaAnatomica) => {
     const vista = VISTAS_ANATOMICAS[zone.vistaIndex]
     if (vista) irAVista(vista, zone.vistaIndex)
+    setInternalSelectedZone(zone.id)
     onZoneSelect?.(zone)
   }, [irAVista, onZoneSelect])
+
+  const handleHotspotSelect = useCallback((id: string) => {
+    const zone = ZONAS_ANATOMICAS.find((z) => z.id === id)
+    if (zone) handleZoneClick(zone)
+  }, [handleZoneClick])
+
+  const resetCamera = useCallback(async () => {
+    if (!cameraControlsRef.current) return
+    setAnimando(true)
+    cameraControlsRef.current.minDistance = 1.5
+    cameraControlsRef.current.maxDistance = 6
+    await cameraControlsRef.current.setLookAt(
+      ...VISTAS_ANATOMICAS[0].cameraPosition,
+      ...VISTAS_ANATOMICAS[0].target,
+      true
+    )
+    setAnimando(false)
+    setRotacionActiva(true)
+    setVistaSeleccionada(null)
+    setInternalSelectedZone(null)
+    onZoneSelect?.(null)
+  }, [onZoneSelect])
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -217,6 +230,8 @@ export default function Visor3D({
     }
   }, [animando])
 
+  const activeHotspot = HOTSPOTS.find((h) => h.id === selectedZone)
+
   return (
     <section
       className="relative w-full h-screen"
@@ -229,7 +244,7 @@ export default function Visor3D({
         style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(0,82,163,0.25) 0%, transparent 70%)' }}
       />
 
-      {/* ── Panel anatómico futurista ── derecha ──────────────────────────── */}
+      {/* ── Panel anatómico — derecha ─────────────────────────────────────── */}
       {showPanel && (
         <div
           className="absolute top-24 right-8 z-10 hidden lg:flex flex-col"
@@ -245,7 +260,6 @@ export default function Visor3D({
             gap: 0,
           }}
         >
-          {/* Cabecera panel */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -273,7 +287,6 @@ export default function Visor3D({
             </span>
           </div>
 
-          {/* Línea decorativa — simula scanline */}
           <div style={{
             position: 'absolute',
             top: 0,
@@ -284,22 +297,19 @@ export default function Visor3D({
             borderRadius: '10px 10px 0 0',
           }} />
 
-          {/* Botones de zona */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             {ZONAS_ANATOMICAS.map((zone) => (
               <ZoneButton
                 key={zone.id}
                 zone={zone}
-                active={externalSelectedZoneId === zone.id}
+                active={selectedZone === zone.id}
                 onClick={() => handleZoneClick(zone)}
               />
             ))}
           </div>
 
-          {/* Separador */}
           <div style={{ height: 1, background: 'rgba(255,255,255,0.05)', margin: '10px 0 8px' }} />
 
-          {/* Toggle rotación */}
           <button
             onClick={() => {
               if (!animando) {
@@ -347,24 +357,128 @@ export default function Visor3D({
         </div>
       )}
 
-      {/* ── Canvas Three.js ─────────────────────────────────────────────────── */}
+      {/* ── Botón volver — aparece al seleccionar zona ───────────────────── */}
+      {selectedZone && cameraState === 'focused' && (
+        <button
+          onClick={resetCamera}
+          style={{
+            position: 'absolute',
+            top: '1.5rem',
+            left: '1.5rem',
+            zIndex: 10,
+            fontFamily: 'Orbitron, sans-serif',
+            fontSize: '11px',
+            fontWeight: 600,
+            letterSpacing: '0.12em',
+            color: '#00d9ff',
+            background: 'rgba(2, 13, 26, 0.85)',
+            border: '1px solid rgba(0, 217, 255, 0.3)',
+            padding: '7px 16px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            backdropFilter: 'blur(8px)',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,217,255,0.8)'
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,217,255,0.3)'
+          }}
+        >
+          ← VOLVER
+        </button>
+      )}
+
+      {/* ── Indicador de zona activa — inferior centrado ──────────────────── */}
+      {selectedZone && (
+        <button
+          onClick={() => selectedZone && handleHotspotSelect(selectedZone)}
+          style={{
+            position: 'absolute',
+            bottom: '1.5rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 10,
+            fontFamily: 'Orbitron, sans-serif',
+            fontSize: '10px',
+            letterSpacing: '0.15em',
+            color: '#D4AF37',
+            textTransform: 'uppercase',
+            opacity: 0.75,
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            padding: '10px 20px',
+          }}
+          onMouseEnter={(e) => {
+            const btn = e.currentTarget as HTMLButtonElement;
+            btn.style.opacity = '1';
+            btn.style.transform = 'translateX(-50%) scale(1.05)';
+            btn.style.textShadow = '0 0 10px rgba(212,175,55,0.4)';
+          }}
+          onMouseLeave={(e) => {
+            const btn = e.currentTarget as HTMLButtonElement;
+            btn.style.opacity = '0.75';
+            btn.style.transform = 'translateX(-50%) scale(1)';
+            btn.style.textShadow = 'none';
+          }}
+        >
+          {activeHotspot?.label ?? selectedZone?.toUpperCase() ?? ''}
+        </button>
+      )}
+
+      {/* ── Canvas Three.js ───────────────────────────────────────────────── */}
       <Canvas
         dpr={[1, 2]}
-        gl={{ alpha: true, antialias: true }}
+        gl={{
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.4,
+          outputColorSpace: THREE.SRGBColorSpace,
+          antialias: true,
+          alpha: true,
+        }}
         onCreated={({ gl }) => { gl.setClearColor(0x000000, 0) }}
-        camera={{ position: [-0.8, 1.8, 3.8], fov: 45 }}
+        camera={{ position: [0, 0.2, 2.4], fov: 45 }}
       >
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[10, 10, 10]} intensity={1.5} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-
         <Suspense fallback={<Cargador />}>
-          <EscenaInteractiva
+          <Environment preset="studio" environmentIntensity={0.4} />
+
+          <LightingRig selectedZone={selectedZone} hotspots={HOTSPOTS} />
+
+          <AmbientParticles count={80} />
+
+          <ModelSkeleton
             hoveredZoneId={hoveredZoneId}
-            selectedZoneId={externalSelectedZoneId}
+            selectedZoneId={selectedZone}
             onZoneHover={setHoveredZoneId}
             onZoneClick={handleZoneClick}
+            debug={debug}
           />
+
+          <AnatomicHotspots
+            hoveredZone={hoveredZoneId}
+            selectedZone={selectedZone}
+            onHover={setHoveredZoneId}
+            onSelect={handleHotspotSelect}
+          />
+
+          {debug && (
+            <>
+              {/* @ts-ignore */}
+              <axesHelper args={[2]} />
+              {/* @ts-ignore */}
+              <gridHelper args={[4, 20, '#003344', '#001a22']} />
+              {HOTSPOTS.map((h) => (
+                <Html key={h.id} position={h.position} style={{ pointerEvents: 'none' }}>
+                  <div style={{ color: '#ffff00', fontSize: '9px', fontFamily: 'monospace', whiteSpace: 'nowrap' }}>
+                    [{h.position.join(', ')}]
+                  </div>
+                </Html>
+              ))}
+            </>
+          )}
         </Suspense>
 
         <Rotador
@@ -378,6 +492,8 @@ export default function Visor3D({
           makeDefault
           minPolarAngle={0}
           maxPolarAngle={Math.PI / 1.75}
+          minDistance={1.2}
+          maxDistance={3.5}
           onStart={manejarInteraccionUsuario}
         />
       </Canvas>

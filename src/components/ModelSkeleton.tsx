@@ -1,31 +1,7 @@
 'use client'
-/*
- * ─── CÓMO SEPARAR EL MODELO EN BLENDER PARA INTERACTIVIDAD COMPLETA ────────────
- *
- * El archivo esqueleto2.glb puede ser un único mesh. Para activar hover/glow
- * por zona anatómica directamente en el mesh (sin hitboxes), separarlo así:
- *
- * 1. Importa el GLB en Blender: File → Import → glTF 2.0
- * 2. En Object Mode selecciona el mesh del esqueleto → Tab para Edit Mode
- * 3. Activa Vertex Select (tecla 1), selecciona los vértices de una zona
- *    anatómica (p.ej. todos los huesos del cráneo)
- * 4. Presiona P → "Separate by Selection" — se crea un nuevo objeto
- * 5. En Object Mode, renombra el objeto separado con el nombre exacto de
- *    ZonaAnatomica.meshNames[0]:
- *      Craneo | Hombro | Columna | Pelvis | Rodilla | Pie
- * 6. Repite para cada zona del array ZONAS_ANATOMICAS
- * 7. Exporta: File → Export → glTF 2.0 (Binary .glb)
- *    Opciones recomendadas: Include → Selected Objects, Mesh → Apply Modifiers
- *    Guarda en /public/models/esqueleto2.glb
- *
- * Con el modelo separado, traverseScene() detectará los meshes automáticamente
- * y aplicará emissive highlight por zona sin los hitboxes (aunque los hitboxes
- * seguirán activos como fallback y mejoran el área de clic).
- * ──────────────────────────────────────────────────────────────────────────────
- */
 
 import * as THREE from 'three'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Html, useGLTF } from '@react-three/drei'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import type { ComponentProps } from 'react'
@@ -42,9 +18,9 @@ interface ModelSkeletonProps extends ComponentProps<'group'> {
   selectedZoneId: string | null
   onZoneHover: (id: string | null) => void
   onZoneClick: (zone: ZonaAnatomica) => void
+  debug?: boolean
 }
 
-// Anillo pulsante que aparece en hover/selección de zona
 function ZoneGlowRing({
   position,
   radius,
@@ -82,12 +58,10 @@ function ZoneGlowRing({
 
   return (
     <group position={position}>
-      {/* Anillo exterior pulsante */}
       <mesh ref={outerRef} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[radius * 1.35, 0.004, 8, 48]} />
         <meshBasicMaterial color={color} transparent opacity={0} depthWrite={false} />
       </mesh>
-      {/* Disco interior semitransparente */}
       <mesh ref={innerRef} rotation={[Math.PI / 2, 0, 0]}>
         <circleGeometry args={[radius * 1.1, 32]} />
         <meshBasicMaterial color={color} transparent opacity={0} depthWrite={false} side={THREE.DoubleSide} />
@@ -96,14 +70,7 @@ function ZoneGlowRing({
   )
 }
 
-// Tooltip HTML flotante sobre zona (aparece solo en hover, no en selección)
-function ZoneTooltip({
-  zone,
-  visible,
-}: {
-  zone: ZonaAnatomica
-  visible: boolean
-}) {
+function ZoneTooltip({ zone, visible }: { zone: ZonaAnatomica; visible: boolean }) {
   if (!visible) return null
   return (
     <Html
@@ -111,49 +78,23 @@ function ZoneTooltip({
       distanceFactor={2.2}
       style={{ pointerEvents: 'none', userSelect: 'none' }}
     >
-      <div
-        style={{
-          background: 'rgba(2,6,18,0.92)',
-          border: `1px solid ${zone.color}44`,
-          borderLeft: `2px solid ${zone.color}`,
-          backdropFilter: 'blur(14px)',
-          borderRadius: 6,
-          padding: '7px 13px',
-          minWidth: 148,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        <div
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 9,
-            color: zone.color,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            marginBottom: 3,
-          }}
-        >
+      <div style={{
+        background: 'rgba(2,6,18,0.92)',
+        border: `1px solid ${zone.color}44`,
+        borderLeft: `2px solid ${zone.color}`,
+        backdropFilter: 'blur(14px)',
+        borderRadius: 6,
+        padding: '7px 13px',
+        minWidth: 148,
+        whiteSpace: 'nowrap',
+      }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: zone.color, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 3 }}>
           {zone.icon} {zone.label}
         </div>
-        <div
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 10,
-            color: 'rgba(255,255,255,0.48)',
-            letterSpacing: '0.03em',
-            marginBottom: 4,
-          }}
-        >
+        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 10, color: 'rgba(255,255,255,0.48)', letterSpacing: '0.03em', marginBottom: 4 }}>
           {zone.categoria}
         </div>
-        <div
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 8,
-            color: `${zone.color}88`,
-            letterSpacing: '0.1em',
-          }}
-        >
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 8, color: `${zone.color}88`, letterSpacing: '0.1em' }}>
           ▶ CLICK PARA EXPLORAR
         </div>
       </div>
@@ -166,33 +107,57 @@ export function ModelSkeleton({
   selectedZoneId,
   onZoneHover,
   onZoneClick,
+  debug = false,
   ...props
 }: ModelSkeletonProps) {
-  const { scene } = useGLTF('/models/esqueleto2.glb') as unknown as GLTFResult
-  // Mapa de meshes nombrados encontrados en el GLB (activo cuando el modelo esté separado)
+  const { scene } = useGLTF('/models/modelo3.glb') as unknown as GLTFResult
   const namedMeshes = useRef<Map<string, THREE.Mesh>>(new Map())
 
-  // Traversa el scene buscando meshes con nombres que coincidan con las zonas
+  // Escala normalizada: modelo siempre mide ~1.8 unidades de alto en world space
+  const [modelScale, setModelScale] = useState(1)
+  const [centerOffset, setCenterOffset] = useState<[number, number, number]>([0, 0, 0])
+
   useEffect(() => {
+    // 1. Calcular bounding box original para normalizar escala
+    const box = new THREE.Box3().setFromObject(scene)
+    const size = box.getSize(new THREE.Vector3())
+    const center = box.getCenter(new THREE.Vector3())
+
+    if (size.y > 0) {
+      const s = 1.8 / size.y
+      setModelScale(s)
+      // Offset para centrar el modelo en el origen del grupo padre
+      setCenterOffset([-center.x, -center.y, -center.z])
+
+      if (debug) {
+        console.log(`[ModelSkeleton] Tamaño original: ${size.x.toFixed(3)} × ${size.y.toFixed(3)} × ${size.z.toFixed(3)}`)
+        console.log(`[ModelSkeleton] Centro original: [${center.x.toFixed(3)}, ${center.y.toFixed(3)}, ${center.z.toFixed(3)}]`)
+        console.log(`[ModelSkeleton] Escala aplicada: ${s.toFixed(4)}`)
+        console.log(`[ModelSkeleton] Tras normalización — cabeza aprox y≈+0.9, pies aprox y≈-0.9`)
+      }
+    }
+
+    // 2. Fix de materiales
     scene.traverse((obj) => {
       if (!(obj instanceof THREE.Mesh)) return
-      const matched = ZONAS_ANATOMICAS.find((z) =>
-        z.meshNames?.some((n) =>
-          obj.name.toLowerCase().includes(n.toLowerCase())
-        )
-      )
-      if (!matched) return
-      // Clona material para no mutar el material compartido del cache de useGLTF
-      if (!Array.isArray(obj.material)) {
-        const clone = (obj.material as THREE.MeshStandardMaterial).clone()
-        clone.emissive = new THREE.Color(0x000000)
-        obj.material = clone
-      }
-      namedMeshes.current.set(matched.id, obj)
-    })
-  }, [scene])
 
-  // Aplica emissive highlight a meshes nombrados cuando cambia hover/selección
+      obj.material = (obj.material as THREE.MeshStandardMaterial).clone()
+      const mat = obj.material as THREE.MeshStandardMaterial
+      if (mat.roughness > 0.9) mat.roughness = 0.42
+      if (mat.metalness < 0.1) mat.metalness = 0.58
+      if (!mat.map) mat.color.set('#c0cfe0')
+      mat.envMapIntensity = 1.3
+      mat.emissive = new THREE.Color(0x000000)
+      mat.needsUpdate = true
+      obj.renderOrder = 1
+
+      const matched = ZONAS_ANATOMICAS.find((z) =>
+        z.meshNames?.some((n) => obj.name.toLowerCase().includes(n.toLowerCase()))
+      )
+      if (matched) namedMeshes.current.set(matched.id, obj)
+    })
+  }, [scene, debug])
+
   useEffect(() => {
     namedMeshes.current.forEach((mesh, zoneId) => {
       const zone = ZONAS_ANATOMICAS.find((z) => z.id === zoneId)
@@ -213,19 +178,35 @@ export function ModelSkeleton({
 
   return (
     <group {...props} dispose={null}>
-      {/* GLB principal — se reemplaza con meshes separados cuando estén listos */}
-      <primitive object={scene} />
+      {/* Modelo normalizado a 1.8 unidades de alto, centrado en origen */}
+      <group
+        scale={[modelScale, modelScale, modelScale]}
+        onPointerDown={debug
+          ? (e: ThreeEvent<PointerEvent>) => {
+              const p = e.point
+              console.log(
+                `🎯 [HOTSPOT COORD] Click en modelo: [${p.x.toFixed(3)}, ${p.y.toFixed(3)}, ${p.z.toFixed(3)}]`
+              )
+            }
+          : undefined
+        }
+      >
+        {/* Rotación PI/2 en Y para que el modelo mire de frente al espectador */}
+        <group position={centerOffset} rotation={[0, -Math.PI / 2, 0]}>
+          <primitive object={scene} />
+        </group>
+      </group>
 
-      {/* Hitboxes invisibles + efectos visuales por zona anatómica */}
+      {/* Hitboxes en world space — recalibrar con debug=true tras normalizar escala */}
       {ZONAS_ANATOMICAS.map((zone) => {
         const isHovered = hoveredZoneId === zone.id
         const isSelected = selectedZoneId === zone.id
 
         return (
           <group key={zone.id}>
-            {/* Esfera invisible — captura onPointerOver/Out/Click */}
             <mesh
               position={zone.position}
+              visible={false}
               onPointerOver={(e: ThreeEvent<PointerEvent>) => {
                 e.stopPropagation()
                 document.body.style.cursor = 'pointer'
@@ -244,7 +225,6 @@ export function ModelSkeleton({
               <meshBasicMaterial transparent opacity={0} depthWrite={false} />
             </mesh>
 
-            {/* Glow ring pulsante */}
             <ZoneGlowRing
               position={zone.position}
               radius={zone.hitboxRadius}
@@ -253,11 +233,7 @@ export function ModelSkeleton({
               hovered={isHovered}
             />
 
-            {/* Tooltip flotante — solo en hover (no cuando ya está seleccionada) */}
-            <ZoneTooltip
-              zone={zone}
-              visible={isHovered && !isSelected}
-            />
+            <ZoneTooltip zone={zone} visible={isHovered && !isSelected} />
           </group>
         )
       })}
@@ -266,4 +242,4 @@ export function ModelSkeleton({
 }
 
 useGLTF.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
-useGLTF.preload('/models/esqueleto2.glb')
+useGLTF.preload('/models/modelo3.glb')

@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
-import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
 import { staggerContainer, fadeInUp, reducedMotion } from '@/animations/variants'
 import { FloatingParticles } from './Particles'
 import { AnimatedGridPattern } from './ui/animated-grid-pattern'
@@ -46,7 +46,7 @@ const SLIDES = [
     headlineAccent: 1,
     sub: 'Dispositivos de alta precisión para cirujanos exigentes en osteosíntesis y reemplazos articulares.',
     accent: 'Tecnología ISO · CE certificada',
-    imageSrc: '/placeholders/hero-corredores.jpg',
+    imageSrc: '/IMG/P1.svg',
     imageLabel: 'Personas corriendo — con overlay de implantes de osteosíntesis',
     imageTag: '01 — MOVIMIENTO',
   },
@@ -76,116 +76,152 @@ const SLIDES = [
 
 // Placeholder visual claro — reemplazar src con imagen real
 function SlideImage({ src, label, tag }: { src: string; label: string; tag: string }) {
+  const isPlaceholder = src.includes('/placeholders/')
+
   return (
     <div
       style={{
         position: 'relative',
         width: '100%',
         height: '100%',
-        background:
-          'linear-gradient(145deg, rgba(4,18,36,0.95) 0%, rgba(8,28,56,0.85) 60%, rgba(2,13,26,0.9) 100%)',
+        background: isPlaceholder ? '#020d1a' : 'transparent',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 10,
         overflow: 'hidden',
       }}
     >
-      {/* Patrón de fondo interno */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage:
-            'repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,217,255,0.04) 39px, rgba(0,217,255,0.04) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,217,255,0.04) 39px, rgba(0,217,255,0.04) 40px)',
-        }}
-      />
-      {/* Borde dashed */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 12,
-          border: '1px dashed rgba(0,217,255,0.18)',
-          borderRadius: 8,
-          pointerEvents: 'none',
-        }}
-      />
-      {/* Esquinas decorativas */}
-      {[
-        { top: 12, left: 12 },
-        { top: 12, right: 12 },
-        { bottom: 12, left: 12 },
-        { bottom: 12, right: 12 },
-      ].map((pos, i) => (
-        <div
-          key={i}
-          aria-hidden="true"
+      {/* Contenido Principal */}
+      {isPlaceholder ? (
+        <div className="relative w-full h-full flex flex-col items-center justify-center">
+          {/* Patrón de fondo interno (solo para placeholders) */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage:
+                'repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,217,255,0.04) 39px, rgba(0,217,255,0.04) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,217,255,0.04) 39px, rgba(0,217,255,0.04) 40px)',
+              pointerEvents: 'none',
+              zIndex: 1,
+            }}
+          />
+
+          {/* Borde dashed decorativo (solo para placeholders) */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              inset: 12,
+              border: '1px dashed rgba(0,217,255,0.18)',
+              borderRadius: 8,
+              pointerEvents: 'none',
+              zIndex: 5,
+            }}
+          />
+
+          {/* Esquinas decorativas (solo para placeholders) */}
+          {[
+            { top: 12, left: 12 },
+            { top: 12, right: 12 },
+            { bottom: 12, left: 12 },
+            { bottom: 12, right: 12 },
+          ].map((pos, i) => (
+            <div
+              key={i}
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                width: 12,
+                height: 12,
+                borderTop: i < 2 ? '2px solid rgba(0,217,255,0.45)' : 'none',
+                borderBottom: i >= 2 ? '2px solid rgba(0,217,255,0.45)' : 'none',
+                borderLeft: i % 2 === 0 ? '2px solid rgba(0,217,255,0.45)' : 'none',
+                borderRight: i % 2 === 1 ? '2px solid rgba(0,217,255,0.45)' : 'none',
+                zIndex: 10,
+                ...pos,
+              }}
+            />
+          ))}
+
+          {/* Texto de placeholder */}
+          <div className="relative z-20 flex flex-col items-center gap-3">
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 28,
+                opacity: 0.25,
+                lineHeight: 1,
+              }}
+            >
+              🖼
+            </div>
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 10,
+                color: 'rgba(0,217,255,0.55)',
+                letterSpacing: '0.10em',
+                textAlign: 'center',
+                padding: '0 20px',
+                wordBreak: 'break-all',
+              }}
+            >
+              {src}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <img
+          src={src}
+          alt={label}
           style={{
-            position: 'absolute',
-            width: 12,
-            height: 12,
-            borderTop: i < 2 ? '2px solid rgba(0,217,255,0.45)' : 'none',
-            borderBottom: i >= 2 ? '2px solid rgba(0,217,255,0.45)' : 'none',
-            borderLeft: i % 2 === 0 ? '2px solid rgba(0,217,255,0.45)' : 'none',
-            borderRight: i % 2 === 1 ? '2px solid rgba(0,217,255,0.45)' : 'none',
-            ...pos,
+            width: '100%',
+            height: '100%',
+            objectFit: isPlaceholder ? 'cover' : 'contain',
           }}
         />
-      ))}
-      {/* Contenido placeholder */}
-      <div
-        style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 28,
-          opacity: 0.25,
-          lineHeight: 1,
-        }}
-      >
-        🖼
-      </div>
-      <div
-        style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 10,
-          color: 'rgba(0,217,255,0.55)',
-          letterSpacing: '0.10em',
-          textAlign: 'center',
-          padding: '0 20px',
-          wordBreak: 'break-all',
-        }}
-      >
-        {src}
-      </div>
-      <div
-        style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: 11,
-          color: 'rgba(255,255,255,0.28)',
-          textAlign: 'center',
-          padding: '0 24px',
-          maxWidth: 280,
-          lineHeight: 1.5,
-        }}
-      >
-        {label}
-      </div>
-      {/* Tag de slide */}
+      )}
+
+      {/* Info técnica superpuesta (siempre visible) */}
       <div
         style={{
           position: 'absolute',
-          bottom: 20,
-          left: 20,
-          fontFamily: 'var(--font-mono)',
-          fontSize: 9,
-          letterSpacing: '0.16em',
-          color: 'rgba(0,217,255,0.45)',
-          textTransform: 'uppercase',
+          bottom: 24,
+          left: 24,
+          right: 24,
+          zIndex: 15,
+          pointerEvents: 'none',
+          textShadow: isPlaceholder ? 'none' : '0 2px 4px rgba(0,0,0,0.5)',
         }}
       >
-        {tag}
+        <p
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 9,
+            letterSpacing: '0.16em',
+            color: isPlaceholder ? 'rgba(0,217,255,0.45)' : 'rgba(0,217,255,0.95)',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          {tag}
+        </p>
+        <p
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 10,
+            color: isPlaceholder ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.85)',
+            margin: '2px 0 0 0',
+            maxWidth: '80%',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {label}
+        </p>
       </div>
     </div>
   )
@@ -224,7 +260,7 @@ export default function Hero() {
   const containerVariants = prefersReduced ? reducedMotion : staggerContainer
   const itemVariants = prefersReduced ? reducedMotion : fadeInUp
 
-  const slideImgVariants = {
+  const slideImgVariants: Variants = {
     enter: (dir: number) => ({
       opacity: 0,
       scale: 0.96,
@@ -244,12 +280,12 @@ export default function Hero() {
     }),
   }
 
-  const textVariants = {
+  const textVariants: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.07 } },
   }
 
-  const textLine = {
+  const textLine: Variants = {
     hidden: { opacity: 0, y: 18 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
   }
@@ -436,13 +472,16 @@ export default function Hero() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="absolute rounded-xl overflow-hidden"
+                className={`absolute ${slide.imageSrc.includes('/placeholders/') ? 'rounded-xl overflow-hidden' : ''}`}
                 style={{
-                  width: '60%',
-                  height: '78%',
-                  maxWidth: 480,
+                  width: slide.imageSrc.includes('/placeholders/') ? '60%' : '85%',
+                  height: slide.imageSrc.includes('/placeholders/') ? '78%' : '90%',
+                  maxWidth: slide.imageSrc.includes('/placeholders/') ? 480 : 720,
                   minHeight: 300,
-                  boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 40px rgba(0,100,200,0.15)',
+                  boxShadow: slide.imageSrc.includes('/placeholders/') 
+                    ? '0 32px 80px rgba(0,0,0,0.6), 0 0 40px rgba(0,100,200,0.15)'
+                    : 'none',
+                  overflow: slide.imageSrc.includes('/placeholders/') ? 'hidden' : 'visible',
                 }}
               >
                 <SlideImage

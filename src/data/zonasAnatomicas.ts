@@ -26,7 +26,7 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     id: 'craneo',
     label: 'Cráneo',
     icon: '💀',
-    position: [0, 1.08, 0.05],
+    position: [-0.007, 0.783, -0.100],
     hitboxRadius: 0.11,
     categoria: 'Neurocirugía Craneal',
     descripcion:
@@ -45,7 +45,7 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     id: 'hombro',
     label: 'Hombro',
     icon: '🦴',
-    position: [0.38, 0.62, 0],
+    position: [-0.202, 0.585, 0.055],
     hitboxRadius: 0.10,
     categoria: 'Miembro Superior',
     descripcion:
@@ -64,8 +64,8 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     id: 'columna',
     label: 'Columna',
     icon: '🦴',
-    position: [0, 0.55, -0.08],
-    hitboxRadius: 0.16,
+    position: [-0.010, 0.393, 0.095],
+    hitboxRadius: 0.13,
     categoria: 'Columna Vertebral',
     descripcion:
       'Implantes para estabilización vertebral, corrección de deformidades espinales y artrodesis lumbar y cervical de mínimo acceso.',
@@ -83,8 +83,8 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     id: 'pelvis',
     label: 'Pelvis',
     icon: '🦴',
-    position: [0, 0.22, 0],
-    hitboxRadius: 0.18,
+    position: [0.109, 0.134, 0.013],
+    hitboxRadius: 0.15,
     categoria: 'Trauma Pélvico',
     descripcion:
       'Placas de reconstrucción acetabular y tornillos iliosacros para fracturas pélvicas complejas de alta energía y trauma severo.',
@@ -102,8 +102,8 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     id: 'rodilla',
     label: 'Rodilla',
     icon: '🦴',
-    position: [0.12, -0.78, 0.05],
-    hitboxRadius: 0.11,
+    position: [0.100, -0.356, -0.041],
+    hitboxRadius: 0.13,
     categoria: 'Reemplazo Articular',
     descripcion:
       'Sistemas de artroplastia total y parcial de rodilla de alta durabilidad con polietileno de alto entrecruzamiento.',
@@ -121,7 +121,7 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     id: 'pie',
     label: 'Pie y Tobillo',
     icon: '🦶',
-    position: [0.08, -1.72, 0.12],
+    position: [0.080, -0.72, -0.020],
     hitboxRadius: 0.10,
     categoria: 'Pie y Tobillo',
     descripcion:
