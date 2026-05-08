@@ -55,6 +55,335 @@ const FEATURES = [
   },
 ]
 
+// ─────────────────────────────────────────────────────────────────────
+// Subcomponentes — solo presentación de la columna derecha
+// ─────────────────────────────────────────────────────────────────────
+
+const ACCENT = '#00d4ff'
+const IMPLANT_IMG = '/models/Distal%20Lateral%20Fibular%20Plate.jpg'
+
+interface AnnotationData {
+  position: { top: string; left: string }
+  side: 'left' | 'right'
+  label: string
+  text: string
+  delay: number
+}
+
+const ANNOTATIONS: AnnotationData[] = [
+  {
+    position: { top: '25%', left: '5%' },
+    side: 'left',
+    label: 'TITANIO MÉDICO GRADO 4',
+    text: 'Biocompatible · Alta resistencia · Ligero',
+    delay: 300,
+  },
+  {
+    position: { top: '15%', left: '60%' },
+    side: 'right',
+    label: 'DISEÑO ANATÓMICO',
+    text: 'Adaptación precisa a la morfología ósea para una fijación segura.',
+    delay: 500,
+  },
+  {
+    position: { top: '65%', left: '3%' },
+    side: 'left',
+    label: 'INGENIERÍA BIOMECÁNICA',
+    text: 'Distribución optimizada de cargas para favorecer la consolidación ósea.',
+    delay: 700,
+  },
+  {
+    position: { top: '70%', left: '58%' },
+    side: 'right',
+    label: 'PRECISIÓN QUIRÚRGICA',
+    text: 'Tolerancias ≤ 0.01 mm para máxima estabilidad.',
+    delay: 900,
+  },
+]
+
+function Annotation({ data }: { data: AnnotationData }) {
+  const isLeft = data.side === 'left'
+  return (
+    <div
+      className={`ann ann-${isLeft ? 'left' : 'right'}`}
+      style={{
+        position: 'absolute',
+        top: data.position.top,
+        left: data.position.left,
+        animationDelay: `${data.delay}ms`,
+        maxWidth: 240,
+        zIndex: 6,
+      }}
+    >
+      <div className="ann-card">
+        <div className="ann-label">{data.label}</div>
+        <div className="ann-text">{data.text}</div>
+      </div>
+      <div className="ann-line" />
+    </div>
+  )
+}
+
+function MiniBlueprint() {
+  return (
+    <div
+      className="blueprint-card"
+      style={{
+        position: 'absolute',
+        left: '5%',
+        top: '35%',
+        width: 130,
+        background: 'rgba(0,20,40,0.85)',
+        border: `1px solid ${ACCENT}40`,
+        borderRadius: 4,
+        padding: '10px 8px',
+        backdropFilter: 'blur(6px)',
+        zIndex: 5,
+        animationDelay: '600ms',
+      }}
+    >
+      <div
+        style={{
+          fontFamily: 'var(--font-mono, monospace)',
+          fontSize: 10,
+          letterSpacing: '0.18em',
+          color: ACCENT,
+          textTransform: 'uppercase',
+          marginBottom: 6,
+        }}
+      >
+        SPEC · LCP-04
+      </div>
+
+      <svg viewBox="0 0 160 220" width="100%" height="170" aria-hidden="true">
+        <defs>
+          <marker id="bp-arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill={ACCENT} />
+          </marker>
+        </defs>
+
+        {/* Cota arriba — 2.7 mm */}
+        <line x1="58" y1="20" x2="102" y2="20" stroke={ACCENT} strokeWidth="0.6" markerStart="url(#bp-arr)" markerEnd="url(#bp-arr)" />
+        <text x="80" y="14" fill={ACCENT} fontSize="8" fontFamily="monospace" textAnchor="middle">2.7 mm</text>
+
+        {/* Placa */}
+        <rect x="60" y="30" width="40" height="150" rx="20" ry="20" fill="none" stroke={ACCENT} strokeWidth="1.2" />
+        {/* 6 agujeros */}
+        {[48, 72, 96, 120, 144, 168].map((cy) => (
+          <g key={cy}>
+            <circle cx="80" cy={cy} r="6" fill="none" stroke={ACCENT} strokeWidth="0.8" />
+            <circle cx="80" cy={cy} r="2.4" fill="none" stroke={ACCENT} strokeWidth="0.5" opacity="0.6" />
+          </g>
+        ))}
+
+        {/* Cota lateral — 86.0 mm */}
+        <line x1="115" y1="32" x2="115" y2="178" stroke={ACCENT} strokeWidth="0.6" markerStart="url(#bp-arr)" markerEnd="url(#bp-arr)" />
+        <text x="120" y="108" fill={ACCENT} fontSize="8" fontFamily="monospace" textAnchor="start">86.0 mm</text>
+        <line x1="100" y1="32" x2="118" y2="32" stroke={ACCENT} strokeWidth="0.4" opacity="0.5" />
+        <line x1="100" y1="178" x2="118" y2="178" stroke={ACCENT} strokeWidth="0.4" opacity="0.5" />
+
+        {/* Cota base — 10.6 mm */}
+        <line x1="58" y1="198" x2="102" y2="198" stroke={ACCENT} strokeWidth="0.6" markerStart="url(#bp-arr)" markerEnd="url(#bp-arr)" />
+        <text x="80" y="210" fill={ACCENT} fontSize="8" fontFamily="monospace" textAnchor="middle">10.6 mm</text>
+        <line x1="60" y1="180" x2="60" y2="200" stroke={ACCENT} strokeWidth="0.4" opacity="0.5" />
+        <line x1="100" y1="180" x2="100" y2="200" stroke={ACCENT} strokeWidth="0.4" opacity="0.5" />
+      </svg>
+    </div>
+  )
+}
+
+function HudCorners() {
+  // Top-left + bottom-right · líneas de 20px
+  const color = 'rgba(0,212,255,0.6)'
+  const size = 20
+  const thick = '1px'
+  return (
+    <>
+      <span aria-hidden="true" style={{ position: 'absolute', top: 14, left: 14, width: size, height: thick, background: color, zIndex: 8 }} />
+      <span aria-hidden="true" style={{ position: 'absolute', top: 14, left: 14, width: thick, height: size, background: color, zIndex: 8 }} />
+      <span aria-hidden="true" style={{ position: 'absolute', bottom: 14, right: 14, width: size, height: thick, background: color, zIndex: 8 }} />
+      <span aria-hidden="true" style={{ position: 'absolute', bottom: 14, right: 14, width: thick, height: size, background: color, zIndex: 8 }} />
+    </>
+  )
+}
+
+function RightColumnVisual() {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        minHeight: 720,
+        overflow: 'hidden',
+        background: 'transparent',
+        border: 'none',
+      }}
+    >
+      {/* Keyframes + clases (scoped a este wrapper) */}
+      <style>{`
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeInLeft  { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeIn      { from { opacity: 0; } to { opacity: 1; } }
+
+        .image-wrapper {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+        }
+        .image-wrapper::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 120px;
+          background: linear-gradient(to bottom, #020d1a 0%, transparent 100%);
+          z-index: 2;
+          pointer-events: none;
+        }
+        .image-wrapper::after {
+          content: '';
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          height: 150px;
+          background: linear-gradient(to top, #020d1a 0%, transparent 100%);
+          z-index: 2;
+          pointer-events: none;
+        }
+        .image-fade-left {
+          position: absolute;
+          top: 0; left: 0; bottom: 0;
+          width: 100px;
+          background: linear-gradient(to right, #020d1a 0%, transparent 100%);
+          z-index: 2;
+          pointer-events: none;
+        }
+        .implant-img {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: center;
+          filter: sepia(1) hue-rotate(185deg) saturate(2.5) brightness(0.85);
+          z-index: 1;
+          opacity: 0;
+          animation: fadeInScale 1s ease-out forwards;
+        }
+        .ann {
+          opacity: 0;
+          animation-duration: 0.7s;
+          animation-fill-mode: forwards;
+          animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+          transition: filter 0.25s ease;
+        }
+        .ann-left  { animation-name: fadeInLeft; }
+        .ann-right { animation-name: fadeInRight; }
+        .ann-card {
+          background: rgba(2, 13, 26, 0.6);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          border: 1px solid rgba(0, 212, 255, 0.20);
+          border-radius: 4px;
+          padding: 8px 12px;
+          transition: filter 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+        .ann-label {
+          font-family: var(--font-mono, monospace);
+          font-size: 11px;
+          font-weight: 700;
+          color: ${ACCENT};
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          line-height: 1.3;
+          transition: filter 0.25s ease;
+        }
+        .ann-text {
+          font-family: var(--font-sans, sans-serif);
+          font-size: 11px;
+          color: rgba(255, 255, 255, 0.78);
+          line-height: 1.45;
+          margin-top: 4px;
+        }
+        .ann-line {
+          height: 1px;
+          width: 60px;
+          border-bottom: 1px dashed ${ACCENT};
+          opacity: 0.55;
+          transition: opacity 0.25s ease, border-bottom-style 0.25s ease;
+        }
+        .ann-left .ann-line  { margin-left: 8px;  margin-top: -10px; }
+        .ann-right .ann-line { margin-right: 8px; margin-top: -10px; margin-left: auto; }
+        .ann-right .ann-card { text-align: right; }
+
+        .ann:hover .ann-label { filter: brightness(1.2); }
+        .ann:hover .ann-line  { opacity: 1; border-bottom-style: solid; }
+        .ann:hover .ann-card  { border-color: rgba(0, 212, 255, 0.45); }
+
+        .blueprint-card {
+          opacity: 0;
+          animation: fadeIn 0.8s ease-out forwards;
+        }
+        .iso-badge { opacity: 0; animation: fadeIn 0.8s 0.4s ease-out forwards; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .implant-img, .ann, .blueprint-card, .iso-badge {
+            opacity: 1 !important;
+            animation: none !important;
+            transform: none !important;
+          }
+        }
+      `}</style>
+
+      {/* HUD corner brackets — top-left + bottom-right */}
+      <HudCorners />
+
+      {/* Imagen del implante con fundidos perimetrales */}
+      <div className="image-wrapper" aria-hidden="false">
+        <img
+          src={IMPLANT_IMG}
+          alt="Distal Lateral Fibular Plate"
+          className="implant-img"
+          draggable={false}
+        />
+        <div className="image-fade-left" />
+      </div>
+
+      {/* Diagrama técnico flotante */}
+      <MiniBlueprint />
+
+      {/* 4 anotaciones */}
+      {ANNOTATIONS.map((a) => (
+        <Annotation key={a.label} data={a} />
+      ))}
+
+      {/* Badge ISO 13485 — top-right */}
+      <div
+        className="iso-badge"
+        style={{
+          position: 'absolute',
+          top: 18,
+          right: 18,
+          padding: '4px 10px',
+          background: 'rgba(0,20,40,0.7)',
+          border: `1px solid ${ACCENT}`,
+          fontFamily: 'var(--font-mono, monospace)',
+          fontSize: 11,
+          color: ACCENT,
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          fontWeight: 700,
+          backdropFilter: 'blur(6px)',
+          zIndex: 9,
+        }}
+      >
+        ISO 13485
+      </div>
+    </div>
+  )
+}
+
 export default function IngenieriaSinLimites() {
   const prefersReduced = useReducedMotion()
   const containerVariants = prefersReduced ? reducedMotion : staggerContainer
@@ -112,7 +441,7 @@ export default function IngenieriaSinLimites() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 xl:px-20 py-24 lg:py-32">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] items-stretch gap-16 lg:gap-12">
 
           {/* ── COLUMNA IZQUIERDA: Texto ─────────────────────────────────── */}
           <motion.div
@@ -120,7 +449,7 @@ export default function IngenieriaSinLimites() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            className="w-full lg:w-[55%]"
+            className="w-full"
           >
             {/* Badge */}
             <motion.span
@@ -289,218 +618,9 @@ export default function IngenieriaSinLimites() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="w-full lg:w-[45%] flex-shrink-0"
+            className="relative w-full"
           >
-            <div
-              style={{
-                position: 'relative',
-                aspectRatio: '4/5',
-                maxWidth: 420,
-                margin: '0 auto',
-              }}
-            >
-              {/* Marco exterior decorativo */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: -10,
-                  border: '1px solid rgba(0,168,204,0.10)',
-                  borderRadius: 16,
-                  pointerEvents: 'none',
-                }}
-              />
-
-              {/* Imagen placeholder principal */}
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  background:
-                    'linear-gradient(145deg, rgba(4,18,36,0.95) 0%, rgba(8,28,56,0.88) 60%, rgba(2,13,26,0.92) 100%)',
-                  borderRadius: 12,
-                  border: '1px solid rgba(0,168,204,0.15)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 10,
-                  overflow: 'hidden',
-                  position: 'relative',
-                }}
-              >
-                {/* Grid interno */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    backgroundImage:
-                      'repeating-linear-gradient(0deg, transparent, transparent 29px, rgba(0,168,204,0.05) 29px, rgba(0,168,204,0.05) 30px), repeating-linear-gradient(90deg, transparent, transparent 29px, rgba(0,168,204,0.05) 29px, rgba(0,168,204,0.05) 30px)',
-                  }}
-                />
-                {/* Glow central */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background:
-                      'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,82,163,0.20) 0%, transparent 70%)',
-                  }}
-                />
-                {/* Dashed border interno */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    inset: 14,
-                    border: '1px dashed rgba(0,217,255,0.16)',
-                    borderRadius: 8,
-                  }}
-                />
-                {/* Esquinas decorativas */}
-                {[
-                  { top: 14, left: 14 },
-                  { top: 14, right: 14 },
-                  { bottom: 14, left: 14 },
-                  { bottom: 14, right: 14 },
-                ].map((pos, i) => (
-                  <div
-                    key={i}
-                    aria-hidden="true"
-                    style={{
-                      position: 'absolute',
-                      width: 14,
-                      height: 14,
-                      borderTop: i < 2 ? '2px solid rgba(0,217,255,0.50)' : 'none',
-                      borderBottom: i >= 2 ? '2px solid rgba(0,217,255,0.50)' : 'none',
-                      borderLeft: i % 2 === 0 ? '2px solid rgba(0,217,255,0.50)' : 'none',
-                      borderRight: i % 2 === 1 ? '2px solid rgba(0,217,255,0.50)' : 'none',
-                      ...pos,
-                    }}
-                  />
-                ))}
-
-                {/* Placeholder content */}
-                <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 24px' }}>
-                  <div style={{ fontSize: 32, opacity: 0.2, marginBottom: 12 }}>🖼</div>
-                  <img
-                    src="/placeholders/placas-comerciales.png"
-                    alt="Placas comerciales de osteosíntesis"
-                    style={{
-                      maxWidth: '70%',
-                      maxHeight: 180,
-                      objectFit: 'contain',
-                      opacity: 0.15,
-                      filter: 'brightness(0) invert(1)',
-                      display: 'block',
-                      margin: '0 auto 12px',
-                    }}
-                  />
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: 9,
-                      color: 'rgba(0,217,255,0.50)',
-                      letterSpacing: '0.12em',
-                      marginBottom: 4,
-                    }}
-                  >
-                    /placeholders/placas-comerciales.png
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: 10,
-                      color: 'rgba(255,255,255,0.22)',
-                    }}
-                  >
-                    Placas comerciales de osteosíntesis
-                  </div>
-                </div>
-
-                {/* Label inferior */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: 18,
-                    left: 0,
-                    right: 0,
-                    display: 'flex',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: 8,
-                      letterSpacing: '0.16em',
-                      color: 'rgba(0,217,255,0.4)',
-                      textTransform: 'uppercase',
-                      background: 'rgba(0,217,255,0.06)',
-                      border: '1px solid rgba(0,217,255,0.12)',
-                      padding: '3px 10px',
-                      borderRadius: 3,
-                    }}
-                  >
-                    Imagen del producto
-                  </span>
-                </div>
-              </div>
-
-              {/* Badge flotante — esquina superior derecha */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: -14,
-                  right: -10,
-                  background: 'rgba(0,217,255,0.12)',
-                  border: '1px solid rgba(0,217,255,0.35)',
-                  borderRadius: 6,
-                  padding: '5px 10px',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 9,
-                    color: '#00d9ff',
-                    letterSpacing: '0.10em',
-                    textTransform: 'uppercase',
-                    fontWeight: 700,
-                  }}
-                >
-                  ISO 13485
-                </span>
-              </div>
-
-              {/* Badge flotante — esquina inferior izquierda */}
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: -14,
-                  left: -10,
-                  background: 'rgba(10,58,96,0.85)',
-                  border: '1px solid rgba(0,168,204,0.30)',
-                  borderRadius: 6,
-                  padding: '5px 12px',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 9,
-                    color: 'rgba(0,217,255,0.8)',
-                    letterSpacing: '0.10em',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  CE Mark · Ti Gr.4
-                </span>
-              </div>
-            </div>
+            <RightColumnVisual />
           </motion.div>
 
         </div>

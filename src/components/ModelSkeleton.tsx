@@ -156,6 +156,17 @@ export function ModelSkeleton({
       )
       if (matched) namedMeshes.current.set(matched.id, obj)
     })
+
+    // Cleanup: dispose materials clonados al desmontar
+    return () => {
+      scene.traverse((obj) => {
+        if (!(obj instanceof THREE.Mesh)) return
+        const mat = obj.material as THREE.Material | THREE.Material[] | undefined
+        if (Array.isArray(mat)) mat.forEach((m) => m.dispose())
+        else mat?.dispose()
+      })
+      namedMeshes.current.clear()
+    }
   }, [scene, debug])
 
   useEffect(() => {

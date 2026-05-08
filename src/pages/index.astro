@@ -16,25 +16,26 @@ import Footer from '../components/Footer'
 <Layout>
   <Header client:only="react" />
   <main class="block m-0 p-0">
-    <!-- S1: Hero slider interactivo -->
+    <!-- S1: Hero slider interactivo (above the fold) -->
     <Hero client:only="react" />
-    <!-- S2: Ingeniería Sin Límites -->
-    <IngenieriaSinLimites client:only="react" />
-    <!-- S3: Soluciones destacadas -->
-    <Soluciones client:only="react" />
-    <InfoCards client:only="react" />
-    <!-- S3: Visor 3D interactivo -->
-    <ProductosSection client:only="react" />
-    <!-- S3.5: Banner Diagonal Gallery -->
-    <DiagonalGalleryBanner client:only="react" />
-    <!-- Stats regionales -->
-    <GlobalStats client:only="react" />
-    <!-- Instagram Feed -->
-    <InstagramFeed client:only="react" />
+    <!-- S2: Ingeniería Sin Límites (sin WebGL — hidrata al ser visible) -->
+    <IngenieriaSinLimites client:visible />
+    <!-- S3: Visor 3D interactivo (canvas R3F, defer hasta visible) -->
+    <ProductosSection client:visible />
+    <!-- S4: Soluciones destacadas -->
+    <Soluciones client:visible />
+    <!-- S5: Banner Diagonal Gallery -->
+    <DiagonalGalleryBanner client:visible />
+    <!-- S6: Diferenciales -->
+    <InfoCards client:visible />
+    <!-- S7: Global Stats -->
+    <GlobalStats client:visible />
+    <!-- S8: Instagram Feed -->
+    <InstagramFeed client:visible />
     <!-- Contacto -->
-    <Contacto client:only="react" />
+    <Contacto client:visible />
     <!-- Presencia Global (teaser mapa) -->
-    <GlobalPresence client:only="react" />
+    <GlobalPresence client:visible />
   </main>
-  <Footer client:only="react" />
+  <Footer client:visible />
 </Layout>

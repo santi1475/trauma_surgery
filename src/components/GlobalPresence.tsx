@@ -15,7 +15,7 @@ const NODES: PresenceNode[] = [
   { id: 'peru',      label: 'Perú',      x: 27, y: 62 },
   { id: 'colombia',  label: 'Colombia',  x: 25, y: 52 },
   { id: 'bolivia',   label: 'Bolivia',   x: 30, y: 66 },
-  { id: 'uruguay',   label: 'Uruguay',   x: 33, y: 72 },
+  { id: 'paraguay',   label: 'Paraguay',   x: 33, y: 72 },
   { id: 'usa',       label: 'EE.UU.',    x: 20, y: 38 },
   { id: 'europa',    label: 'Europa',    x: 52, y: 34 },
 ]
@@ -24,7 +24,7 @@ const NODES: PresenceNode[] = [
 const CONNECTIONS: [number, number][] = [
   [0, 1], // Perú → Colombia
   [0, 2], // Perú → Bolivia
-  [0, 3], // Perú → Uruguay
+  [0, 3], // Perú → Paraguay
   [0, 4], // Perú → EE.UU.
   [0, 5], // Perú → Europa
   [1, 4], // Colombia → EE.UU.
@@ -261,17 +261,31 @@ export default function GlobalPresence({
       style={{ backgroundColor: '#020d1a' }}
       aria-label="Presencia Global"
     >
-      {/* Glow superior izquierdo */}
+      {/* Glow superior izquierdo — más amplio e intenso */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute"
         style={{
           left: 0,
           top: 0,
-          width: '40%',
-          height: '80%',
+          width: '55%',
+          height: '100%',
           background:
-            'radial-gradient(ellipse at top left, rgba(0,82,163,0.10) 0%, transparent 70%)',
+            'radial-gradient(ellipse at top left, rgba(0,82,163,0.22) 0%, transparent 65%)',
+        }}
+      />
+
+      {/* Glow inferior derecho espejo */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          right: 0,
+          bottom: 0,
+          width: '45%',
+          height: '70%',
+          background:
+            'radial-gradient(ellipse at bottom right, rgba(0,120,200,0.14) 0%, transparent 65%)',
         }}
       />
 
@@ -284,9 +298,9 @@ export default function GlobalPresence({
           top: '50%',
           transform: 'translateY(-50%)',
           fontFamily: 'var(--font-heading)',
-          fontSize: 'clamp(120px, 18vw, 220px)',
+          fontSize: 'clamp(180px, 26vw, 340px)',
           fontWeight: 800,
-          color: 'rgba(0,168,204,0.022)',
+          color: 'rgba(0,168,204,0.028)',
           lineHeight: 1,
           letterSpacing: '-0.04em',
           userSelect: 'none',
@@ -295,36 +309,47 @@ export default function GlobalPresence({
         05
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 xl:px-20 py-20 lg:py-28">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 xl:px-20 py-28 lg:py-44">
         {/* ── BANNER CARD ──────────────────────────────────── */}
         <div
-          className="relative rounded-2xl overflow-hidden"
+          className="relative rounded-3xl overflow-hidden"
           style={{
-            backgroundColor: 'rgba(4,18,36,0.85)',
-            border: '1px solid rgba(0,168,204,0.12)',
+            backgroundColor: 'rgba(4,18,36,0.90)',
+            border: '1px solid rgba(0,168,204,0.18)',
             boxShadow:
-              '0 24px 60px rgba(0,0,0,0.35), 0 0 40px rgba(0,100,180,0.05)',
-            minHeight: 340,
+              '0 40px 120px rgba(0,0,0,0.55), 0 0 80px rgba(0,100,180,0.10), inset 0 1px 0 rgba(0,217,255,0.08)',
+            minHeight: 560,
           }}
         >
-          {/* Inner glow */}
+          {/* Inner glow — más dramático */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse at 30% 50%, rgba(0,82,163,0.08) 0%, transparent 60%)',
+                'radial-gradient(ellipse 60% 80% at 25% 50%, rgba(0,82,163,0.16) 0%, transparent 60%)',
+            }}
+          />
+          {/* Scan line horizontal sutil */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute"
+            style={{
+              left: 0, right: 0,
+              top: '50%',
+              height: 1,
+              background: 'linear-gradient(90deg, transparent 0%, rgba(0,217,255,0.06) 30%, rgba(0,217,255,0.10) 50%, rgba(0,217,255,0.06) 70%, transparent 100%)',
             }}
           />
 
-          <div className="relative z-10 flex flex-col lg:flex-row min-h-[340px] lg:min-h-[380px]">
+          <div className="relative z-10 flex flex-col lg:flex-row min-h-[560px] lg:min-h-[620px]">
             {/* ── IZQUIERDA: Texto ──────────────────────────── */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
-              className="w-full lg:w-[35%] flex flex-col justify-center px-8 py-10 lg:px-12 lg:py-14"
+              className="w-full lg:w-[32%] flex flex-col justify-center px-8 py-12 lg:px-14 lg:py-16"
             >
               {/* Badge */}
               <motion.span
@@ -351,32 +376,32 @@ export default function GlobalPresence({
                 variants={itemVariants}
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(26px, 3.5vw, 46px)',
+                  fontSize: 'clamp(36px, 5vw, 68px)',
                   fontWeight: 800,
-                  lineHeight: 1.06,
-                  letterSpacing: '-0.01em',
+                  lineHeight: 1.0,
+                  letterSpacing: '-0.02em',
                   color: '#ffffff',
-                  marginBottom: 20,
+                  marginBottom: 24,
                 }}
               >
                 PRESENCIA
                 <br />
-                <span style={{ color: '#00d9ff' }}>GLOBAL</span>
+                <span style={{ color: '#00d9ff', textShadow: '0 0 40px rgba(0,217,255,0.35)' }}>GLOBAL</span>
               </motion.h2>
 
               {/* Párrafo */}
               <motion.p
                 variants={itemVariants}
                 style={{
-                  color: 'rgba(255,255,255,0.48)',
-                  fontSize: 'clamp(12px, 1.1vw, 14px)',
-                  lineHeight: 1.75,
-                  maxWidth: 340,
-                  marginBottom: 28,
+                  color: 'rgba(255,255,255,0.55)',
+                  fontSize: 'clamp(13px, 1.15vw, 15px)',
+                  lineHeight: 1.8,
+                  maxWidth: 380,
+                  marginBottom: 32,
                 }}
               >
                 Llevamos nuestra tecnología a cirujanos ortopédicos en Perú,
-                Bolivia, Colombia y Uruguay, con soporte técnico y logístico en
+                Bolivia, Colombia y Paraguay, con soporte técnico y logístico en
                 cada punto de operación.
               </motion.p>
 
@@ -385,7 +410,7 @@ export default function GlobalPresence({
                 variants={itemVariants}
                 className="flex flex-wrap gap-2 mb-8"
               >
-                {['🇵🇪 Perú', '🇧🇴 Bolivia', '🇨🇴 Colombia', '🇺🇾 Uruguay'].map(
+                {['🇵🇪 Perú', '🇧🇴 Bolivia', '🇨🇴 Colombia', '🇵🇾 Paraguay'].map(
                   (country) => (
                     <span
                       key={country}
@@ -451,49 +476,50 @@ export default function GlobalPresence({
 
             {/* ── DERECHA: Mapa SVG ─────────────────────────── */}
             <motion.div
-              className="w-full lg:w-[65%] relative flex items-center justify-center px-4 py-8 lg:p-8"
-              initial={{ opacity: 0, scale: 0.96 }}
+              className="w-full lg:w-[68%] relative flex items-center justify-center px-2 py-10 lg:px-6 lg:py-12"
+              initial={{ opacity: 0, scale: 0.93 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{
-                duration: 0.9,
-                delay: 0.2,
+                duration: 1.1,
+                delay: 0.25,
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              {/* Glow focal detrás del mapa */}
+              {/* Glow focal detrás del mapa — más grande e intenso */}
               <div
                 aria-hidden="true"
                 className="absolute pointer-events-none"
                 style={{
-                  left: '30%',
-                  top: '40%',
-                  width: '50%',
-                  height: '60%',
+                  left: '35%',
+                  top: '50%',
+                  width: '70%',
+                  height: '80%',
                   transform: 'translate(-50%, -50%)',
                   background:
-                    'radial-gradient(ellipse, rgba(0,120,200,0.12) 0%, transparent 65%)',
+                    'radial-gradient(ellipse, rgba(0,140,220,0.18) 0%, rgba(0,82,163,0.08) 50%, transparent 70%)',
+                  filter: 'blur(8px)',
                 }}
               />
 
               <svg
                 viewBox="0 0 100 100"
-                className="w-full h-full max-h-[360px]"
-                style={{ overflow: 'visible' }}
+                className="w-full h-full"
+                style={{ overflow: 'visible', minHeight: 480, maxHeight: 680 }}
                 aria-label="Mapa mundial con presencia de TraumaSurgery"
                 role="img"
               >
                 <defs>
                   {/* Gradiente para los arcos */}
                   <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#00d9ff" stopOpacity="0.5" />
-                    <stop offset="50%" stopColor="#00d9ff" stopOpacity="0.15" />
-                    <stop offset="100%" stopColor="#00d9ff" stopOpacity="0.5" />
+                    <stop offset="0%" stopColor="#00d9ff" stopOpacity="0.75" />
+                    <stop offset="50%" stopColor="#00d9ff" stopOpacity="0.22" />
+                    <stop offset="100%" stopColor="#00d9ff" stopOpacity="0.75" />
                   </linearGradient>
 
-                  {/* Glow filter para nodos */}
-                  <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="blur" />
+                  {/* Glow filter para nodos — stdDeviation mayor */}
+                  <filter id="nodeGlow" x="-80%" y="-80%" width="260%" height="260%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2.0" result="blur" />
                     <feMerge>
                       <feMergeNode in="blur" />
                       <feMergeNode in="SourceGraphic" />
@@ -514,9 +540,9 @@ export default function GlobalPresence({
                       d={arcPath(a.x, a.y, b.x, b.y)}
                       fill="none"
                       stroke="url(#arcGrad)"
-                      strokeWidth={0.35}
-                      strokeDasharray="1.5 0.8"
-                      opacity={0.7}
+                      strokeWidth={0.6}
+                      strokeDasharray="2 1"
+                      opacity={0.85}
                     >
                       {!prefersReduced && (
                         <animate

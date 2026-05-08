@@ -232,8 +232,31 @@ export default function Visor3D({
 
   const activeHotspot = HOTSPOTS.find((h) => h.id === selectedZone)
 
+  // ── SSR guard + viewport-pause (frameloop on demand) ───────────────
+  const sectionRef = useRef<HTMLElement>(null)
+  const [mounted, setMounted] = useState(false)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+    const el = sectionRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setInView(true)
+      return
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: '120px 0px', threshold: 0.05 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [mounted])
+
   return (
     <section
+      ref={sectionRef}
       className="relative w-full h-screen"
       style={{ background: 'linear-gradient(180deg, #041830 0%, #020d1a 40%, #041830 100%)' }}
     >
@@ -430,14 +453,17 @@ export default function Visor3D({
       )}
 
       {/* ── Canvas Three.js ───────────────────────────────────────────────── */}
+      {mounted && (
       <Canvas
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
+        frameloop={inView ? 'always' : 'never'}
         gl={{
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.4,
           outputColorSpace: THREE.SRGBColorSpace,
           antialias: true,
           alpha: true,
+          powerPreference: 'high-performance',
         }}
         onCreated={({ gl }) => { gl.setClearColor(0x000000, 0) }}
         camera={{ position: [0, 0.2, 2.4], fov: 45 }}
@@ -497,6 +523,7 @@ export default function Visor3D({
           onStart={manejarInteraccionUsuario}
         />
       </Canvas>
+      )}
     </section>
   )
 }

@@ -14,7 +14,7 @@ const COUNTRIES = [
   { flag: '🇵🇪', name: 'Perú',     code: 'PE' },
   { flag: '🇧🇴', name: 'Bolivia',  code: 'BO' },
   { flag: '🇨🇴', name: 'Colombia', code: 'CO' },
-  { flag: '🇺🇾', name: 'Uruguay',  code: 'UY' },
+  { flag: '🇺🇾', name: 'Paraguay',  code: 'PY' },
 ]
 
 const TOP_H = 36

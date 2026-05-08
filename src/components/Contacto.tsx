@@ -281,7 +281,7 @@ export default function Contacto() {
                     marginTop: 6,
                   }}
                 >
-                  Perú · Bolivia · Colombia · Uruguay
+                  Perú · Bolivia · Colombia · Paraguay
                 </p>
               </div>
             </motion.div>
