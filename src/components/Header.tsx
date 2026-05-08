@@ -31,138 +31,6 @@ export default function Header() {
 
   return (
     <>
-      {/* ── Top Bar ── */}
-      <div
-        role="complementary"
-        aria-label="Presencia internacional"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 60,
-          height: TOP_H,
-          background: 'rgba(2,6,16,0.94)',
-          backdropFilter: 'blur(20px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-          borderBottom: '1px solid rgba(0,217,255,0.08)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 60px',
-        }}
-      >
-        {/* Países con banderas circulares */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <span
-            style={{
-              fontSize: 9,
-              letterSpacing: '0.14em',
-              color: 'rgba(255,255,255,0.25)',
-              fontFamily: 'var(--font-mono)',
-              textTransform: 'uppercase',
-            }}
-          >
-            Presencia
-          </span>
-          <div
-            style={{
-              width: 1,
-              height: 10,
-              background: 'rgba(0,217,255,0.15)',
-            }}
-          />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {COUNTRIES.map((c) => (
-              <div
-                key={c.code}
-                title={c.name}
-                style={{ display: 'flex', alignItems: 'center', gap: 6 }}
-              >
-                {/* Bandera circular */}
-                <div
-                  style={{
-                    width: 22,
-                    height: 22,
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    border: '1px solid rgba(0,217,255,0.18)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 14,
-                    background: 'rgba(255,255,255,0.03)',
-                    flexShrink: 0,
-                    lineHeight: 1,
-                  }}
-                >
-                  {c.flag}
-                </div>
-                <span
-                  style={{
-                    fontSize: 10,
-                    color: 'rgba(255,255,255,0.38)',
-                    fontFamily: 'var(--font-mono)',
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  {c.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Contacto rápido */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-          <a
-            href="tel:+51998436284"
-            style={{
-              fontSize: 10,
-              color: 'rgba(255,255,255,0.35)',
-              fontFamily: 'var(--font-mono)',
-              textDecoration: 'none',
-              letterSpacing: '0.06em',
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.color = '#00d9ff')
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.35)')
-            }
-          >
-            +51 998 436 284
-          </a>
-          <span
-            style={{
-              width: 1,
-              height: 10,
-              background: 'rgba(255,255,255,0.10)',
-              display: 'inline-block',
-            }}
-          />
-          <a
-            href="mailto:traumasurgery.eirl@gmail.com"
-            style={{
-              fontSize: 10,
-              color: 'rgba(255,255,255,0.35)',
-              fontFamily: 'var(--font-mono)',
-              textDecoration: 'none',
-              letterSpacing: '0.06em',
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.color = '#00d9ff')
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.35)')
-            }
-          >
-            traumasurgery.eirl@gmail.com
-          </a>
-        </div>
-      </div>
 
       {/* ── Main Header ── */}
       <motion.header
@@ -172,19 +40,12 @@ export default function Header() {
         role="banner"
         className="fixed left-0 right-0 z-50 flex items-center justify-between transition-all duration-300"
         style={{
-          top: TOP_H,
           padding: scrolled ? '12px 60px' : '18px 60px',
-          background: scrolled
-            ? 'rgba(2,13,26,0.82)'
-            : 'rgba(2,13,26,0.28)',
-          backdropFilter: 'blur(28px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-          borderBottom: scrolled
-            ? '1px solid rgba(0,217,255,0.18)'
-            : '1px solid rgba(255,255,255,0.05)',
-          boxShadow: scrolled
-            ? '0 4px 48px rgba(0,0,0,0.45)'
-            : 'none',
+          background: scrolled ? 'rgba(1,7,15,0.92)' : '#01070f',
+          backdropFilter: scrolled ? 'blur(28px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(180%)' : 'none',
+          borderBottom: '1px solid rgba(0,217,255,0.18)',
+          boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.45)' : '0 1px 0 rgba(0,217,255,0.05)',
         }}
       >
         {/* Logo */}
@@ -195,7 +56,7 @@ export default function Header() {
           aria-label="TraumaSurgery — Inicio"
         >
           <div className="w-10 h-10 rounded-full overflow-hidden">
-            <img src="/IMG_7229.PNG" alt="Logo TraumaSurgery" className="h-10 w-auto" />
+            <img src="/ig/IMG_7229.PNG" alt="Logo TraumaSurgery" className="h-10 w-auto" />
           </div>
           <span
             style={{

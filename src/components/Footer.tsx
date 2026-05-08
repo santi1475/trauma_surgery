@@ -25,10 +25,10 @@ const NAV_COLS = [
 ]
 
 const PAISES = [
-  { flag: '🇵🇪', name: 'Perú' },
-  { flag: '🇧🇴', name: 'Bolivia' },
-  { flag: '🇨🇴', name: 'Colombia' },
-  { flag: '🇺🇾', name: 'Uruguay' },
+  { src: '/flags/peru.png',     name: 'Perú' },
+  { src: '/flags/bolivia.png',  name: 'Bolivia' },
+  { src: '/flags/colombia.png', name: 'Colombia' },
+  { src: '/flags/paraguay.png', name: 'Paraguay' },
 ]
 
 export default function Footer() {
@@ -88,7 +88,7 @@ export default function Footer() {
               style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 16 }}
             >
               <div style={{ width: 34, height: 34, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
-                <img src="/IMG_7229.PNG" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/ig/IMG_7229.PNG" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <span
                 style={{
@@ -262,7 +262,7 @@ export default function Footer() {
                       flexShrink: 0,
                     }}
                   >
-                    {p.flag}
+                    <img src={p.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'rgba(255,255,255,0.28)', letterSpacing: '0.06em' }}>
                     {p.name}

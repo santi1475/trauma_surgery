@@ -17,25 +17,25 @@ const DEFAULT_PANELS: PanelData[] = [
     id: 'correr',
     titulo: 'MUÉVETE',
     subtitulo: 'Sin límites',
-    url: '/placeholders/actividad-correr.jpg',
+    url: '/placeholders/actividad-correr.png',
   },
   {
     id: 'ciclismo',
     titulo: 'PEDALEA',
     subtitulo: 'Con confianza',
-    url: '/placeholders/actividad-ciclismo.jpg',
+    url: '/placeholders/actividad-ciclismo.png',
   },
   {
     id: 'yoga',
     titulo: 'FLEXIONA',
     subtitulo: 'Tu cuerpo',
-    url: '/placeholders/actividad-yoga.jpg',
+    url: '/placeholders/actividad-yoga.png',
   },
   {
     id: 'trekking',
     titulo: 'EXPLORA',
     subtitulo: 'Cada sendero',
-    url: '/placeholders/actividad-escalar.jpg',
+    url: '/placeholders/actividad-escalar.png',
   },
 ]
 

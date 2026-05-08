@@ -385,7 +385,7 @@ export default function IngenieriaSinLimites() {
                 <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 24px' }}>
                   <div style={{ fontSize: 32, opacity: 0.2, marginBottom: 12 }}>🖼</div>
                   <img
-                    src="/placeholders/placas-comerciales.svg"
+                    src="/placeholders/placas-comerciales.png"
                     alt="Placas comerciales de osteosíntesis"
                     style={{
                       maxWidth: '70%',
@@ -406,7 +406,7 @@ export default function IngenieriaSinLimites() {
                       marginBottom: 4,
                     }}
                   >
-                    /placeholders/placas-comerciales.svg
+                    /placeholders/placas-comerciales.png
                   </div>
                   <div
                     style={{

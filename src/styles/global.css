@@ -67,12 +67,15 @@
     --color-text:    rgba(255,255,255,0.6);
     --color-gold:    #D4AF37;
 
-    /* Paleta de fondos oscuros */
-    --bg-deep:  #020d1a;
-    --bg-mid:   #061826;
-    --bg-card:  #0a1e30;
+    /* Paleta de fondos oscuros — Hero system */
+    --color-hero-bg:  #020b18;   /* base hero / navbar */
+    --color-surface:  #040e1f;   /* overlays, panels secundarios */
+    --color-panel:    #030c1a;   /* panel de métricas */
+    --bg-deep:        #020b18;
+    --bg-mid:         #040e1f;
+    --bg-card:        #0a1e30;
 
-    --background: #020d1a;
+    --background: #020b18;
     --foreground: #ffffff;
     --card: #0a1e30;
     --card-foreground: #ffffff;

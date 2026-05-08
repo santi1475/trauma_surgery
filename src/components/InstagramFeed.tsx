@@ -4,11 +4,11 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { staggerContainer, fadeInUp, reducedMotion } from '@/animations/variants'
 
 const INSTAGRAM_POSTS = [
-  { id: 1, src: '/IMG_7229.PNG',                        tag: 'Nosotros',       featured: true  },
-  { id: 2, src: '/IMG_2435 (1).PNG',                    tag: 'Cirugía de Mano', featured: false },
-  { id: 3, src: '/NoTodasLaRodillas001.TraumaS (1).png', tag: 'Especialidades', featured: false },
-  { id: 4, src: '/SolucionesAMedida01.TS.png',          tag: 'Soluciones',     featured: false },
-  { id: 5, src: '/Certificaciones.TS.png',              tag: 'Certificaciones', featured: false },
+  { id: 1, src: '/ig/IMG_7229.PNG',                        tag: 'Nosotros',       featured: true  },
+  { id: 2, src: '/ig/IMG_2435 (1).PNG',                    tag: 'Cirugía de Mano', featured: false },
+  { id: 3, src: '/ig/NoTodasLaRodillas001.TraumaS (1).png', tag: 'Especialidades', featured: false },
+  { id: 4, src: '/ig/SolucionesAMedida01.TS.png',          tag: 'Soluciones',     featured: false },
+  { id: 5, src: '/ig/Certificaciones.TS.png',              tag: 'Certificaciones', featured: false },
 ]
 
 export default function InstagramFeed() {
