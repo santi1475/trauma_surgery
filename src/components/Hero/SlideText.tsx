@@ -65,18 +65,21 @@ export function SlideText({
 
       {/* Headline */}
       <h1
-        className="font-black uppercase leading-[0.9] tracking-tight text-5xl md:text-6xl lg:text-7xl mb-6"
+        className="font-black leading-[0.9] tracking-tight text-5xl md:text-6xl lg:text-7xl mb-6"
         style={{ fontFamily: 'var(--font-heading)' }}
       >
-        {copy.headline.map((line, i) => (
-          <div key={i} className="block">
-            {line.map((part, j) => (
-              <span key={j} className={part.cyan ? 'text-cyan-400' : 'text-white'}>
+        {copy.headline.map((line, i) => {
+          const hasWhiteText = line.some(part => !part.cyan)
+          return (
+            <div key={i} className={`block ${hasWhiteText && i < copy.headline.length - 1 ? 'mb-3 md:mb-4' : ''}`}>
+              {line.map((part, j) => (
+              <span key={j} className={part.cyan ? 'text-cyan-400' : 'text-white font-normal text-3xl md:text-4xl lg:text-5xl'}>
                 {part.text}{j < line.length - 1 ? ' ' : ''}
               </span>
             ))}
           </div>
-        ))}
+          )
+        })}
       </h1>
 
       {/* Sub */}

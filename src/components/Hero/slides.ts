@@ -16,9 +16,8 @@ export const SLIDES: Slide[] = [
     copy: {
       badge: 'Innovación que transforma vidas',
       headline: [
-        [{ text: 'COMPROMETIDOS' }],
-        [{ text: 'CON TU' }],
-        [{ text: 'MEJOR VERSIÓN', cyan: true }],
+        [{ text: 'Comprometidos con tu' }],
+        [{ text: 'mejor versión', cyan: true }],
       ],
       sub: 'Tecnología avanzada en implantes de osteosíntesis para asegurar movimiento, funcionalidad y confianza.',
       accent: 'Tecnología ISO · CE certificada',
@@ -32,9 +31,9 @@ export const SLIDES: Slide[] = [
     copy: {
       badge: 'Innovación médica',
       headline: [
-        [{ text: 'PRECISIÓN QUE' }],
-        [{ text: 'MARCA LA', cyan: true }],
-        [{ text: 'DIFERENCIA', cyan: true }],
+        [{ text: 'Precisión que' }],
+        [{ text: 'marca la', cyan: true }],
+        [{ text: 'diferencia', cyan: true }],
       ],
       sub: 'Implantes de osteosíntesis de alto rendimiento, diseñados para una recuperación segura y eficiente.',
     },
@@ -47,9 +46,9 @@ export const SLIDES: Slide[] = [
     copy: {
       badge: 'Respaldo internacional',
       headline: [
-        [{ text: 'CALIDAD QUE' }],
-        [{ text: 'NOS', cyan: true }],
-        [{ text: 'REPRESENTA', cyan: true }],
+        [{ text: 'Calidad que' }],
+        [{ text: 'nos', cyan: true }],
+        [{ text: 'representa', cyan: true }],
       ],
       sub: 'Certificaciones y estándares que garantizan seguridad, precisión y eficiencia en cada proceso.',
     },

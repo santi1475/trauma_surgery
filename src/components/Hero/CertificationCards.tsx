@@ -61,45 +61,38 @@ export function CertificationCards() {
         <motion.div
           key={card.id}
           variants={itemVars}
+          whileHover={!prefersReduced ? { scale: 1.01, x: 2 } : {}}
           role="listitem"
-          className="flex items-center gap-3 rounded-xl p-3"
+          className="flex items-center gap-3.5 rounded-xl p-3.5 shadow-lg cursor-default transition-shadow hover:shadow-[0_0_15px_rgba(0,217,255,0.15)]"
           style={{
-            background: '#040e1f',
-            border: '1px solid rgba(22,78,99,0.5)',
-            borderLeft: '2px solid rgba(34,211,238,0.6)',
+            background: 'linear-gradient(135deg, rgba(4,14,31,0.9) 0%, rgba(4,14,31,0.6) 100%)',
+            border: '1px solid rgba(34,211,238,0.15)',
+            borderLeft: '3px solid rgba(34,211,238,0.7)',
+            backdropFilter: 'blur(8px)',
           }}
         >
           {/* Seal column */}
-          <div className="flex flex-col items-center gap-1.5 flex-shrink-0" style={{ width: 44 }}>
+          <div className="flex flex-col items-center justify-center flex-shrink-0" style={{ width: 50 }}>
             <img
               src={card.seal}
+              alt="Certificación"
               style={{
-                width: 36,
-                height: 36,
+                width: 40,
+                height: 40,
                 objectFit: 'contain',
-                filter: 'drop-shadow(0 0 6px rgba(0,217,255,0.18))',
+                filter: 'drop-shadow(0 0 8px rgba(0,217,255,0.25))',
               }}
             />
-            <p
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 9,
-                letterSpacing: '0.08em',
-                color: '#ffffff',
-                fontWeight: 700,
-                textAlign: 'center',
-                lineHeight: 1.1,
-              }}
-            >
-            </p>
           </div>
 
           <div
-            className="self-stretch flex-shrink-0 w-px"
-            style={{ background: 'rgba(22,78,99,0.4)' }}
+            className="self-stretch flex-shrink-0 w-px rounded-full"
+            style={{ background: 'linear-gradient(to bottom, transparent, rgba(34,211,238,0.3), transparent)' }}
           />
 
-          <p className="text-[10px] text-gray-400 leading-snug">{card.label}</p>
+          <p className="text-xs text-gray-300 leading-snug font-medium">
+            {card.label}
+          </p>
         </motion.div>
       ))}
     </motion.div>

@@ -4,13 +4,21 @@ import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer
 import { TechBackground } from './TechBackground'
 import { AnatomicalHotspots } from './AnatomicalHotspots'
 import { SlideText } from './SlideText'
-import { SlideImage } from './SlideImage'
 import { StatsColumn } from './StatsColumn'
 import { FeatureList } from './FeatureList'
 import { AchievementBadges } from './AchievementBadges'
 import { CertificationCards } from './CertificationCards'
 import { SLIDES } from './slides'
 
+// ── Tokens ────────────────────────────────────────────────────────────────
+const HERO_BG = '#020b18'   // Fondo quirúrgico profundo
+const ACCENT  = '#00d9ff'   // Cian biotecnológico
+
+// Máscara de fundido — Capa 2 derecha → izquierda (transparente → opaco)
+const IMAGE_MASK =
+  'linear-gradient(to right, transparent 0%, black 15%, black 100%)'
+
+// ── Variants Framer Motion ────────────────────────────────────────────────
 const slideImgVariants: Variants = {
   enter:  { opacity: 0 },
   center: { opacity: 1, transition: { duration: 0.7 } },
@@ -42,6 +50,10 @@ export default function Hero() {
     setActiveSlide((p) => (p + 1) % SLIDES.length)
   }, [])
 
+  const prev = useCallback(() => {
+    setActiveSlide((p) => (p - 1 + SLIDES.length) % SLIDES.length)
+  }, [])
+
   useEffect(() => {
     if (prefersReduced || isPaused) return
     const t = setInterval(next, 5000)
@@ -50,14 +62,12 @@ export default function Hero() {
 
   const slide = SLIDES[activeSlide]
 
-  // Slide-specific extra inside text column (between sub and CTA)
   const renderTextExtra = () => {
     if (slide.id === 'precision') return <FeatureList />
     if (slide.id === 'calidad')   return <AchievementBadges />
     return null
   }
 
-  // Slide-specific right column content
   const renderRightColumn = () => {
     if (slide.id === 'calidad') return <CertificationCards />
     return <StatsColumn />
@@ -66,203 +76,248 @@ export default function Hero() {
   const sideVars = prefersReduced ? sidePanelVariantsReduced : sidePanelVariants
 
   return (
+    // ── Capa 0 — Wrapper base ────────────────────────────────────────────
     <section
       aria-label="Hero principal"
-      className="relative min-h-screen overflow-hidden"
+      className="relative w-full overflow-hidden min-h-screen pt-20 lg:pt-24"
+      style={{ background: HERO_BG }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      style={{
-        background: '#020b18',
-      }}
     >
-      {/* WCAG live region for slide changes */}
+      {/* Live region accesible */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {`Slide ${activeSlide + 1} de ${SLIDES.length}: ${slide.copy.badge}`}
       </div>
 
-      <TechBackground />
-
-      {/* Vertical accent line */}
-      <motion.div
-        initial={{ scaleY: prefersReduced ? 1 : 0 }}
-        animate={{ scaleY: 1 }}
-        transition={prefersReduced ? { duration: 0 } : { duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-0 top-0 bottom-0 w-px origin-top hidden lg:block"
-        style={{
-          background:
-            'linear-gradient(to bottom, transparent, rgba(0,217,255,0.2) 30%, rgba(0,217,255,0.35) 60%, transparent)',
-          marginLeft: '50%',
-        }}
+      {/* ── Capa 1 — Background animado (z-0) ─────────────────────────── */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
         aria-hidden="true"
-      />
+      >
+        <TechBackground />
+      </div>
 
-      {/* ── 3-column layout ──────────────────────────────────────────────── */}
-      <div className="relative z-10 w-full min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 lg:px-12 xl:px-20 pt-24 lg:pt-0 pointer-events-none">
+      {/* ── Capa 2 — Visual / Media SVG (z-10) ────────────────────────── */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none grid grid-cols-1 lg:grid-cols-2"
+        aria-hidden="true"
+      >
+        {/* Columna izquierda — vacía (reservada para textos de Capa 3) */}
+        <div />
 
-        {/* LEFT: text */}
-        <div className="relative z-20 order-1 w-full lg:w-[40%] xl:w-[36%] pointer-events-auto mt-8 lg:mt-0 lg:translate-y-10">
+        {/* Columna derecha — SVG con máscara de fundido a la izquierda */}
+        <div
+          className="relative w-full h-full overflow-hidden"
+          style={{
+            WebkitMaskImage: IMAGE_MASK,
+            maskImage: IMAGE_MASK,
+          }}
+        >
           <AnimatePresence mode="wait">
-            <div key={`text-${activeSlide}`}>
-              <SlideText copy={slide.copy} extra={renderTextExtra()} />
-            </div>
-          </AnimatePresence>
-        </div>
-
-        {/* CENTER: image */}
-        <div className="
-          order-2 relative w-full h-[50vh] z-10 pointer-events-none
-          lg:absolute lg:right-0 lg:top-0 lg:bottom-0 lg:h-auto lg:w-[62%]
-        ">
-          <div className="relative w-full h-full overflow-hidden pointer-events-auto">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`img-${activeSlide}`}
-                variants={prefersReduced ? slideImgVariantsReduced : slideImgVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="absolute inset-0"
-              >
-                <SlideImage src={slide.imageSrc} label={slide.imageLabel} />
-              </motion.div>
-            </AnimatePresence>
-
-            <AnatomicalHotspots isActive={slide.id === 'movimiento'} />
-          </div>
-        </div>
-
-        {/* RIGHT: per-slide panel — Stats or CertificationCards */}
-        <div className="relative z-20 order-3 lg:order-2 flex flex-col gap-6 w-full lg:w-[230px] pointer-events-auto mt-12 lg:mt-0 pb-16 lg:pb-0 px-4">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`side-${slide.id}`}
-              variants={sideVars}
-              initial="hidden"
-              animate="visible"
+            <motion.img
+              key={`img-${activeSlide}`}
+              src={slide.imageSrc}
+              alt={slide.imageLabel}
+              variants={prefersReduced ? slideImgVariantsReduced : slideImgVariants}
+              initial="enter"
+              animate="center"
               exit="exit"
-            >
-              {renderRightColumn()}
-            </motion.div>
+              className="absolute inset-0 w-full h-full object-cover object-center select-none"
+              draggable={false}
+            />
           </AnimatePresence>
 
-          <div className="flex flex-col gap-2">
-            <span className="text-[9px] tracking-[0.2em] uppercase text-white/80">Operamos en</span>
-            <div className="flex gap-2.5">
-              {[
-                { src: '/flags/peru.png', alt: 'Perú' },
-                { src: '/flags/bolivia.png', alt: 'Bolivia' },
-                { src: '/flags/colombia.png', alt: 'Colombia' },
-                { src: '/flags/paraguay.png', alt: 'Paraguay' },
-              ].map((flag) => (
-                <div 
-                  key={flag.src} 
-                  className="w-5 h-5 rounded-full overflow-hidden border border-white/10 flex-shrink-0 bg-white/5"
-                >
-                  <img 
-                    src={flag.src} 
-                    alt={flag.alt} 
-                    className="w-full h-full object-cover" 
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <AnatomicalHotspots isActive={slide.id === 'movimiento'} />
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30"
-        aria-hidden="true"
-      >
+      {/* ── Capa 3 — Textos y UI interactiva (z-20) ───────────────────── */}
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        {/* Línea vertical decorativa central */}
         <motion.div
-          animate={prefersReduced ? {} : { scaleY: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-10"
-          style={{ background: 'linear-gradient(to bottom, #00d9ff, transparent)' }}
+          initial={{ scaleY: prefersReduced ? 1 : 0 }}
+          animate={{ scaleY: 1 }}
+          transition={
+            prefersReduced
+              ? { duration: 0 }
+              : { duration: 1.2, delay: 0.8, ease: [0.22, 1, 0.36, 1] }
+          }
+          className="absolute left-1/2 top-0 bottom-0 w-px origin-top hidden lg:block"
+          style={{
+            background:
+              'linear-gradient(to bottom, transparent, rgba(0,217,255,0.2) 30%, rgba(0,217,255,0.35) 60%, transparent)',
+          }}
+          aria-hidden="true"
         />
-        <span className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', fontWeight: 500 }}>
-          scroll
-        </span>
-      </motion.div>
 
-      {/* Bottom bar — slide tag + counter */}
-      <div
-        aria-hidden="true"
-        className="absolute z-30 bottom-0 left-0 right-0 grid grid-cols-3 items-center px-6 lg:px-12 xl:px-20 pb-4"
-      >
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={`tag-${activeSlide}`}
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -4 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        {/* Grid 2 columnas — refleja la Capa 2 */}
+        <div className="relative w-full h-full grid grid-cols-1 lg:grid-cols-2 px-6 lg:px-12 xl:px-20">
+          {/* Col izquierda — textos del slider sobre área vacía de Capa 2 */}
+          <div className="flex items-center pt-8 lg:pt-0">
+            <div className="pointer-events-auto w-full max-w-[480px] lg:translate-y-6">
+              <AnimatePresence mode="wait">
+                <div key={`text-${activeSlide}`}>
+                  <SlideText copy={slide.copy} extra={renderTextExtra()} />
+                </div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Col derecha — panel auxiliar + banderas (flotan sobre la imagen) */}
+          <div className="hidden lg:flex flex-col items-end justify-center gap-6">
+            <div className="pointer-events-auto w-[230px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`side-${slide.id}`}
+                  variants={sideVars}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  {renderRightColumn()}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="pointer-events-auto flex flex-col gap-2 w-[230px]">
+              <span className="text-[9px] tracking-[0.2em] uppercase text-white/80">
+                Operamos en
+              </span>
+              <div className="flex gap-2.5">
+                {[
+                  { src: '/flags/peru.png',     alt: 'Perú' },
+                  { src: '/flags/bolivia.png',  alt: 'Bolivia' },
+                  { src: '/flags/colombia.png', alt: 'Colombia' },
+                  { src: '/flags/paraguay.png', alt: 'Paraguay' },
+                ].map((flag) => (
+                  <div
+                    key={flag.src}
+                    className="w-5 h-5 rounded-full overflow-hidden border border-white/10 flex-shrink-0 bg-white/5"
+                  >
+                    <img
+                      src={flag.src}
+                      alt={flag.alt}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Indicador de scroll */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8, duration: 0.6 }}
+          className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          aria-hidden="true"
+        >
+          <motion.div
+            animate={prefersReduced ? {} : { scaleY: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-px h-10"
+            style={{ background: `linear-gradient(to bottom, ${ACCENT}, transparent)` }}
+          />
+          <span
+            className="text-xs uppercase tracking-widest"
+            style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', fontWeight: 500 }}
+          >
+            scroll
+          </span>
+        </motion.div>
+
+        {/* Barra inferior — tag + controles + counter */}
+        <div className="absolute bottom-0 left-0 right-0 grid grid-cols-3 items-center px-6 lg:px-12 xl:px-20 pb-4">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={`tag-${activeSlide}`}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -4 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 9,
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.45)',
+              }}
+            >
+              {slide.imageTag}
+            </motion.span>
+          </AnimatePresence>
+
+          {/* Flechas del slider — único punto interactivo además del CTA */}
+          <div className="pointer-events-auto flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={prev}
+              aria-label="Slide anterior"
+              className="w-7 h-7 rounded-full border border-white/15 text-white/70 text-sm hover:border-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-400/5 transition-colors"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              aria-label="Slide siguiente"
+              className="w-7 h-7 rounded-full border border-white/15 text-white/70 text-sm hover:border-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-400/5 transition-colors"
+            >
+              ›
+            </button>
+          </div>
+
+          <span
+            className="text-right"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 9,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
+              letterSpacing: '0.14em',
               color: 'rgba(255,255,255,0.45)',
             }}
           >
-            {slide.imageTag}
-          </motion.span>
-        </AnimatePresence>
+            <span style={{ color: 'rgba(34,211,238,0.8)' }}>
+              {String(activeSlide + 1).padStart(2, '0')}
+            </span>
+            {' / '}
+            {String(SLIDES.length).padStart(2, '0')}
+          </span>
+        </div>
 
-        <span
-          className="text-center"
-          style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'rgba(255,255,255,0.2)' }}
-        >
-          ·
-        </span>
+        {/* Progress bar */}
+        {!prefersReduced && (
+          <>
+            <style>{`
+              @keyframes hero-progress {
+                from { width: 0%; }
+                to   { width: 100%; }
+              }
+            `}</style>
+            <div
+              key={`progress-${activeSlide}`}
+              aria-hidden="true"
+              className="absolute bottom-0 left-0 h-[2px] pointer-events-none"
+              style={{
+                background: 'linear-gradient(to right, #06b6d4, #67e8f9)',
+                animation: 'hero-progress 5000ms linear forwards',
+                willChange: 'width',
+              }}
+            />
+          </>
+        )}
 
-        <span
-          className="text-right"
+        {/* Borde inferior decorativo */}
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 right-0 h-px"
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 9,
-            letterSpacing: '0.14em',
-            color: 'rgba(255,255,255,0.45)',
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(0,217,255,0.25) 50%, transparent 100%)',
           }}
-        >
-          <span style={{ color: 'rgba(34,211,238,0.8)' }}>{String(activeSlide + 1).padStart(2, '0')}</span>
-          {' / '}
-          {String(SLIDES.length).padStart(2, '0')}
-        </span>
+        />
       </div>
-
-      {/* Progress bar */}
-      {!prefersReduced && (
-        <>
-          <style>{`
-            @keyframes hero-progress {
-              from { width: 0%; }
-              to   { width: 100%; }
-            }
-          `}</style>
-          <div
-            key={`progress-${activeSlide}`}
-            aria-hidden="true"
-            className="absolute bottom-0 left-0 z-40 h-[2px] pointer-events-none"
-            style={{
-              background: 'linear-gradient(to right, #06b6d4, #67e8f9)',
-              animation: 'hero-progress 5000ms linear forwards',
-              willChange: 'width',
-            }}
-          />
-        </>
-      )}
-
-      {/* Decorative bottom edge */}
-      <div
-        aria-hidden="true"
-        className="absolute bottom-0 left-0 right-0 h-px z-20"
-        style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(0,217,255,0.25) 50%, transparent 100%)' }}
-      />
     </section>
   )
 }

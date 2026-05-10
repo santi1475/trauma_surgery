@@ -21,13 +21,65 @@ interface HotspotProps {
   onSelect: (id: string) => void
 }
 
-const CIRCLE_R = 29   // radio del círculo ícono (px)
-const CIRCLE_D = CIRCLE_R * 2
+// ── Defaults ─────────────────────────────────────────────────────────────
+const DEFAULT_CIRCLE_R = 29           // radio del círculo ícono (px)
+const DEFAULT_ICON_SIZE = 22          // tamaño del emoji/ícono (px)
+const DEFAULT_LINE_WIDTH = 0.7        // grosor base de la línea
+const DEFAULT_TEXT_GAP = 10           // gap círculo → texto (px)
+const DEFAULT_TEXT_VOFFSET = -22      // offset vertical del bloque de texto
+const DEFAULT_ELBOW_AT = 0.5          // codo al 50% del eje X
+
+// ── Helper: construye el path SVG de la línea conectora ─────────────────
+function buildPathD(
+  shape: NonNullable<HotspotData['lineShape']>,
+  ox: number,
+  oy: number,
+  circleR: number,
+  elbowAt: number,
+): string {
+  const goingRight = ox > 0
+  const endX = goingRight ? ox - circleR : ox + circleR
+
+  switch (shape) {
+    case 'straight': {
+      // Recta directa hasta el borde del círculo (en dirección al centro)
+      const dx = ox
+      const dy = oy
+      const len = Math.hypot(dx, dy) || 1
+      const ex = ox - (dx / len) * circleR
+      const ey = oy - (dy / len) * circleR
+      return `M 0,0 L ${ex},${ey}`
+    }
+    case 'l-shape': {
+      // Horizontal hasta elbowX, luego vertical hasta y, luego al borde
+      const elbowX = ox * elbowAt
+      return `M 0,0 L ${elbowX},0 L ${elbowX},${oy} L ${endX},${oy}`
+    }
+    case 'elbow':
+    default: {
+      // Horizontal → diagonal al borde del círculo (comportamiento original)
+      const elbowX = ox * elbowAt
+      return `M 0,0 L ${elbowX},0 L ${endX},${oy}`
+    }
+  }
+}
 
 function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSelect }: HotspotProps) {
   const ringRef = useRef<THREE.Mesh>(null)
   const pingRef = useRef<THREE.Mesh>(null)
   const pingMatRef = useRef<THREE.MeshBasicMaterial>(null)
+
+  // Resolver overrides con defaults
+  const circleR    = hotspot.circleRadius     ?? DEFAULT_CIRCLE_R
+  const circleD    = circleR * 2
+  const iconSize   = hotspot.iconSize         ?? DEFAULT_ICON_SIZE
+  const lineWidth  = hotspot.lineWidth        ?? DEFAULT_LINE_WIDTH
+  const dashed     = hotspot.dashed           ?? true
+  const textGap    = hotspot.textGap          ?? DEFAULT_TEXT_GAP
+  const textVOff   = hotspot.textVerticalOffset ?? DEFAULT_TEXT_VOFFSET
+  const textMaxW   = hotspot.textMaxWidth
+  const elbowAt    = hotspot.elbowAt          ?? DEFAULT_ELBOW_AT
+  const lineShape  = hotspot.lineShape        ?? 'elbow'
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime()
@@ -51,29 +103,31 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
   const glowColor  = isSelected ? 'rgba(212,175,55,0.4)'  : 'rgba(0,217,255,0.32)'
   const emissiveIntensity = isSelected ? 2.8 : isHovered ? 4.2 : 2.2
 
-  // Elbow path: horizontal 50% → angular to circle edge
-  const elbowX = ox * 0.50
-  const endX = ox > 0 ? ox - CIRCLE_R : ox + CIRCLE_R
-  const pathD = `M 0,0 L ${elbowX},0 L ${endX},${oy}`
+  // Path de la línea según forma elegida
+  const pathD = buildPathD(lineShape, ox, oy, circleR, elbowAt)
 
-  // Posiciones absolutas del círculo y texto
-  const circleLeft = ox - CIRCLE_R
-  const circleTop  = oy - CIRCLE_R
+  // Posiciones absolutas del círculo
+  const circleLeft = ox - circleR
+  const circleTop  = oy - circleR
 
+  // Bloque de texto: anclado al lado del círculo según `side`
   const textStyle: React.CSSProperties = hotspot.side === 'right'
     ? {
         position: 'absolute',
-        left: ox + CIRCLE_R + 10,
-        top: oy - 22,
+        left: ox + circleR + textGap,
+        top: oy + textVOff,
         textAlign: 'left',
       }
     : {
         position: 'absolute',
-        left: ox - CIRCLE_R - 10,
-        top: oy - 22,
+        left: ox - circleR - textGap,
+        top: oy + textVOff,
         textAlign: 'right',
         transform: 'translateX(-100%)',
       }
+
+  const whiteSpaceMode: React.CSSProperties['whiteSpace'] =
+    textMaxW != null ? 'normal' : 'nowrap'
 
   return (
     <group position={hotspot.position}>
@@ -103,7 +157,7 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
 
       {/* ── Label HTML ── */}
       <Html center={false} occlude={false}>
-        <div 
+        <div
           onClick={(e) => { e.stopPropagation(); onSelect(hotspot.id) }}
           onPointerOver={(e) => { e.stopPropagation(); onHover(hotspot.id) }}
           onPointerOut={() => onHover(null)}
@@ -117,7 +171,7 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
             transition: 'opacity 0.4s ease',
           }}
         >
-          {/* Conector SVG con codo */}
+          {/* Conector SVG */}
           <svg
             style={{
               position: 'absolute',
@@ -126,19 +180,23 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
               overflow: 'visible',
               width: 1,
               height: 1,
-              pointerEvents: 'none', // Las líneas no deben capturar clics
+              pointerEvents: 'none',
             }}
           >
-            {/* Punto en el hotspot */}
+            {/* Punto de origen en el hotspot */}
             <circle cx="0" cy="0" r="2.5" fill={color} fillOpacity={isHovered || isSelected ? 0.8 : 0.4} />
-            {/* Línea con codo */}
+            {/* Línea con la forma seleccionada */}
             <path
               d={pathD}
               stroke={color}
-              strokeWidth={isHovered || isSelected ? 1.2 : 0.7}
+              strokeWidth={isHovered || isSelected ? lineWidth + 0.5 : lineWidth}
               fill="none"
               strokeOpacity={isHovered || isSelected ? 0.88 : 0.42}
-              strokeDasharray={isHovered || isSelected ? undefined : '5 3'}
+              strokeDasharray={
+                isHovered || isSelected
+                  ? undefined
+                  : dashed ? '5 3' : undefined
+              }
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -149,8 +207,8 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
             position: 'absolute',
             left: circleLeft,
             top: circleTop,
-            width: CIRCLE_D,
-            height: CIRCLE_D,
+            width: circleD,
+            height: circleD,
             borderRadius: '50%',
             border: `1.5px solid ${borderColor}`,
             boxShadow: `
@@ -167,7 +225,7 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
             transition: 'border-color 0.3s, box-shadow 0.3s',
           }}>
             <span style={{
-              fontSize: 22,
+              fontSize: iconSize,
               lineHeight: 1,
               filter: isSelected
                 ? 'sepia(1) saturate(4) hue-rotate(5deg) brightness(1.2)'
@@ -186,7 +244,8 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
               fontWeight: 700,
               letterSpacing: '0.11em',
               textTransform: 'uppercase',
-              whiteSpace: 'nowrap',
+              whiteSpace: whiteSpaceMode,
+              maxWidth: textMaxW,
               color: isSelected ? '#D4AF37' : isHovered ? '#ffffff' : '#8ec8e0',
               textShadow: isSelected
                 ? '0 0 16px rgba(212,175,55,0.95)'
@@ -203,7 +262,8 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
                 fontWeight: 500,
                 letterSpacing: '0.09em',
                 textTransform: 'uppercase',
-                whiteSpace: 'nowrap',
+                whiteSpace: whiteSpaceMode,
+                maxWidth: textMaxW,
                 color: isSelected ? 'rgba(212,175,55,0.75)' : 'rgba(0,217,255,0.52)',
                 transition: 'color 0.3s',
                 marginTop: 3,
