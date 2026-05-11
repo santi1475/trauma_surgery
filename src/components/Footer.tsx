@@ -25,10 +25,10 @@ const NAV_COLS = [
 ]
 
 const PAISES = [
-  { src: '/flags/peru.png',     name: 'Perú' },
-  { src: '/flags/bolivia.png',  name: 'Bolivia' },
-  { src: '/flags/colombia.png', name: 'Colombia' },
-  { src: '/flags/paraguay.png', name: 'Paraguay' },
+  { src: '/flags/peru.svg',     name: 'Perú' },
+  { src: '/flags/bolivia.svg',  name: 'Bolivia' },
+  { src: '/flags/colombia.svg', name: 'Colombia' },
+  { src: '/flags/paraguay.svg', name: 'Paraguay' },
 ]
 
 export default function Footer() {

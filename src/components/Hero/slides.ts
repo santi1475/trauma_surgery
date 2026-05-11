@@ -1,6 +1,6 @@
 import type { SlideCopy } from './SlideText'
 
-export type SlideId = 'movimiento' | 'precision' | 'calidad'
+export type SlideId = 'movimiento' | 'precision' | 'calidad' | 'desarrollo'
 
 export interface Slide {
   id: SlideId
@@ -55,5 +55,20 @@ export const SLIDES: Slide[] = [
     imageSrc: '/IMG/HERO/Slide3.svg',
     imageLabel: 'Implante de hombro con acabado dorado — calidad certificada',
     imageTag: '03 — CALIDAD',
+  },
+  {
+    id: 'desarrollo',
+    copy: {
+      badge: 'Desarrollo avanzado',
+      headline: [
+        [{ text: 'Innovación en' }],
+        [{ text: 'cada', cyan: true }],
+        [{ text: 'detalle', cyan: true }],
+      ],
+      sub: 'Tecnología médica de alta precisión creada para responder a los desafíos de la cirugía moderna.',
+    },
+    imageSrc: '/IMG/HERO/Slide4.svg',
+    imageLabel: 'Desarrollo tecnológico médico avanzado — innovación en dispositivos quirúrgicos',
+    imageTag: '04 — DESARROLLO',
   },
 ]

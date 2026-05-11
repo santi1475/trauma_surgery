@@ -185,10 +185,10 @@ export default function Hero() {
               </span>
               <div className="flex gap-2.5">
                 {[
-                  { src: '/flags/peru.png',     alt: 'Perú' },
-                  { src: '/flags/bolivia.png',  alt: 'Bolivia' },
-                  { src: '/flags/colombia.png', alt: 'Colombia' },
-                  { src: '/flags/paraguay.png', alt: 'Paraguay' },
+                  { src: '/flags/peru.svg',     alt: 'Perú' },
+                  { src: '/flags/bolivia.svg',  alt: 'Bolivia' },
+                  { src: '/flags/colombia.svg', alt: 'Colombia' },
+                  { src: '/flags/paraguay.svg', alt: 'Paraguay' },
                 ].map((flag) => (
                   <div
                     key={flag.src}

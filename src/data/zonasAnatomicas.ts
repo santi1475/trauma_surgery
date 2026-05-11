@@ -87,7 +87,7 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     color: '#00a8cc',
     vistaIndex: 3,
     meshNames: ['Pelvis', 'Hip', 'pelvis', 'Cadera', 'cadera', 'Iliaco', 'Sacrum', 'ilium'],
-    // imagenProtesis: '/IMG/MODEL/CADERA.png', // ⚠ falta archivo
+    imagenProtesis: '/IMG/MODEL/CADERA.svg', // ⚠ falta archivo
   },
   {
     id: 'rodilla',
@@ -107,7 +107,7 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     color: '#0099cc',
     vistaIndex: 4,
     meshNames: ['Rodilla', 'Knee', 'Tibia', 'Femur', 'knee', 'tibia', 'femur'],
-    // imagenProtesis: '/IMG/MODEL/RODILLA.png', // ⚠ falta archivo
+    imagenProtesis: '/IMG/MODEL/RODILLA.png', // ⚠ falta archivo
   },
   {
     id: 'pie',
@@ -127,6 +127,6 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     color: '#0077aa',
     vistaIndex: 5,
     meshNames: ['Pie', 'Foot', 'Calcaneo', 'Tobillo', 'foot', 'calcaneus', 'ankle'],
-    // imagenProtesis: '/IMG/MODEL/PIE.png', // ⚠ falta archivo
+    imagenProtesis: '/IMG/MODEL/PIE.png', // ⚠ falta archivo
   },
 ]
