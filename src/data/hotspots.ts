@@ -52,38 +52,31 @@ export interface HotspotData {
   iconSize?: number
 }
 
-// Posiciones calibradas con debug + rotación PI/2 en Y aplicada matemáticamente
+// Posiciones calibradas con debug + rotación PI/2 en Y aplicada matemáticamente.
+// Solo zonas habilitadas: MANO, HOMBRO, CADERA, RODILLA, PIE.
 export const HOTSPOTS: HotspotData[] = [
   {
-    id: 'craneo',
-    label: 'CRÁNEO',
-    sublabel: 'Y MAXILOFACIAL',
-    icon: '💀',
-    position: [-0.007, 0.783, -0.100],
-    labelOffset: [130, -55],
-    side: 'right',
-  },
-  {
-    id: 'columna',
-    label: 'COLUMNA',
-    sublabel: 'VERTEBRAL',
-    icon: '🦴',
-    position: [-0.010, 0.393, 0.095],
-    labelOffset: [-130, 0],
+    id: 'mano',
+    label: 'MANO',
+    sublabel: 'Y MUÑECA',
+    icon: '🖐️',
+    // ⚠ Estimado — recalibrar
+    position: [-0.30, 0.20, 0.05],
+    labelOffset: [-130, -15],
     side: 'left',
   },
   {
     id: 'hombro',
-    label: 'EXTREMIDADES',
-    sublabel: 'SUPERIORES',
+    label: 'HOMBRO',
+    sublabel: 'EXTREMIDAD SUPERIOR',
     icon: '🦾',
     position: [-0.202, 0.585, 0.055],
     labelOffset: [-130, -25],
     side: 'left',
   },
   {
-    id: 'pelvis',
-    label: 'PELVIS',
+    id: 'cadera',
+    label: 'CADERA',
     sublabel: 'Y ACETÁBULO',
     icon: '🦴',
     position: [0.109, 0.134, 0.013],
@@ -92,11 +85,20 @@ export const HOTSPOTS: HotspotData[] = [
   },
   {
     id: 'rodilla',
-    label: 'EXTREMIDADES',
-    sublabel: 'INFERIORES',
+    label: 'RODILLA',
+    sublabel: 'EXTREMIDAD INFERIOR',
     icon: '🦿',
     position: [0.100, -0.356, -0.041],
     labelOffset: [130, 5],
+    side: 'right',
+  },
+  {
+    id: 'pie',
+    label: 'PIE',
+    sublabel: 'Y TOBILLO',
+    icon: '🦶',
+    position: [0.080, -0.72, -0.020],
+    labelOffset: [130, 10],
     side: 'right',
   },
 ]

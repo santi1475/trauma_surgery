@@ -19,27 +19,35 @@ export interface ZonaAnatomica {
    * Ver instrucciones en ModelSkeleton.tsx para separar el modelo.
    */
   meshNames?: string[]
+  /**
+   * Ruta estática a la imagen de la prótesis correspondiente a la zona.
+   * Solo MANO y HOMBRO están disponibles actualmente; el resto se mostrará
+   * con fallback "Imagen no disponible" hasta que se agreguen los archivos.
+   */
+  imagenProtesis?: string
 }
 
 export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
   {
-    id: 'craneo',
-    label: 'Cráneo',
-    icon: '💀',
-    position: [-0.007, 0.783, -0.100],
-    hitboxRadius: 0.11,
-    categoria: 'Neurocirugía Craneal',
+    id: 'mano',
+    label: 'Mano',
+    icon: '🖐️',
+    // Coords aproximadas — recalibrar con debug={true} y click en consola
+    position: [-0.30, 0.20, 0.05],
+    hitboxRadius: 0.10,
+    categoria: 'Miembro Superior',
     descripcion:
-      'Placas y tornillos de titanio para reconstrucción craneal y fijación de fragmentos óseos en trauma craneofacial de alta complejidad.',
+      'Sistemas de osteosíntesis para fracturas de mano y muñeca. Placas y tornillos de bajo perfil específicos para metacarpianos, falanges y radio distal.',
     productos: [
-      'Placas Craneales de Titanio',
-      'Tornillos Corticales 1.5 / 2.0 mm',
-      'Mallas de Titanio Craneal',
+      'Placa Radio Distal Volar',
+      'Mini Placas de Mano 1.5 / 2.0 mm',
+      'Tornillos Canulados Escafoides',
     ],
     href: '#soluciones',
     color: '#00d9ff',
     vistaIndex: 1,
-    meshNames: ['Craneo', 'Skull', 'Head', 'skull', 'craneo', 'cranium'],
+    meshNames: ['Mano', 'Hand', 'mano', 'hand', 'Wrist', 'wrist', 'Radio', 'Carpo'],
+    imagenProtesis: '/IMG/MODEL/MANO.png',
   },
   {
     id: 'hombro',
@@ -59,44 +67,27 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     color: '#00c8f0',
     vistaIndex: 2,
     meshNames: ['Hombro', 'Shoulder', 'Humero', 'Clavicle', 'shoulder', 'humerus'],
+    imagenProtesis: '/IMG/MODEL/HOMBRO.png',
   },
   {
-    id: 'columna',
-    label: 'Columna',
-    icon: '🦴',
-    position: [-0.010, 0.393, 0.095],
-    hitboxRadius: 0.13,
-    categoria: 'Columna Vertebral',
-    descripcion:
-      'Implantes para estabilización vertebral, corrección de deformidades espinales y artrodesis lumbar y cervical de mínimo acceso.',
-    productos: [
-      'Tornillos Pediculares Titanio',
-      'Barras de Titanio 5.5 mm',
-      'Cajas Intersomáticas TLIF / PLIF',
-    ],
-    href: '#soluciones',
-    color: '#4dd0ff',
-    vistaIndex: 3,
-    meshNames: ['Columna', 'Spine', 'Vertebra', 'vertebra', 'spine', 'vertebrae'],
-  },
-  {
-    id: 'pelvis',
-    label: 'Pelvis',
+    id: 'cadera',
+    label: 'Cadera',
     icon: '🦴',
     position: [0.109, 0.134, 0.013],
     hitboxRadius: 0.15,
-    categoria: 'Trauma Pélvico',
+    categoria: 'Reemplazo Articular',
     descripcion:
-      'Placas de reconstrucción acetabular y tornillos iliosacros para fracturas pélvicas complejas de alta energía y trauma severo.',
+      'Sistemas de artroplastia total de cadera y placas de reconstrucción acetabular para fracturas pélvicas complejas y reemplazos protésicos.',
     productos: [
+      'Prótesis Total de Cadera',
       'Placa Reconstrucción Pélvica',
       'Tornillo Iliosacro 7.3 mm',
-      'Placa Acetabular 3.5 mm',
     ],
     href: '#soluciones',
     color: '#00a8cc',
-    vistaIndex: 4,
-    meshNames: ['Pelvis', 'Hip', 'pelvis', 'Iliaco', 'Sacrum', 'ilium'],
+    vistaIndex: 3,
+    meshNames: ['Pelvis', 'Hip', 'pelvis', 'Cadera', 'cadera', 'Iliaco', 'Sacrum', 'ilium'],
+    // imagenProtesis: '/IMG/MODEL/CADERA.png', // ⚠ falta archivo
   },
   {
     id: 'rodilla',
@@ -114,8 +105,9 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     ],
     href: '#soluciones',
     color: '#0099cc',
-    vistaIndex: 5,
+    vistaIndex: 4,
     meshNames: ['Rodilla', 'Knee', 'Tibia', 'Femur', 'knee', 'tibia', 'femur'],
+    // imagenProtesis: '/IMG/MODEL/RODILLA.png', // ⚠ falta archivo
   },
   {
     id: 'pie',
@@ -133,7 +125,8 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     ],
     href: '#soluciones',
     color: '#0077aa',
-    vistaIndex: 6,
+    vistaIndex: 5,
     meshNames: ['Pie', 'Foot', 'Calcaneo', 'Tobillo', 'foot', 'calcaneus', 'ankle'],
+    // imagenProtesis: '/IMG/MODEL/PIE.png', // ⚠ falta archivo
   },
 ]

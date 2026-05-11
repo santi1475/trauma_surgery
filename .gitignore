@@ -30,3 +30,6 @@ pnpm-debug.log*
 CLAUDE.md
 skills-lock.json
 .docs
+.impeccable
+PRODUCT.md
+DESIGN.md

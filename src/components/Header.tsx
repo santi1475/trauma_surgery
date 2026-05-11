@@ -1,6 +1,8 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const NAV_LINKS = [
   { label: 'Soluciones', href: '#soluciones' },
@@ -19,26 +21,99 @@ const COUNTRIES = [
 
 const TOP_H = 36
 
+// Umbrales — separados para estilos vs. ocultamiento.
+const STYLE_THRESHOLD = 60   // px hasta los que cambia padding/background
+const HIDE_THRESHOLD = 80    // px bajo los cuales el header se queda visible
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const headerRef = useRef<HTMLElement>(null)
+  const menuOpenRef = useRef(menuOpen)
 
+  // Espejo del estado para leerlo dentro del callback de ScrollTrigger sin deps.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    menuOpenRef.current = menuOpen
+  }, [menuOpen])
+
+  // ── GSAP ScrollTrigger ──────────────────────────────────────────────
+  // Anima yPercent del header según dirección del scroll. La animación
+  // corre vía GSAP sobre el DOM directamente — cero re-renders de React.
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return
+    const el = headerRef.current
+    if (!el) return
+
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      gsap.set(el, { yPercent: 0, force3D: true })
+      gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.55, ease: 'power2.out' })
+
+      let lastDir = -1          // 1 = down, -1 = up
+      let lastScrolled = false
+
+      const showHide = (hide: boolean) => {
+        gsap.to(el, {
+          yPercent: hide ? -100 : 0,
+          duration: 0.45,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        })
+      }
+
+      ScrollTrigger.create({
+        start: 0,
+        end: 'max',
+        onUpdate: (self) => {
+          const y = self.scroll()
+
+          // Estilos: padding/background — flip por umbral, no por frame.
+          const isScrolled = y > STYLE_THRESHOLD
+          if (isScrolled !== lastScrolled) {
+            lastScrolled = isScrolled
+            setScrolled(isScrolled)
+          }
+
+          // Cerca del tope o menú móvil abierto → forzar visible.
+          if (y < HIDE_THRESHOLD || menuOpenRef.current) {
+            if (lastDir !== -1) {
+              lastDir = -1
+              showHide(false)
+            }
+            return
+          }
+
+          const dir = self.direction
+          if (dir === lastDir) return
+          lastDir = dir
+          showHide(dir === 1)
+        },
+      })
+    }, headerRef)
+
+    return () => ctx.revert()
   }, [])
+
+  // Al abrir el menú móvil, restaurar inmediatamente la posición.
+  useLayoutEffect(() => {
+    if (!menuOpen || !headerRef.current) return
+    gsap.to(headerRef.current, {
+      yPercent: 0,
+      duration: 0.3,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    })
+  }, [menuOpen])
 
   return (
     <>
 
       {/* ── Main Header ── */}
-      <motion.header
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      <header
+        ref={headerRef}
         role="banner"
-        className="fixed left-0 right-0 z-50 flex items-center justify-between transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between will-change-transform"
         style={{
           padding: scrolled ? '12px 60px' : '18px 60px',
           background: scrolled ? 'rgba(1,7,15,0.92)' : '#01070f',
@@ -46,6 +121,7 @@ export default function Header() {
           WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(180%)' : 'none',
           borderBottom: '1px solid rgba(0,217,255,0.18)',
           boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.45)' : '0 1px 0 rgba(0,217,255,0.05)',
+          transition: 'padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease',
         }}
       >
         {/* Logo */}
@@ -277,7 +353,7 @@ export default function Header() {
             </div>
           </motion.div>
         )}
-      </motion.header>
+      </header>
     </>
   )
 }

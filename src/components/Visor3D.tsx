@@ -1,6 +1,6 @@
 import React, { Suspense, useRef, useState, useEffect, useCallback } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { CameraControls, Environment, Html, useProgress } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
+import { CameraControls, Environment, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { ModelSkeleton } from './ModelSkeleton'
 import { LightingRig } from './3d/LightingRig'
@@ -10,6 +10,9 @@ import type { VistaAnatomica } from '@/interface/vistas'
 import { VISTAS_ANATOMICAS } from '@/data/vistasAnatomicas'
 import { ZONAS_ANATOMICAS, type ZonaAnatomica } from '@/data/zonasAnatomicas'
 import { HOTSPOTS } from '@/data/hotspots'
+import { Cargador } from './visor/Cargador'
+import { Rotador } from './visor/Rotador'
+import { VisorUIOverlay } from './visor/VisorUIOverlay'
 
 export type CameraState = 'free' | 'focusing' | 'focused' | 'returning'
 
@@ -20,121 +23,6 @@ interface Visor3DProps {
   onZoneSelect?: (zone: ZonaAnatomica | null) => void
   selectedZoneId?: string | null
   debug?: boolean
-}
-
-function Cargador() {
-  const { progress } = useProgress()
-  return (
-    <Html center>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-        <div style={{
-          width: 80,
-          height: 2,
-          background: 'rgba(0,217,255,0.15)',
-          borderRadius: 2,
-          overflow: 'hidden',
-        }}>
-          <div style={{
-            width: `${progress}%`,
-            height: '100%',
-            background: 'linear-gradient(90deg, #00a8cc, #00d9ff)',
-            transition: 'width 0.3s ease',
-            boxShadow: '0 0 10px #00d9ff',
-          }} />
-        </div>
-        <span style={{
-          fontFamily: 'monospace',
-          fontSize: 10,
-          letterSpacing: '0.15em',
-          color: '#00d9ff',
-        }}>
-          CARGANDO {progress.toFixed(0)}%
-        </span>
-      </div>
-    </Html>
-  )
-}
-
-interface RotadorProps {
-  rotacionActiva: boolean
-  animando: boolean
-  cameraControlsRef: React.RefObject<CameraControls | null>
-}
-
-function Rotador({ rotacionActiva, animando, cameraControlsRef }: RotadorProps) {
-  useFrame((_, delta) => {
-    if (rotacionActiva && !animando && cameraControlsRef.current) {
-      cameraControlsRef.current.rotate(delta * 0.15, 0, false)
-    }
-  })
-  return null
-}
-
-function ZoneButton({
-  zone,
-  active,
-  onClick,
-}: {
-  zone: ZonaAnatomica
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        padding: '6px 10px',
-        borderRadius: 6,
-        border: active
-          ? `1px solid ${zone.color}55`
-          : '1px solid rgba(255,255,255,0.05)',
-        background: active ? `${zone.color}12` : 'rgba(255,255,255,0.02)',
-        cursor: 'pointer',
-        width: '100%',
-        textAlign: 'left',
-        transition: 'all 0.18s',
-      }}
-      onMouseEnter={(e) => {
-        if (active) return
-        ;(e.currentTarget as HTMLElement).style.background = 'rgba(0,217,255,0.06)'
-        ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.20)'
-      }}
-      onMouseLeave={(e) => {
-        if (active) return
-        ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)'
-        ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.05)'
-      }}
-    >
-      <div style={{
-        width: 5,
-        height: 5,
-        borderRadius: '50%',
-        flexShrink: 0,
-        background: active ? zone.color : 'rgba(255,255,255,0.18)',
-        boxShadow: active ? `0 0 7px ${zone.color}` : 'none',
-        transition: 'all 0.18s',
-      }} />
-      <span style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: 10,
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase',
-        color: active ? zone.color : 'rgba(255,255,255,0.45)',
-        transition: 'color 0.18s',
-        flex: 1,
-      }}>
-        {zone.label}
-      </span>
-      {active && (
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8, color: zone.color, opacity: 0.8 }}>
-          ▶
-        </span>
-      )}
-    </button>
-  )
 }
 
 export default function Visor3D({
@@ -148,7 +36,7 @@ export default function Visor3D({
   const cameraControlsRef = useRef<CameraControls>(null)
   const [rotacionActiva, setRotacionActiva] = useState(true)
   const [animando, setAnimando] = useState(false)
-  const [vistaSeleccionada, setVistaSeleccionada] = useState<number | null>(null)
+  const [, setVistaSeleccionada] = useState<number | null>(null)
   const [hoveredZoneId, setHoveredZoneId] = useState<string | null>(null)
   const [internalSelectedZone, setInternalSelectedZone] = useState<string | null>(null)
 
@@ -189,7 +77,7 @@ export default function Visor3D({
     await cameraControlsRef.current.setLookAt(
       ...VISTAS_ANATOMICAS[0].cameraPosition,
       ...VISTAS_ANATOMICAS[0].target,
-      true
+      true,
     )
     setAnimando(false)
     setRotacionActiva(true)
@@ -198,12 +86,21 @@ export default function Visor3D({
     onZoneSelect?.(null)
   }, [onZoneSelect])
 
+  const handleToggleRotation = useCallback(() => {
+    if (animando) return
+    setRotacionActiva((v) => {
+      const next = !v
+      if (next) setVistaSeleccionada(null)
+      return next
+    })
+  }, [animando])
+
   useEffect(() => {
     const t = setTimeout(() => {
       cameraControlsRef.current?.setLookAt(
         ...VISTAS_ANATOMICAS[0].cameraPosition,
         ...VISTAS_ANATOMICAS[0].target,
-        false
+        false,
       )
     }, 800)
     return () => clearTimeout(t)
@@ -230,8 +127,6 @@ export default function Visor3D({
     }
   }, [animando])
 
-  const activeHotspot = HOTSPOTS.find((h) => h.id === selectedZone)
-
   // ── SSR guard + viewport-pause (frameloop on demand) ───────────────
   const sectionRef = useRef<HTMLElement>(null)
   const [mounted, setMounted] = useState(false)
@@ -248,10 +143,56 @@ export default function Visor3D({
     }
     const io = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
-      { rootMargin: '120px 0px', threshold: 0.05 }
+      { rootMargin: '120px 0px', threshold: 0.05 },
     )
     io.observe(el)
     return () => io.disconnect()
+  }, [mounted])
+
+  // ── UX híbrida del scroll/zoom ──────────────────────────────────────
+  // Wheel sólo hace dolly cuando el cursor está dentro del 50% central del
+  // contenedor (banda [0.25, 0.75] del ancho). En los tercios laterales —
+  // donde viven los paneles UI — el wheel se desactiva y el scroll de la
+  // página fluye natural. Enum camera-controls: NONE = 0, DOLLY = 8.
+  useEffect(() => {
+    if (!mounted) return
+    const section = sectionRef.current
+    if (!section) return
+
+    const ZOOM_BAND_MIN = 0.25
+    const ZOOM_BAND_MAX = 0.75
+    let currentWheel = -1
+
+    const setWheel = (value: number) => {
+      if (currentWheel === value) return
+      const c = cameraControlsRef.current as unknown as
+        | { mouseButtons?: { wheel: number } }
+        | null
+      if (!c?.mouseButtons) return
+      c.mouseButtons.wheel = value
+      currentWheel = value
+    }
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const rect = section.getBoundingClientRect()
+      if (rect.width <= 0) return
+      const xRel = (e.clientX - rect.left) / rect.width
+      const inBand = xRel >= ZOOM_BAND_MIN && xRel <= ZOOM_BAND_MAX
+      setWheel(inBand ? 8 : 0)
+    }
+
+    const handlePointerLeave = () => setWheel(0)
+
+    // Estado inicial: sin zoom hasta que el cursor entre en la banda
+    const raf = requestAnimationFrame(() => setWheel(0))
+
+    section.addEventListener('pointermove', handlePointerMove)
+    section.addEventListener('pointerleave', handlePointerLeave)
+    return () => {
+      cancelAnimationFrame(raf)
+      section.removeEventListener('pointermove', handlePointerMove)
+      section.removeEventListener('pointerleave', handlePointerLeave)
+    }
   }, [mounted])
 
   return (
@@ -260,269 +201,93 @@ export default function Visor3D({
       className="relative w-full h-screen"
       style={{ background: 'linear-gradient(180deg, #041830 0%, #020d1a 40%, #041830 100%)' }}
     >
-      {/* Resplandor central */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(0,82,163,0.25) 0%, transparent 70%)' }}
       />
 
-      {/* ── Panel anatómico — derecha ─────────────────────────────────────── */}
-      {showPanel && (
-        <div
-          className="absolute top-24 right-8 z-10 hidden lg:flex flex-col"
-          style={{
-            background: 'rgba(2,6,18,0.82)',
-            backdropFilter: 'blur(22px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(22px) saturate(180%)',
-            border: '1px solid rgba(0,217,255,0.10)',
-            borderRadius: 10,
-            boxShadow: '0 0 48px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.02)',
-            padding: '14px 12px',
-            minWidth: 186,
-            gap: 0,
-          }}
-        >
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 7,
-            paddingBottom: 10,
-            marginBottom: 8,
-            borderBottom: '1px solid rgba(0,217,255,0.08)',
-          }}>
-            <div style={{
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              background: '#00d9ff',
-              boxShadow: '0 0 7px #00d9ff',
-              flexShrink: 0,
-            }} />
-            <span style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 9,
-              letterSpacing: '0.16em',
-              color: 'rgba(0,217,255,0.65)',
-              textTransform: 'uppercase',
-            }}>
-              Enfoque Anatómico
-            </span>
-          </div>
+      <VisorUIOverlay
+        showPanel={showPanel}
+        selectedZoneId={selectedZone}
+        rotacionActiva={rotacionActiva}
+        animando={animando}
+        cameraState={cameraState}
+        onZoneClick={handleZoneClick}
+        onToggleRotation={handleToggleRotation}
+        onReset={resetCamera}
+      />
 
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 1,
-            background: 'linear-gradient(90deg, transparent, rgba(0,217,255,0.3), transparent)',
-            borderRadius: '10px 10px 0 0',
-          }} />
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-            {ZONAS_ANATOMICAS.map((zone) => (
-              <ZoneButton
-                key={zone.id}
-                zone={zone}
-                active={selectedZone === zone.id}
-                onClick={() => handleZoneClick(zone)}
-              />
-            ))}
-          </div>
-
-          <div style={{ height: 1, background: 'rgba(255,255,255,0.05)', margin: '10px 0 8px' }} />
-
-          <button
-            onClick={() => {
-              if (!animando) {
-                setRotacionActiva((v) => !v)
-                if (!rotacionActiva) setVistaSeleccionada(null)
-              }
-            }}
-            disabled={animando}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 7,
-              padding: '6px 10px',
-              borderRadius: 6,
-              border: rotacionActiva
-                ? '1px solid rgba(0,217,255,0.22)'
-                : '1px solid rgba(255,255,255,0.06)',
-              background: rotacionActiva ? 'rgba(0,217,255,0.07)' : 'transparent',
-              color: animando
-                ? 'rgba(255,255,255,0.18)'
-                : rotacionActiva
-                  ? '#00d9ff'
-                  : 'rgba(255,255,255,0.30)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: 9,
-              letterSpacing: '0.10em',
-              textTransform: 'uppercase',
-              cursor: animando ? 'not-allowed' : 'pointer',
-              width: '100%',
-              transition: 'all 0.2s',
-            }}
-          >
-            <span style={{
-              width: 5,
-              height: 5,
-              borderRadius: '50%',
-              flexShrink: 0,
-              background: !animando && rotacionActiva ? '#00d9ff' : 'rgba(255,255,255,0.15)',
-              boxShadow: !animando && rotacionActiva ? '0 0 6px #00d9ff' : 'none',
-              display: 'inline-block',
-            }} />
-            {animando ? 'Transitando...' : rotacionActiva ? 'Rotación activa' : 'Rotación pausada'}
-          </button>
-        </div>
-      )}
-
-      {/* ── Botón volver — aparece al seleccionar zona ───────────────────── */}
-      {selectedZone && cameraState === 'focused' && (
-        <button
-          onClick={resetCamera}
-          style={{
-            position: 'absolute',
-            top: '1.5rem',
-            left: '1.5rem',
-            zIndex: 10,
-            fontFamily: 'Orbitron, sans-serif',
-            fontSize: '11px',
-            fontWeight: 600,
-            letterSpacing: '0.12em',
-            color: '#00d9ff',
-            background: 'rgba(2, 13, 26, 0.85)',
-            border: '1px solid rgba(0, 217, 255, 0.3)',
-            padding: '7px 16px',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            backdropFilter: 'blur(8px)',
-            transition: 'all 0.2s ease',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,217,255,0.8)'
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,217,255,0.3)'
-          }}
-        >
-          ← VOLVER
-        </button>
-      )}
-
-      {/* ── Indicador de zona activa — inferior centrado ──────────────────── */}
-      {selectedZone && (
-        <button
-          onClick={() => selectedZone && handleHotspotSelect(selectedZone)}
-          style={{
-            position: 'absolute',
-            bottom: '1.5rem',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 10,
-            fontFamily: 'Orbitron, sans-serif',
-            fontSize: '10px',
-            letterSpacing: '0.15em',
-            color: '#D4AF37',
-            textTransform: 'uppercase',
-            opacity: 0.75,
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            padding: '10px 20px',
-          }}
-          onMouseEnter={(e) => {
-            const btn = e.currentTarget as HTMLButtonElement;
-            btn.style.opacity = '1';
-            btn.style.transform = 'translateX(-50%) scale(1.05)';
-            btn.style.textShadow = '0 0 10px rgba(212,175,55,0.4)';
-          }}
-          onMouseLeave={(e) => {
-            const btn = e.currentTarget as HTMLButtonElement;
-            btn.style.opacity = '0.75';
-            btn.style.transform = 'translateX(-50%) scale(1)';
-            btn.style.textShadow = 'none';
-          }}
-        >
-          {activeHotspot?.label ?? selectedZone?.toUpperCase() ?? ''}
-        </button>
-      )}
-
-      {/* ── Canvas Three.js ───────────────────────────────────────────────── */}
       {mounted && (
-      <Canvas
-        dpr={[1, 1.5]}
-        frameloop={inView ? 'always' : 'never'}
-        gl={{
-          toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.4,
-          outputColorSpace: THREE.SRGBColorSpace,
-          antialias: true,
-          alpha: true,
-          powerPreference: 'high-performance',
-        }}
-        onCreated={({ gl }) => { gl.setClearColor(0x000000, 0) }}
-        camera={{ position: [0, 0.2, 2.4], fov: 45 }}
-      >
-        <Suspense fallback={<Cargador />}>
-          <Environment preset="studio" environmentIntensity={0.4} />
+        <Canvas
+          dpr={[1, 1.5]}
+          frameloop={inView ? 'always' : 'never'}
+          gl={{
+            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMappingExposure: 1.4,
+            outputColorSpace: THREE.SRGBColorSpace,
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance',
+          }}
+          onCreated={({ gl }) => { gl.setClearColor(0x000000, 0) }}
+          camera={{ position: [0, 0.2, 2.4], fov: 45 }}
+        >
+          <Suspense fallback={<Cargador />}>
+            <Environment preset="studio" environmentIntensity={0.4} />
 
-          <LightingRig selectedZone={selectedZone} hotspots={HOTSPOTS} />
+            <LightingRig selectedZone={selectedZone} hotspots={HOTSPOTS} />
 
-          <AmbientParticles count={80} />
+            <AmbientParticles count={80} />
 
-          <ModelSkeleton
-            hoveredZoneId={hoveredZoneId}
-            selectedZoneId={selectedZone}
-            onZoneHover={setHoveredZoneId}
-            onZoneClick={handleZoneClick}
-            debug={debug}
+            <ModelSkeleton
+              hoveredZoneId={hoveredZoneId}
+              selectedZoneId={selectedZone}
+              onZoneHover={setHoveredZoneId}
+              onZoneClick={handleZoneClick}
+              debug={debug}
+            />
+
+            <AnatomicHotspots
+              hoveredZone={hoveredZoneId}
+              selectedZone={selectedZone}
+              onHover={setHoveredZoneId}
+              onSelect={handleHotspotSelect}
+            />
+
+            {debug && (
+              <>
+                {/* @ts-ignore */}
+                <axesHelper args={[2]} />
+                {/* @ts-ignore */}
+                <gridHelper args={[4, 20, '#003344', '#001a22']} />
+                {HOTSPOTS.map((h) => (
+                  <Html key={h.id} position={h.position} style={{ pointerEvents: 'none' }}>
+                    <div style={{ color: '#ffff00', fontSize: '9px', fontFamily: 'monospace', whiteSpace: 'nowrap' }}>
+                      [{h.position.join(', ')}]
+                    </div>
+                  </Html>
+                ))}
+              </>
+            )}
+          </Suspense>
+
+          <Rotador
+            rotacionActiva={rotacionActiva}
+            animando={animando}
+            cameraControlsRef={cameraControlsRef}
           />
 
-          <AnatomicHotspots
-            hoveredZone={hoveredZoneId}
-            selectedZone={selectedZone}
-            onHover={setHoveredZoneId}
-            onSelect={handleHotspotSelect}
+          <CameraControls
+            ref={cameraControlsRef}
+            makeDefault
+            minPolarAngle={0}
+            maxPolarAngle={Math.PI / 1.75}
+            minDistance={1.2}
+            maxDistance={3.5}
+            onStart={manejarInteraccionUsuario}
           />
-
-          {debug && (
-            <>
-              {/* @ts-ignore */}
-              <axesHelper args={[2]} />
-              {/* @ts-ignore */}
-              <gridHelper args={[4, 20, '#003344', '#001a22']} />
-              {HOTSPOTS.map((h) => (
-                <Html key={h.id} position={h.position} style={{ pointerEvents: 'none' }}>
-                  <div style={{ color: '#ffff00', fontSize: '9px', fontFamily: 'monospace', whiteSpace: 'nowrap' }}>
-                    [{h.position.join(', ')}]
-                  </div>
-                </Html>
-              ))}
-            </>
-          )}
-        </Suspense>
-
-        <Rotador
-          rotacionActiva={rotacionActiva}
-          animando={animando}
-          cameraControlsRef={cameraControlsRef}
-        />
-
-        <CameraControls
-          ref={cameraControlsRef}
-          makeDefault
-          minPolarAngle={0}
-          maxPolarAngle={Math.PI / 1.75}
-          minDistance={1.2}
-          maxDistance={3.5}
-          onStart={manejarInteraccionUsuario}
-        />
-      </Canvas>
+        </Canvas>
       )}
     </section>
   )
