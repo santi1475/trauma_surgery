@@ -1,0 +1,146 @@
+---
+// Página: Sistemas de Reemplazo Articular
+// Línea de producto — implantes de cadera, rodilla y hombro
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import CatalogoGrid from '../../features/reemplazo-articular/components/CatalogoGrid'
+
+const empresa = 'TraumaSurgery'
+const titulo = 'Sistemas de Reemplazo Articular'
+const subtitulo =
+  'Implantes de cadera, rodilla y hombro diseñados para restaurar la función y calidad de vida del paciente.'
+const descripcion =
+  'Implantes de cadera, rodilla y hombro de grado quirúrgico. Diseño biomecánico, materiales certificados y trazabilidad completa para cirugía ortopédica de precisión.'
+---
+
+<Layout title={`${titulo} | ${empresa}`} description={descripcion}>
+  <Header client:only="react" />
+
+  <main id="contenido" class="block">
+    <!-- Hero — Línea de producto -->
+    <section
+      class="relative isolate overflow-hidden"
+      style="background: var(--bg-deep, #020b18);"
+      aria-labelledby="hero-title"
+    >
+      <!-- Decorativos de atmósfera (no semánticos) -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 opacity-60"
+        style="background:
+          radial-gradient(60% 50% at 20% 10%, rgba(0,217,255,0.10), transparent 60%),
+          radial-gradient(50% 40% at 80% 90%, rgba(10,58,96,0.55), transparent 65%);"
+      ></div>
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style="background-image:
+          linear-gradient(rgba(0,217,255,0.4) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,217,255,0.4) 1px, transparent 1px);
+          background-size: 56px 56px;"
+      ></div>
+
+      <div class="relative mx-auto max-w-7xl px-6 pt-32 pb-24 sm:pt-40 sm:pb-32 lg:px-8">
+        <!-- Breadcrumb semántico — retorno a HOME -->
+        <nav aria-label="Ruta de navegación" class="mb-6">
+          <ol class="flex flex-wrap items-center gap-2 text-sm" style="color: rgba(255,255,255,0.45);">
+            <li>
+              <a
+                href="/"
+                class="transition-colors hover:underline focus-visible:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-sm"
+                style="color: #00d9ff; --tw-ring-color: rgba(0,217,255,0.6); --tw-ring-offset-color: #020b18;"
+              >
+                Inicio
+              </a>
+            </li>
+            <li aria-hidden="true">›</li>
+            <li aria-current="page">Reemplazo Articular</li>
+          </ol>
+        </nav>
+
+        <!-- Etiqueta superior -->
+        <span
+          class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.18em]"
+          style="
+            color: var(--ts-accent, #00d9ff);
+            border-color: rgba(0,217,255,0.25);
+            background: rgba(0,217,255,0.06);
+          "
+        >
+          <span
+            aria-hidden="true"
+            class="h-1.5 w-1.5 rounded-full"
+            style="background: var(--ts-accent, #00d9ff); box-shadow: 0 0 8px rgba(0,217,255,0.7);"
+          ></span>
+          Línea de producto
+        </span>
+
+        <!-- H1 único -->
+        <h1
+          id="hero-title"
+          class="mt-6 max-w-4xl text-balance font-heading text-4xl font-bold leading-[1.05] text-white sm:text-5xl lg:text-6xl"
+        >
+          {titulo}
+        </h1>
+
+        <!-- Subtítulo -->
+        <p class="mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
+          {subtitulo}
+        </p>
+
+        <!-- Línea acento — se dibuja de izq a der vía GSAP (ver <script> al final) -->
+        <div
+          aria-hidden="true"
+          class="hero-accent-line mt-10 h-px w-24"
+          style="background: linear-gradient(90deg, var(--ts-accent, #00d9ff), transparent); transform: scaleX(0); transform-origin: left center;"
+        ></div>
+      </div>
+    </section>
+
+    <!-- Catálogo de productos por región anatómica -->
+    <CatalogoGrid client:visible />
+  </main>
+
+  <!-- Botón flotante "Volver" — solo mobile/tablet (en desktop el Header ya cubre la navegación) -->
+  <a
+    href="/"
+    aria-label="Volver al inicio"
+    class="fixed bottom-6 left-6 z-50 inline-flex min-h-[44px] items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition hover:scale-[1.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:hidden"
+    style="
+      background: rgba(0,217,255,0.10);
+      border: 1px solid rgba(0,217,255,0.30);
+      color: #00d9ff;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      --tw-ring-color: rgba(0,217,255,0.6);
+      --tw-ring-offset-color: #020b18;
+    "
+  >
+    ← Inicio
+  </a>
+
+  <Footer client:visible />
+</Layout>
+
+<!-- ─── Animación Hero (GSAP) — línea cian se dibuja izq → der ─── -->
+<script>
+  import { gsap } from 'gsap'
+
+  // Respetar prefers-reduced-motion: saltar animación si está activo.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const line = document.querySelector('.hero-accent-line') as HTMLElement | null
+
+  if (line) {
+    if (reduce) {
+      // Restaurar estado final sin animación.
+      line.style.transform = 'scaleX(1)'
+    } else {
+      gsap.fromTo(
+        line,
+        { scaleX: 0, transformOrigin: 'left center' },
+        { scaleX: 1, duration: 1.2, ease: 'power3.out', delay: 0.4 }
+      )
+    }
+  }
+</script>

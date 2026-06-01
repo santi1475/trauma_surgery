@@ -1,0 +1,141 @@
+---
+// Página: Sistemas de Osteosíntesis
+// Línea de producto — placas, tornillos y clavos intramedulares
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+
+const empresa = 'TraumaSurgery'
+const titulo = 'Sistemas de Osteosíntesis'
+const subtitulo =
+  'Placas, tornillos y clavos intramedulares para la fijación y estabilización de fracturas con precisión quirúrgica.'
+const descripcion =
+  'Sistemas de osteosíntesis: placas, tornillos y clavos intramedulares para fijación y estabilización de fracturas. Materiales certificados ISO y CE, fabricación de grado quirúrgico.'
+---
+
+<Layout title={`${titulo} | ${empresa}`} description={descripcion}>
+  <Header client:only="react" />
+
+  <main id="contenido" class="block">
+    <!-- Hero — Línea de producto -->
+    <section
+      class="relative isolate overflow-hidden"
+      style="background: var(--bg-deep, #020b18);"
+      aria-labelledby="hero-title"
+    >
+      <!-- Decorativos de atmósfera -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 opacity-60"
+        style="background:
+          radial-gradient(55% 45% at 80% 10%, rgba(0,217,255,0.10), transparent 60%),
+          radial-gradient(50% 40% at 15% 90%, rgba(10,58,96,0.55), transparent 65%);"
+      ></div>
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style="background-image:
+          linear-gradient(rgba(0,217,255,0.4) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,217,255,0.4) 1px, transparent 1px);
+          background-size: 56px 56px;"
+      ></div>
+
+      <div class="relative mx-auto max-w-7xl px-6 pt-32 pb-24 sm:pt-40 sm:pb-32 lg:px-8">
+        <!-- Etiqueta superior -->
+        <span
+          class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.18em]"
+          style="
+            color: var(--ts-accent, #00d9ff);
+            border-color: rgba(0,217,255,0.25);
+            background: rgba(0,217,255,0.06);
+          "
+        >
+          <span
+            aria-hidden="true"
+            class="h-1.5 w-1.5 rounded-full"
+            style="background: var(--ts-accent, #00d9ff); box-shadow: 0 0 8px rgba(0,217,255,0.7);"
+          ></span>
+          Línea de producto
+        </span>
+
+        <!-- H1 único -->
+        <h1
+          id="hero-title"
+          class="mt-6 max-w-4xl text-balance font-heading text-4xl font-bold leading-[1.05] text-white sm:text-5xl lg:text-6xl"
+        >
+          {titulo}
+        </h1>
+
+        <!-- Subtítulo -->
+        <p class="mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
+          {subtitulo}
+        </p>
+
+        <!-- Línea acento -->
+        <div
+          aria-hidden="true"
+          class="mt-10 h-px w-24"
+          style="background: linear-gradient(90deg, var(--ts-accent, #00d9ff), transparent);"
+        ></div>
+      </div>
+    </section>
+
+    <!-- Placeholder — Catálogo próximamente -->
+    <section
+      class="relative"
+      style="background: var(--bg-deep, #020b18);"
+      aria-labelledby="catalogo-title"
+    >
+      <div class="mx-auto max-w-7xl px-6 pb-32 lg:px-8">
+        <div
+          class="relative overflow-hidden rounded-2xl border p-10 sm:p-14"
+          style="
+            background: linear-gradient(180deg, rgba(10,30,48,0.85), rgba(4,14,31,0.85));
+            border-color: rgba(0,217,255,0.18);
+            box-shadow: 0 30px 80px -40px rgba(0,217,255,0.25);
+          "
+        >
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute -left-16 -bottom-16 h-56 w-56 rounded-full"
+            style="background: radial-gradient(closest-side, rgba(0,217,255,0.18), transparent 70%);"
+          ></div>
+
+          <p
+            class="text-xs font-medium uppercase tracking-[0.22em]"
+            style="color: var(--ts-accent, #00d9ff);"
+          >
+            Catálogo
+          </p>
+          <h2
+            id="catalogo-title"
+            class="mt-3 font-heading text-2xl font-bold text-white sm:text-3xl"
+          >
+            Catálogo de productos próximamente
+          </h2>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+            Estamos preparando las fichas técnicas y especificaciones de cada sistema:
+            placas LCP/DCP, tornillos corticales y esponjosos, y clavos intramedulares
+            femorales, tibiales y humerales. Muy pronto disponible en esta sección.
+          </p>
+
+          <a
+            href="/#contacto"
+            class="mt-8 inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            style="
+              background: var(--ts-accent, #00d9ff);
+              color: #02121f;
+              --tw-ring-color: rgba(0,217,255,0.6);
+              --tw-ring-offset-color: #020b18;
+            "
+          >
+            Solicitar información
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer client:visible />
+</Layout>
