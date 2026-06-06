@@ -5,28 +5,28 @@ const NAV_COLS = [
   {
     heading: 'Soluciones',
     links: [
-      { label: 'Osteosíntesis',    href: '#soluciones' },
+      { label: 'Osteosíntesis', href: '#soluciones' },
       { label: 'Reemplazos articulares', href: '#soluciones' },
-      { label: 'Cirugía de mano',  href: '#soluciones' },
+      { label: 'Cirugía de mano', href: '#soluciones' },
       { label: 'Columna vertebral', href: '#soluciones' },
-      { label: 'Trauma pélvico',   href: '#soluciones' },
+      { label: 'Trauma pélvico', href: '#soluciones' },
     ],
   },
   {
     heading: 'Empresa',
     links: [
-      { label: 'Sobre nosotros',   href: '#sobre-nosotros' },
-      { label: 'Recursos',         href: '#recursos' },
-      { label: 'Aliados',          href: '#aliados' },
-      { label: 'Contacto',         href: '#contacto' },
-      { label: 'Instagram',        href: 'https://www.instagram.com/traumasurgeryperu', external: true },
+      { label: 'Sobre nosotros', href: '#sobre-nosotros' },
+      { label: 'Recursos', href: '#recursos' },
+      { label: 'Aliados', href: '#aliados' },
+      { label: 'Contacto', href: '#contacto' },
+      { label: 'Instagram', href: 'https://www.instagram.com/traumasurgeryperu', external: true },
     ],
   },
 ]
 
 const PAISES = [
-  { src: '/flags/peru.svg',     name: 'Perú' },
-  { src: '/flags/bolivia.svg',  name: 'Bolivia' },
+  { src: '/flags/peru.svg', name: 'Perú' },
+  { src: '/flags/bolivia.svg', name: 'Bolivia' },
   { src: '/flags/colombia.svg', name: 'Colombia' },
   { src: '/flags/paraguay.svg', name: 'Paraguay' },
 ]

@@ -4,19 +4,22 @@ import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+// Hrefs absolutos — desde cualquier subpágina regresan al Home y hacen scroll al ancla.
+// En el Home no recargan: el navegador solo cambia el hash.
 const NAV_LINKS = [
-  { label: 'Soluciones', href: '#soluciones' },
-  { label: 'Productos',  href: '#productos' },
-  { label: 'Recursos',   href: '#recursos' },
-  { label: 'Instagram',    href: '#aliados' },
-  { label: 'Contacto',   href: '#contacto' },
+  { label: 'Soluciones', href: '/#soluciones' },
+  { label: 'Productos', href: '/#productos' },
+  { label: 'Recursos', href: '/#recursos' },
+  { label: 'Instagram', href: '/#aliados' },
+  { label: 'Contacto', href: '/#contacto' },
 ]
+const CTA_CONTACTO_HREF = '/#contacto'
 
 const COUNTRIES = [
-  { flag: '🇵🇪', name: 'Perú',     code: 'PE' },
-  { flag: '🇧🇴', name: 'Bolivia',  code: 'BO' },
+  { flag: '🇵🇪', name: 'Perú', code: 'PE' },
+  { flag: '🇧🇴', name: 'Bolivia', code: 'BO' },
   { flag: '🇨🇴', name: 'Colombia', code: 'CO' },
-  { flag: '🇺🇾', name: 'Paraguay',  code: 'PY' },
+  { flag: '🇺🇾', name: 'Paraguay', code: 'PY' },
 ]
 
 const TOP_H = 36
@@ -195,7 +198,7 @@ export default function Header() {
         {/* Derecha: CTA */}
         <div className="hidden lg:flex items-center gap-5">
           <a
-            href="#contacto"
+            href={CTA_CONTACTO_HREF}
             className="text-sm transition-all duration-200 active:scale-95"
             style={{
               background: 'transparent',
@@ -210,15 +213,15 @@ export default function Header() {
               textTransform: 'uppercase',
             }}
             onMouseEnter={(e) => {
-              ;(e.currentTarget as HTMLElement).style.background = '#00d9ff'
-              ;(e.currentTarget as HTMLElement).style.color = '#020d1a'
-              ;(e.currentTarget as HTMLElement).style.boxShadow =
-                '0 0 24px rgba(0,217,255,0.35)'
+              ; (e.currentTarget as HTMLElement).style.background = '#00d9ff'
+                ; (e.currentTarget as HTMLElement).style.color = '#020d1a'
+                ; (e.currentTarget as HTMLElement).style.boxShadow =
+                  '0 0 24px rgba(0,217,255,0.35)'
             }}
             onMouseLeave={(e) => {
-              ;(e.currentTarget as HTMLElement).style.background = 'transparent'
-              ;(e.currentTarget as HTMLElement).style.color = '#00d9ff'
-              ;(e.currentTarget as HTMLElement).style.boxShadow = 'none'
+              ; (e.currentTarget as HTMLElement).style.background = 'transparent'
+                ; (e.currentTarget as HTMLElement).style.color = '#00d9ff'
+                ; (e.currentTarget as HTMLElement).style.boxShadow = 'none'
             }}
           >
             Contacto
@@ -249,7 +252,7 @@ export default function Header() {
               </>
             ) : (
               <>
-                <line x1="3" y1="7"  x2="19" y2="7" />
+                <line x1="3" y1="7" x2="19" y2="7" />
                 <line x1="3" y1="11" x2="19" y2="11" />
                 <line x1="3" y1="15" x2="19" y2="15" />
               </>
@@ -334,7 +337,7 @@ export default function Header() {
               style={{ borderColor: 'rgba(255,255,255,0.08)' }}
             >
               <a
-                href="#contacto"
+                href={CTA_CONTACTO_HREF}
                 style={{
                   background: '#00d9ff',
                   color: '#020d1a',

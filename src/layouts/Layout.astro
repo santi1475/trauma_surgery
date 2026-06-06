@@ -19,6 +19,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="icon" type="image/x-icon" href="/ig/favicon.ico" />
 
     <!-- Google Fonts: DM Sans + DM Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,8 +28,240 @@ const {
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Orbitron:wght@400..900&display=swap"
       rel="stylesheet"
     />
+
+    <!--
+      Skeleton CSS — se incluye en <head> para aplicarse antes del primer paint.
+      Evita FOUC en los wireframes y reserva exactamente el espacio del contenido futuro.
+    -->
+    <style is:global>
+      /* ── Shimmer cian — wireframe de bloques sombreados ── */
+      .ts-skel {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 217, 255, 0.05) 0%,
+          rgba(0, 217, 255, 0.14) 50%,
+          rgba(0, 217, 255, 0.05) 100%
+        );
+        background-size: 200% 100%;
+        animation: ts-skel-shimmer 1.4s linear infinite;
+        border-radius: 4px;
+      }
+      @keyframes ts-skel-shimmer {
+        0%   { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      /* Contenedor skeleton — colapsa altura + fade al revelar contenido real.
+         Animar max-height evita salto brusco cuando el real ocupa espacio nuevo. */
+      [data-skeleton] {
+        max-height: 250vh;
+        overflow: hidden;
+        transition: opacity 240ms ease, max-height 320ms ease;
+      }
+      [data-skeleton].is-hidden {
+        opacity: 0;
+        max-height: 0;
+        pointer-events: none;
+      }
+      /* Header es fixed → no afecta flujo, no colapsar altura. */
+      [data-skeleton="header"] {
+        max-height: none;
+        overflow: visible;
+        transition: opacity 240ms ease;
+      }
+      [data-skeleton="header"].is-hidden {
+        max-height: none;
+      }
+
+      /* Header skeleton — replica posición fija del Header real. */
+      .ts-skel-header {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 49;
+        height: 76px;
+        padding: 18px 60px;
+        background: #01070f;
+        border-bottom: 1px solid rgba(0, 217, 255, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .ts-skel-header__left { display: flex; align-items: center; gap: 10px; }
+      .ts-skel-header__logo { width: 40px; height: 40px; border-radius: 9999px; }
+      .ts-skel-header__brand { width: 140px; height: 14px; }
+      .ts-skel-header__nav { display: flex; gap: 28px; }
+      .ts-skel-header__nav span { width: 60px; height: 10px; display: block; border-radius: 3px; }
+      .ts-skel-header__cta { width: 96px; height: 32px; border-radius: 6px; }
+
+      @media (max-width: 1024px) {
+        .ts-skel-header { padding: 14px 20px; height: 64px; }
+        .ts-skel-header__nav { display: none; }
+        .ts-skel-header__cta { width: 36px; height: 36px; border-radius: 8px; }
+      }
+
+      /* Transition overlay — wireframe completo durante navegación entre páginas. */
+      .ts-transition-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: #01070f;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 220ms ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .ts-transition-overlay.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ts-skel { animation: none; background: rgba(0, 217, 255, 0.10); }
+        [data-skeleton], .ts-transition-overlay { transition: none !important; }
+      }
+    </style>
   </head>
   <body class="m-0 p-0 overflow-x-hidden">
+    <!--
+      Skeleton del Header — SSR antes de cualquier React island.
+      Reserva el espacio exacto del Header real (que es client:only="react").
+      Se oculta cuando el <header role="banner"> real entra en el DOM.
+    -->
+    <div
+      class="ts-skel-header"
+      data-skeleton="header"
+      aria-hidden="true"
+    >
+      <div class="ts-skel-header__left">
+        <div class="ts-skel ts-skel-header__logo"></div>
+        <div class="ts-skel ts-skel-header__brand"></div>
+      </div>
+      <div class="ts-skel-header__nav">
+        <span class="ts-skel"></span>
+        <span class="ts-skel"></span>
+        <span class="ts-skel"></span>
+        <span class="ts-skel"></span>
+        <span class="ts-skel"></span>
+      </div>
+      <div class="ts-skel ts-skel-header__cta"></div>
+    </div>
+
     <slot />
+
+    <!--
+      Overlay de transición entre páginas internas.
+      Render server-side; se muestra al click en links cross-page,
+      se oculta automáticamente al cargar la siguiente página.
+      No interfiere con GSAP/Framer ni con islands client:only.
+    -->
+    <div
+      id="ts-transition-overlay"
+      class="ts-transition-overlay"
+      aria-hidden="true"
+    >
+      <!-- Wireframe del Header en transición -->
+      <div style="height:76px;padding:18px 60px;border-bottom:1px solid rgba(0,217,255,0.18);display:flex;align-items:center;justify-content:space-between;background:#01070f;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="ts-skel" style="width:40px;height:40px;border-radius:9999px;"></div>
+          <div class="ts-skel" style="width:140px;height:14px;"></div>
+        </div>
+        <div style="display:flex;gap:28px;">
+          <div class="ts-skel" style="width:60px;height:10px;"></div>
+          <div class="ts-skel" style="width:60px;height:10px;"></div>
+          <div class="ts-skel" style="width:60px;height:10px;"></div>
+          <div class="ts-skel" style="width:60px;height:10px;"></div>
+        </div>
+        <div class="ts-skel" style="width:96px;height:32px;border-radius:6px;"></div>
+      </div>
+
+      <!-- Wireframe del Hero / contenido principal -->
+      <div style="flex:1;max-width:1280px;margin:0 auto;width:100%;padding:128px 32px 0;">
+        <div class="ts-skel" style="width:120px;height:22px;border-radius:9999px;margin-bottom:24px;"></div>
+        <div class="ts-skel" style="width:70%;height:48px;margin-bottom:14px;"></div>
+        <div class="ts-skel" style="width:55%;height:48px;margin-bottom:32px;"></div>
+        <div class="ts-skel" style="width:90%;max-width:600px;height:14px;margin-bottom:8px;"></div>
+        <div class="ts-skel" style="width:80%;max-width:520px;height:14px;margin-bottom:40px;"></div>
+        <div class="ts-skel" style="width:96px;height:2px;background:#00d9ff;opacity:.5;"></div>
+      </div>
+    </div>
+
+    <script is:inline>
+      (() => {
+        // ── 1. Skeletons inline: ocultar cuando el contenido real se monta. ──
+        // Mapeo: data-skeleton → selector del nodo "real" que reemplaza al wireframe.
+        const targets = {
+          header: 'header[role="banner"]',
+          hero: 'section[aria-label="Hero principal"]',
+        }
+
+        const skeletons = Array.from(document.querySelectorAll('[data-skeleton]'))
+        const pending = new Map()
+        skeletons.forEach((el) => {
+          const key = el.getAttribute('data-skeleton')
+          if (key && targets[key]) pending.set(key, el)
+        })
+
+        const hide = (key) => {
+          const el = pending.get(key)
+          if (!el) return
+          el.classList.add('is-hidden')
+          pending.delete(key)
+          // Quitar del flujo después del fade para no bloquear interacciones.
+          setTimeout(() => { try { el.remove() } catch (_) {} }, 320)
+        }
+
+        const checkAll = () => {
+          pending.forEach((_, key) => {
+            if (document.querySelector(targets[key])) hide(key)
+          })
+        }
+
+        // Chequeo inicial + observer hasta que todos desaparezcan.
+        checkAll()
+        if (pending.size > 0) {
+          const obs = new MutationObserver(() => {
+            checkAll()
+            if (pending.size === 0) obs.disconnect()
+          })
+          obs.observe(document.body, { childList: true, subtree: true })
+
+          // Fallback de seguridad: forzar hide al window.load + 600ms
+          // por si el selector cambió o React tardó más de lo razonable.
+          window.addEventListener('load', () => {
+            setTimeout(() => {
+              pending.forEach((_, key) => hide(key))
+              obs.disconnect()
+            }, 600)
+          })
+        }
+
+        // ── 2. Overlay de transición entre páginas. ──
+        const overlay = document.getElementById('ts-transition-overlay')
+        if (!overlay) return
+
+        const isInternalNav = (a) => {
+          if (!a || a.target === '_blank' || a.hasAttribute('download')) return false
+          const href = a.getAttribute('href')
+          if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return false
+          try {
+            const url = new URL(a.href, location.href)
+            if (url.origin !== location.origin) return false
+            if (url.pathname === location.pathname) return false
+            return true
+          } catch { return false }
+        }
+
+        document.addEventListener('click', (e) => {
+          if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+          const a = e.target && e.target.closest && e.target.closest('a[href]')
+          if (!a || !isInternalNav(a)) return
+          overlay.classList.add('is-visible')
+        }, true)
+
+        // Reset al volver desde bfcache.
+        window.addEventListener('pageshow', () => overlay.classList.remove('is-visible'))
+      })()
+    </script>
   </body>
 </html>

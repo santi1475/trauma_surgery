@@ -210,17 +210,35 @@ export default function ModalContenido({ data, titleId, scopeId }: ModalContenid
               Operamos en
             </p>
             <ul className="mt-3 space-y-2" aria-label="Países donde operamos">
-              {paises.map((p) => (
-                <li
-                  key={p.nombre}
-                  className="flex items-center gap-3 text-sm text-white/80"
-                >
-                  <span aria-hidden="true" className="text-lg">
-                    {p.bandera}
-                  </span>
-                  <span>{p.nombre}</span>
-                </li>
-              ))}
+              {paises.map((p) => {
+                const isImagePath =
+                  p.bandera.startsWith('/') ||
+                  p.bandera.startsWith('public/') ||
+                  p.bandera.endsWith('.svg') ||
+                  p.bandera.endsWith('.png')
+
+                return (
+                  <li
+                    key={p.nombre}
+                    className="flex items-center gap-3 text-sm text-white/80"
+                  >
+                    {isImagePath ? (
+                      <span className="flex h-3.5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-[2px] border border-white/10 bg-white/5">
+                        <img
+                          src={p.bandera.replace(/^public\//, '/')}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      </span>
+                    ) : (
+                      <span aria-hidden="true" className="text-lg leading-none">
+                        {p.bandera}
+                      </span>
+                    )}
+                    <span>{p.nombre}</span>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>

@@ -33,8 +33,8 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
     label: 'Mano',
     icon: '🖐️',
     // Coords aproximadas — recalibrar con debug={true} y click en consola
-    position: [-0.30, 0.20, 0.05],
-    hitboxRadius: 0.10,
+    position: [-0.30, 0.05, 0.05],
+      hitboxRadius: 0.10,
     categoria: 'Miembro Superior',
     descripcion:
       'Sistemas de osteosíntesis para fracturas de mano y muñeca. Placas y tornillos de bajo perfil específicos para metacarpianos, falanges y radio distal.',

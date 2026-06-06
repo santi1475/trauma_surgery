@@ -15,11 +15,11 @@ export const manoData: CaderaData = {
     { titulo: 'Función de la pinza', glyph: '↗' },
   ],
   certificaciones: [{ label: 'ISO 13485' }, { label: 'ISO 9001' }, { label: 'CE' }],
-  paises: [
-    { bandera: '🇵🇪', nombre: 'Perú' },
-    { bandera: '🇧🇴', nombre: 'Bolivia' },
-    { bandera: '🇨🇴', nombre: 'Colombia' },
-    { bandera: '🇵🇾', nombre: 'Paraguay' },
+  paises: [ 
+    { bandera: '/flags/peru.svg', nombre: 'Perú' },
+    { bandera: '/flags/bolivia.svg', nombre: 'Bolivia' },
+    { bandera: '/flags/colombia.svg', nombre: 'Colombia' },
+    { bandera: '/flags/paraguay.svg', nombre: 'Paraguay' },
   ],
   sistema: {
     nombreCorto: 'PRÓTESIS DE MANO',

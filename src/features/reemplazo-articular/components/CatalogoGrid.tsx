@@ -1,9 +1,6 @@
 'use client'
-// CatalogoGrid — sección de catálogo para la línea de Reemplazo Articular.
-// Tres partes: A) Header asimétrico, B) Grid de 5 tarjetas con scroll horizontal en mobile,
-// C) TrustBanner píldora. Animación de entrada con GSAP ScrollTrigger.
 
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ModalCadera from './ModalCadera'
@@ -22,7 +19,7 @@ interface Producto {
   id: RegionId
   titulo: string
   subtitulo: string
-  Icono: () => JSX.Element
+  Icono: () => React.JSX.Element
 }
 
 // ─── Iconos anatómicos (SVG inline, sin assets externos) ────────────────
@@ -131,10 +128,10 @@ const productos: Producto[] = [
 ]
 
 const beneficios = [
-  { emoji: '🔧', texto: 'Alta precisión' },
-  { emoji: '🏥', texto: 'Diseño para cada región anatómica' },
-  { emoji: '✅', texto: 'Calidad y confiabilidad' },
-  { emoji: '💡', texto: 'Innovación en cada procedimiento' },
+  { texto: 'Alta precisión' },
+  { texto: 'Diseño para cada región anatómica' },
+  { texto: 'Calidad y confiabilidad' },
+  { texto: 'Innovación en cada procedimiento' },
 ]
 
 // ─── ProductCard ────────────────────────────────────────────────────────
@@ -400,18 +397,16 @@ export default function CatalogoGrid() {
               <div
                 key={b.texto}
                 role="listitem"
-                className={`flex items-center gap-2 px-4 text-sm text-white/70 sm:text-sm ${
-                  i < beneficios.length - 1 ? 'sm:border-r' : ''
-                }`}
+                className={`flex items-center gap-2 px-4 text-sm text-white/70 sm:text-sm ${i < beneficios.length - 1 ? 'sm:border-r' : ''
+                  }`}
                 style={{
-                  fontFamily: 'DM Sans, sans-serif',
-                  borderColor: 'rgba(0,217,255,0.18)',
+                  fontFamily: 'DM Sans, sans-serif',  // si quieres mantener DM Sans
+                  borderColor: 'rgba(0, 176, 207, 0.18)',
                 }}
               >
-                <span aria-hidden="true" className="text-base">
-                  {b.emoji}
+                <span className="text-xs font-medium uppercase tracking-[0.18em] text-[#00d9ff]">
+                  {b.texto}
                 </span>
-                <span>{b.texto}</span>
               </div>
             ))}
           </div>

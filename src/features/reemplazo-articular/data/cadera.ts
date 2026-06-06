@@ -65,10 +65,10 @@ export const caderaData: CaderaData = {
     { label: 'CE' },
   ],
   paises: [
-    { bandera: '🇵🇪', nombre: 'Perú' },
-    { bandera: '🇧🇴', nombre: 'Bolivia' },
-    { bandera: '🇨🇴', nombre: 'Colombia' },
-    { bandera: '🇵🇾', nombre: 'Paraguay' },
+    { bandera: '/flags/peru.svg', nombre: 'Perú' },
+    { bandera: '/flags/bolivia.svg', nombre: 'Bolivia' },
+    { bandera: '/flags/colombia.svg', nombre: 'Colombia' },
+    { bandera: '/flags/paraguay.svg', nombre: 'Paraguay' },
   ],
   sistema: {
     nombreCorto: 'PRÓTESIS DE CADERA',

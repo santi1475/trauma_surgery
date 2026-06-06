@@ -61,8 +61,8 @@ export const HOTSPOTS: HotspotData[] = [
     sublabel: 'Y MUÑECA',
     icon: '🖐️',
     // ⚠ Estimado — recalibrar
-    position: [-0.30, 0.20, 0.05],
-    labelOffset: [-130, -15],
+    position: [-0.30, 0.05, 0.05],
+    labelOffset: [-140, -15],
     side: 'left',
   },
   {
@@ -70,7 +70,7 @@ export const HOTSPOTS: HotspotData[] = [
     label: 'HOMBRO',
     sublabel: 'EXTREMIDAD SUPERIOR',
     icon: '🦾',
-    position: [-0.202, 0.585, 0.055],
+    position: [-0.202, 0.585, -0.0011],
     labelOffset: [-130, -25],
     side: 'left',
   },
