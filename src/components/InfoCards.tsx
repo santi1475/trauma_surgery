@@ -2,7 +2,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { staggerContainer, fadeInUp, scaleIn, reducedMotion } from '@/animations/variants'
 // Lucide icons — temporales. Reemplazar por SVGs personalizados:
-// 1. Importa tu SVG como componente React (o usa <img>)
+// 1. Importa tu SVG como componente React (o referencia el archivo por URL)
 // 2. Sustituye el campo `icon` de cada DIFERENCIAL
 // 3. Elimina la importación de lucide-react cuando todos estén reemplazados
 import { Gem, ScanLine, Wind, BadgeCheck, Cpu } from 'lucide-react'
@@ -135,7 +135,7 @@ export default function InfoCards() {
           <motion.p
             variants={item}
             style={{
-              color: 'rgba(255,255,255,0.4)',
+              color: 'rgba(255,255,255,0.5)',
               fontSize: 13,
               maxWidth: 340,
               lineHeight: 1.65,
@@ -212,7 +212,7 @@ export default function InfoCards() {
               {/* Descripción */}
               <p
                 style={{
-                  color: 'rgba(255,255,255,0.42)',
+                  color: 'rgba(255,255,255,0.5)',
                   fontSize: 11,
                   lineHeight: 1.65,
                   flex: 1,

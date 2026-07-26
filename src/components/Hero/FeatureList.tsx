@@ -41,15 +41,15 @@ function FeatureItem({ icon: Icon, label, variants }: Feature & { variants: Vari
   return (
     <motion.div variants={variants} className="flex flex-col items-center gap-2">
       <div className="border border-cyan-800/50 rounded-full p-2 flex items-center justify-center">
-        <Icon size={14} color="#22d3ee" strokeWidth={1.5} aria-hidden="true" />
+        <Icon size={14} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
       </div>
       <span
         style={{
           fontFamily: 'var(--font-mono)',
-          fontSize: 8,
+          fontSize: 11,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.42)',
+          color: 'rgba(255,255,255,0.5)',
           textAlign: 'center',
           lineHeight: 1.4,
           maxWidth: 64,

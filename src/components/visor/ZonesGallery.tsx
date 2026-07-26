@@ -87,7 +87,7 @@ function ImmersiveBanner() {
           <p
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: 10,
+              fontSize: 11,
               letterSpacing: '0.16em',
               color: '#00d9ff',
               textTransform: 'uppercase',
@@ -115,7 +115,7 @@ function ImmersiveBanner() {
           onClick={() => setDismissed(true)}
           aria-label="Cerrar sugerencia"
           className="shrink-0 -mr-1 -mt-1 p-1 rounded"
-          style={{ color: 'rgba(255,255,255,0.45)' }}
+          style={{ color: 'rgba(255,255,255,0.5)' }}
         >
           <svg
             width="14"
@@ -220,9 +220,9 @@ function ZoneCard({ zone }: { zone: ZonaAnatomica }) {
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 9,
+                fontSize: 11,
                 letterSpacing: '0.16em',
-                color: 'rgba(255,255,255,0.40)',
+                color: 'rgba(255,255,255,0.5)',
                 textTransform: 'uppercase',
               }}
             >
@@ -237,7 +237,7 @@ function ZoneCard({ zone }: { zone: ZonaAnatomica }) {
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: 9,
+            fontSize: 11,
             letterSpacing: '0.20em',
             color: accent,
             textTransform: 'uppercase',
@@ -288,7 +288,7 @@ function ZoneCard({ zone }: { zone: ZonaAnatomica }) {
                 display: 'flex',
                 gap: 8,
                 fontFamily: 'var(--font-mono)',
-                fontSize: 10.5,
+                fontSize: 11.5,
                 color: 'rgba(255,255,255,0.65)',
                 lineHeight: 1.4,
               }}

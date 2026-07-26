@@ -77,7 +77,7 @@ export default function Contacto() {
           transform: 'translateX(-50%)',
           width: '80%',
           height: '50%',
-          background: 'radial-gradient(ellipse at top center, rgba(0,82,163,0.14) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at top center, rgba(10,58,96,0.42) 0%, transparent 70%)',
         }}
       />
 
@@ -122,7 +122,7 @@ export default function Contacto() {
           <motion.p
             variants={item}
             style={{
-              color: 'rgba(255,255,255,0.45)',
+              color: 'rgba(255,255,255,0.5)',
               fontSize: 14,
               lineHeight: 1.7,
               maxWidth: '52ch',
@@ -191,10 +191,10 @@ export default function Contacto() {
                     <p
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: 9,
+                        fontSize: 11,
                         letterSpacing: '0.12em',
                         textTransform: 'uppercase',
-                        color: 'rgba(255,255,255,0.4)',
+                        color: 'rgba(255,255,255,0.5)',
                         marginBottom: 2,
                       }}
                     >
@@ -255,10 +255,10 @@ export default function Contacto() {
                 <p
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: 9,
+                    fontSize: 11,
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.4)',
+                    color: 'rgba(255,255,255,0.5)',
                     marginBottom: 4,
                   }}
                 >
@@ -275,8 +275,8 @@ export default function Contacto() {
                 <p
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: 9,
-                    color: 'rgba(0,217,255,0.5)',
+                    fontSize: 11,
+                    color: 'rgba(0,217,255,0.75)',
                     letterSpacing: '0.08em',
                     marginTop: 6,
                   }}
@@ -308,7 +308,7 @@ export default function Contacto() {
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 10,
+                  fontSize: 11,
                   letterSpacing: '0.10em',
                   color: 'rgba(0,217,255,0.8)',
                   textTransform: 'uppercase',
@@ -422,7 +422,7 @@ export default function Contacto() {
                 rel="noopener noreferrer"
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 9,
+                  fontSize: 11,
                   letterSpacing: '0.10em',
                   textTransform: 'uppercase',
                   color: '#00d9ff',

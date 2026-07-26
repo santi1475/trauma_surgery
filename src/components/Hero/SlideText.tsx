@@ -52,7 +52,7 @@ export function SlideText({
       {/* Badge */}
       <p
         style={{
-          color: 'rgba(255,255,255,0.45)',
+          color: 'rgba(255,255,255,0.5)',
           fontSize: 11,
           letterSpacing: '0.18em',
           textTransform: 'uppercase',
@@ -104,7 +104,7 @@ export function SlideText({
         <p
           style={{
             color: '#00d9ff',
-            fontSize: 10,
+            fontSize: 11,
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
             fontWeight: 600,

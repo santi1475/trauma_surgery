@@ -1,17 +1,61 @@
 ---
 import '../styles/global.css'
+// Fuentes self-hosted — eliminan las 3 conexiones render-blocking a Google Fonts.
+import '@fontsource-variable/dm-sans'
+import '@fontsource-variable/orbitron'
+import '@fontsource/dm-mono/400.css'
+import '@fontsource/dm-mono/500.css'
 
 // Props opcionales — permiten sobreescribir título y descripción por página.
 // Si no se pasan, mantiene los valores por defecto del sitio (HOME).
 interface Props {
   title?: string
   description?: string
+  image?: string
 }
 
 const {
   title = 'TraumaSurgery — Precisión Quirúrgica',
   description = 'TraumaSurgery EIRL — Dispositivos médicos de alta precisión para osteosíntesis y reemplazos articulares. Perú, Bolivia y Colombia.',
+  image = '/og.jpg',
 } = Astro.props
+
+// `site` se define en astro.config.mjs; si falta, cae al origen de la petición.
+const base = Astro.site ?? Astro.url
+const canonical = new URL(Astro.url.pathname, base).href
+const ogImage = new URL(image, base).href
+
+// Datos estructurados — alimentan el panel de negocio local en búsqueda B2B.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: 'TraumaSurgery EIRL',
+  description,
+  url: canonical,
+  logo: new URL('/ig/logo.webp', base).href,
+  image: ogImage,
+  email: 'traumasurgery.eirl@gmail.com',
+  telephone: '+51998436284',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Av. Pablo Carriquiry N° 460',
+    addressLocality: 'San Isidro',
+    addressRegion: 'Lima',
+    addressCountry: 'PE',
+  },
+  areaServed: [
+    { '@type': 'Country', name: 'Perú' },
+    { '@type': 'Country', name: 'Bolivia' },
+    { '@type': 'Country', name: 'Colombia' },
+    { '@type': 'Country', name: 'Paraguay' },
+  ],
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: '+51953327198', contactType: 'sales', areaServed: 'PE', availableLanguage: 'es' },
+    { '@type': 'ContactPoint', telephone: '+51932527371', contactType: 'customer support', areaServed: 'PE', availableLanguage: 'es' },
+  ],
+  sameAs: ['https://www.instagram.com/traumasurgeryperu'],
+  medicalSpecialty: 'Orthopedic',
+}
 ---
 <html lang="es">
   <head>
@@ -19,22 +63,30 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" type="image/x-icon" href="/ig/favicon.ico" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="theme-color" content="#020b18" />
 
-    <!-- Google Fonts: DM Sans + DM Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Orbitron:wght@400..900&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Open Graph — WhatsApp y LinkedIn son el canal de difusión B2B real -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TraumaSurgery EIRL" />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-    <!--
-      Skeleton CSS — se incluye en <head> para aplicarse antes del primer paint.
-      Evita FOUC en los wireframes y reserva exactamente el espacio del contenido futuro.
-    -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <style is:global>
-      /* ── Shimmer cian — wireframe de bloques sombreados ── */
+      /* Wireframe shimmer — solo lo usa el overlay de transición entre páginas. */
       .ts-skel {
         background: linear-gradient(
           90deg,
@@ -51,55 +103,6 @@ const {
         100% { background-position: -200% 0; }
       }
 
-      /* Contenedor skeleton — colapsa altura + fade al revelar contenido real.
-         Animar max-height evita salto brusco cuando el real ocupa espacio nuevo. */
-      [data-skeleton] {
-        max-height: 250vh;
-        overflow: hidden;
-        transition: opacity 240ms ease, max-height 320ms ease;
-      }
-      [data-skeleton].is-hidden {
-        opacity: 0;
-        max-height: 0;
-        pointer-events: none;
-      }
-      /* Header es fixed → no afecta flujo, no colapsar altura. */
-      [data-skeleton="header"] {
-        max-height: none;
-        overflow: visible;
-        transition: opacity 240ms ease;
-      }
-      [data-skeleton="header"].is-hidden {
-        max-height: none;
-      }
-
-      /* Header skeleton — replica posición fija del Header real. */
-      .ts-skel-header {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 49;
-        height: 76px;
-        padding: 18px 60px;
-        background: #01070f;
-        border-bottom: 1px solid rgba(0, 217, 255, 0.18);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .ts-skel-header__left { display: flex; align-items: center; gap: 10px; }
-      .ts-skel-header__logo { width: 40px; height: 40px; border-radius: 9999px; }
-      .ts-skel-header__brand { width: 140px; height: 14px; }
-      .ts-skel-header__nav { display: flex; gap: 28px; }
-      .ts-skel-header__nav span { width: 60px; height: 10px; display: block; border-radius: 3px; }
-      .ts-skel-header__cta { width: 96px; height: 32px; border-radius: 6px; }
-
-      @media (max-width: 1024px) {
-        .ts-skel-header { padding: 14px 20px; height: 64px; }
-        .ts-skel-header__nav { display: none; }
-        .ts-skel-header__cta { width: 36px; height: 36px; border-radius: 8px; }
-      }
-
-      /* Transition overlay — wireframe completo durante navegación entre páginas. */
       .ts-transition-overlay {
         position: fixed;
         inset: 0;
@@ -116,36 +119,29 @@ const {
         pointer-events: auto;
       }
 
+      /* Skip-link — solo visible al llegar por teclado. */
+      .ts-skip-link {
+        position: absolute;
+        left: 12px;
+        top: -100px;
+        z-index: 200;
+        padding: 10px 18px;
+        background: #00d9ff;
+        color: #01070f;
+        font-weight: 700;
+        border-radius: 6px;
+        transition: top 160ms ease;
+      }
+      .ts-skip-link:focus-visible { top: 12px; }
+
       @media (prefers-reduced-motion: reduce) {
         .ts-skel { animation: none; background: rgba(0, 217, 255, 0.10); }
-        [data-skeleton], .ts-transition-overlay { transition: none !important; }
+        .ts-transition-overlay, .ts-skip-link { transition: none !important; }
       }
     </style>
   </head>
   <body class="m-0 p-0 overflow-x-hidden">
-    <!--
-      Skeleton del Header — SSR antes de cualquier React island.
-      Reserva el espacio exacto del Header real (que es client:only="react").
-      Se oculta cuando el <header role="banner"> real entra en el DOM.
-    -->
-    <div
-      class="ts-skel-header"
-      data-skeleton="header"
-      aria-hidden="true"
-    >
-      <div class="ts-skel-header__left">
-        <div class="ts-skel ts-skel-header__logo"></div>
-        <div class="ts-skel ts-skel-header__brand"></div>
-      </div>
-      <div class="ts-skel-header__nav">
-        <span class="ts-skel"></span>
-        <span class="ts-skel"></span>
-        <span class="ts-skel"></span>
-        <span class="ts-skel"></span>
-        <span class="ts-skel"></span>
-      </div>
-      <div class="ts-skel ts-skel-header__cta"></div>
-    </div>
+    <a class="ts-skip-link" href="#contenido">Saltar al contenido</a>
 
     <slot />
 
@@ -153,7 +149,6 @@ const {
       Overlay de transición entre páginas internas.
       Render server-side; se muestra al click en links cross-page,
       se oculta automáticamente al cargar la siguiente página.
-      No interfiere con GSAP/Framer ni con islands client:only.
     -->
     <div
       id="ts-transition-overlay"
@@ -188,55 +183,7 @@ const {
 
     <script is:inline>
       (() => {
-        // ── 1. Skeletons inline: ocultar cuando el contenido real se monta. ──
-        // Mapeo: data-skeleton → selector del nodo "real" que reemplaza al wireframe.
-        const targets = {
-          header: 'header[role="banner"]',
-          hero: 'section[aria-label="Hero principal"]',
-        }
-
-        const skeletons = Array.from(document.querySelectorAll('[data-skeleton]'))
-        const pending = new Map()
-        skeletons.forEach((el) => {
-          const key = el.getAttribute('data-skeleton')
-          if (key && targets[key]) pending.set(key, el)
-        })
-
-        const hide = (key) => {
-          const el = pending.get(key)
-          if (!el) return
-          el.classList.add('is-hidden')
-          pending.delete(key)
-          // Quitar del flujo después del fade para no bloquear interacciones.
-          setTimeout(() => { try { el.remove() } catch (_) {} }, 320)
-        }
-
-        const checkAll = () => {
-          pending.forEach((_, key) => {
-            if (document.querySelector(targets[key])) hide(key)
-          })
-        }
-
-        // Chequeo inicial + observer hasta que todos desaparezcan.
-        checkAll()
-        if (pending.size > 0) {
-          const obs = new MutationObserver(() => {
-            checkAll()
-            if (pending.size === 0) obs.disconnect()
-          })
-          obs.observe(document.body, { childList: true, subtree: true })
-
-          // Fallback de seguridad: forzar hide al window.load + 600ms
-          // por si el selector cambió o React tardó más de lo razonable.
-          window.addEventListener('load', () => {
-            setTimeout(() => {
-              pending.forEach((_, key) => hide(key))
-              obs.disconnect()
-            }, 600)
-          })
-        }
-
-        // ── 2. Overlay de transición entre páginas. ──
+        // Overlay de transición entre páginas internas.
         const overlay = document.getElementById('ts-transition-overlay')
         if (!overlay) return
 

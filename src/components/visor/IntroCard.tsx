@@ -51,7 +51,7 @@ function IntroCardBase() {
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: 9,
+              fontSize: 11,
               letterSpacing: '0.18em',
               color: 'rgba(0,217,255,0.75)',
               textTransform: 'uppercase',
@@ -117,7 +117,7 @@ function IntroCardBase() {
                 alignItems: 'flex-start',
                 gap: 10,
                 fontFamily: 'var(--font-mono)',
-                fontSize: 10.5,
+                fontSize: 11.5,
                 letterSpacing: '0.04em',
                 color: 'rgba(255,255,255,0.50)',
                 lineHeight: 1.5,

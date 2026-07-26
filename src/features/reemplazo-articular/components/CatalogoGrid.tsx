@@ -3,11 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import ModalCadera from './ModalCadera'
-import ModalRodilla from './ModalRodilla'
-import ModalHombro from './ModalHombro'
-import ModalMano from './ModalMano'
-import ModalPlacas from './ModalPlacas'
+import ModalZona from './ModalZona'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -417,19 +413,14 @@ export default function CatalogoGrid() {
       {(['cadera', 'rodilla', 'hombro', 'mano', 'placas'] as RegionId[]).map((id) => {
         if (!openedCache.current.has(id) && selected !== id) return null
         const isOpen = selected === id
-        const close = () => setSelected(null)
-        switch (id) {
-          case 'cadera':
-            return <ModalCadera key={id} open={isOpen} onClose={close} />
-          case 'rodilla':
-            return <ModalRodilla key={id} open={isOpen} onClose={close} />
-          case 'hombro':
-            return <ModalHombro key={id} open={isOpen} onClose={close} />
-          case 'mano':
-            return <ModalMano key={id} open={isOpen} onClose={close} />
-          case 'placas':
-            return <ModalPlacas key={id} open={isOpen} onClose={close} />
-        }
+        return (
+          <ModalZona
+            key={id}
+            zona={id}
+            open={isOpen}
+            onClose={() => setSelected(null)}
+          />
+        )
       })}
     </section>
   )

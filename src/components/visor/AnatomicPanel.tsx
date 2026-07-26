@@ -50,9 +50,9 @@ function AnatomicPanelBase({
         }} />
         <span style={{
           fontFamily: 'var(--font-mono)',
-          fontSize: 9,
+          fontSize: 11,
           letterSpacing: '0.16em',
-          color: 'rgba(0,217,255,0.65)',
+          color: 'rgba(0,217,255,0.75)',
           textTransform: 'uppercase',
         }}>
           Enfoque Anatómico
@@ -103,7 +103,7 @@ function AnatomicPanelBase({
               ? '#00d9ff'
               : 'rgba(255,255,255,0.30)',
           fontFamily: 'var(--font-mono)',
-          fontSize: 9,
+          fontSize: 11,
           letterSpacing: '0.10em',
           textTransform: 'uppercase',
           cursor: animando ? 'not-allowed' : 'pointer',

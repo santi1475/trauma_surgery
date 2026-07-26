@@ -50,7 +50,7 @@ export default function ProductosSection() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(0,82,163,0.25) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(10,58,96,0.6) 0%, transparent 70%)',
         }}
       />
 

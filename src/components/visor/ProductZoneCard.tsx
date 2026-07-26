@@ -131,9 +131,9 @@ function ProductZoneCardBase({ zone }: Props) {
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 10,
+                fontSize: 11,
                 letterSpacing: '0.16em',
-                color: 'rgba(255,255,255,0.45)',
+                color: 'rgba(255,255,255,0.5)',
                 textTransform: 'uppercase',
               }}
             >
@@ -148,7 +148,7 @@ function ProductZoneCardBase({ zone }: Props) {
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: 9,
+            fontSize: 11,
             letterSpacing: '0.20em',
             color: accent,
             textTransform: 'uppercase',
@@ -194,9 +194,9 @@ function ProductZoneCardBase({ zone }: Props) {
         <span
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: 9,
+            fontSize: 11,
             letterSpacing: '0.18em',
-            color: 'rgba(255,255,255,0.40)',
+            color: 'rgba(255,255,255,0.5)',
             textTransform: 'uppercase',
             display: 'block',
             marginBottom: 8,

@@ -97,6 +97,7 @@ const SLIDES: Slide[] = [
   {
     id: 'fibular',
     videoPath: '/models/01.webm',
+    posterPath: '/models/01.poster.webp',
     badgeLabel: 'Ingeniería Avanzada',
     headingPrimary: 'INGENIERÍA',
     headingAccent: 'SIN LÍMITES',
@@ -121,6 +122,7 @@ const SLIDES: Slide[] = [
   {
     id: 'cadera',
     videoPath: '/models/02.webm',
+    posterPath: '/models/02.poster.webp',
     badgeLabel: 'Artroplastia Avanzada',
     headingPrimary: 'ARTROPLASTIA TOTAL',
     headingAccent: 'GEOMETRÍA FEMORAL',
@@ -190,7 +192,7 @@ function MiniBlueprint() {
       <div
         style={{
           fontFamily: 'var(--font-mono, monospace)',
-          fontSize: 10,
+          fontSize: 11,
           letterSpacing: '0.18em',
           color: ACCENT,
           textTransform: 'uppercase',
@@ -337,6 +339,13 @@ function RightColumnVisual({
 }) {
   const fadeDuration = prefersReduced ? 0 : 0.55
 
+  // El vídeo pesa ~1.3 MB y esta sección va bajo el fold. En SSR se emite solo
+  // el poster; el `src` se adjunta al hidratar, que con client:visible ocurre
+  // cuando la sección entra en pantalla. Sin esto el navegador lo descargaba
+  // durante la carga inicial de la home.
+  const [hidratado, setHidratado] = useState(false)
+  useEffect(() => setHidratado(true), [])
+
   return (
     <div
       style={{
@@ -471,13 +480,13 @@ function RightColumnVisual({
           <motion.video
             id={`slide-${slide.id}`}
             key={slide.id}
-            src={slide.videoPath}
+            src={hidratado ? slide.videoPath : undefined}
             poster={slide.posterPath}
             autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             disablePictureInPicture
             controlsList="nodownload noplaybackrate noremoteplayback"
             aria-label={`Demostración técnica · ${slide.headingPrimary} ${slide.headingAccent}`}
@@ -575,7 +584,8 @@ export default function IngenieriaSinLimites() {
           transform: 'translateY(-50%)',
           width: '40%',
           height: '80%',
-          background: 'radial-gradient(ellipse at left center, rgba(0,82,163,0.18) 0%, transparent 70%)',
+          // Navy de marca (--ts-primary #0A3A60) en vez del azul suelto #0052A3.
+          background: 'radial-gradient(ellipse at left center, rgba(10,58,96,0.6) 0%, transparent 70%)',
         }}
       />
 
@@ -706,7 +716,7 @@ export default function IngenieriaSinLimites() {
                         </p>
                         <p
                           style={{
-                            color: 'rgba(255,255,255,0.4)',
+                            color: 'rgba(255,255,255,0.5)',
                             fontSize: 11,
                             lineHeight: 1.6,
                             margin: 0,

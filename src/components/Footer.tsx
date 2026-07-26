@@ -15,7 +15,6 @@ const NAV_COLS = [
   {
     heading: 'Empresa',
     links: [
-      { label: 'Sobre nosotros', href: '#sobre-nosotros' },
       { label: 'Recursos', href: '#recursos' },
       { label: 'Aliados', href: '#aliados' },
       { label: 'Contacto', href: '#contacto' },
@@ -56,7 +55,7 @@ export default function Footer() {
           width: '40%',
           height: '60%',
           background:
-            'radial-gradient(ellipse at top left, rgba(0,82,163,0.10) 0%, transparent 70%)',
+            'radial-gradient(ellipse at top left, rgba(10,58,96,0.3) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -88,7 +87,7 @@ export default function Footer() {
               style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 16 }}
             >
               <div style={{ width: 34, height: 34, borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
-                <img src="/ig/IMG_7229.PNG" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img loading="lazy" decoding="async" src="/ig/logo.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <span
                 style={{
@@ -104,7 +103,7 @@ export default function Footer() {
             </a>
             <p
               style={{
-                color: 'rgba(255,255,255,0.38)',
+                color: 'rgba(255,255,255,0.5)',
                 fontSize: 12,
                 lineHeight: 1.75,
                 maxWidth: 230,
@@ -121,7 +120,7 @@ export default function Footer() {
                   key={cert}
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: 8,
+                    fontSize: 11,
                     letterSpacing: '0.10em',
                     color: '#D4AF37',
                     background: 'rgba(212,175,55,0.08)',
@@ -142,10 +141,10 @@ export default function Footer() {
               <p
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 9,
+                  fontSize: 11,
                   letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: 'rgba(0,217,255,0.55)',
+                  color: 'rgba(0,217,255,0.75)',
                   marginBottom: 16,
                   fontWeight: 600,
                 }}
@@ -160,7 +159,7 @@ export default function Footer() {
                       target={'external' in link && link.external ? '_blank' : undefined}
                       rel={'external' in link && link.external ? 'noopener noreferrer' : undefined}
                       style={{
-                        color: 'rgba(255,255,255,0.42)',
+                        color: 'rgba(255,255,255,0.5)',
                         fontSize: 12,
                         textDecoration: 'none',
                         letterSpacing: '0.02em',
@@ -183,10 +182,10 @@ export default function Footer() {
             <p
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 9,
+                fontSize: 11,
                 letterSpacing: '0.16em',
                 textTransform: 'uppercase',
-                color: 'rgba(0,217,255,0.55)',
+                color: 'rgba(0,217,255,0.75)',
                 marginBottom: 16,
                 fontWeight: 600,
               }}
@@ -204,8 +203,8 @@ export default function Footer() {
                   <p
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: 8,
-                      color: 'rgba(255,255,255,0.25)',
+                      fontSize: 11,
+                      color: 'rgba(255,255,255,0.5)',
                       letterSpacing: '0.10em',
                       textTransform: 'uppercase',
                       marginBottom: 1,
@@ -236,10 +235,10 @@ export default function Footer() {
             <p
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 8,
+                fontSize: 11,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.22)',
+                color: 'rgba(255,255,255,0.5)',
                 marginBottom: 8,
               }}
             >
@@ -262,9 +261,9 @@ export default function Footer() {
                       flexShrink: 0,
                     }}
                   >
-                    <img src={p.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img loading="lazy" decoding="async" src={p.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'rgba(255,255,255,0.28)', letterSpacing: '0.06em' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.06em' }}>
                     {p.name}
                   </span>
                 </div>
@@ -278,7 +277,7 @@ export default function Footer() {
           className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 py-6"
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
-          <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: 11, margin: 0 }}>
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, margin: 0 }}>
             © {year} TraumaSurgery EIRL. Todos los derechos reservados.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
@@ -286,8 +285,8 @@ export default function Footer() {
               href="mailto:traumasurgery.eirl@gmail.com"
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 10,
-                color: 'rgba(255,255,255,0.30)',
+                fontSize: 11,
+                color: 'rgba(255,255,255,0.5)',
                 textDecoration: 'none',
                 letterSpacing: '0.04em',
                 transition: 'color 0.2s',
@@ -303,7 +302,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                color: 'rgba(255,255,255,0.30)',
+                color: 'rgba(255,255,255,0.5)',
                 transition: 'color 0.2s',
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#f09433')}

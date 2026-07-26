@@ -4,11 +4,11 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { staggerContainer, fadeInUp, reducedMotion } from '@/animations/variants'
 
 const INSTAGRAM_POSTS = [
-  { id: 1, src: '/ig/IMG_7229.PNG',                        tag: 'Nosotros',       featured: true  },
-  { id: 2, src: '/ig/IMG_2435 (1).PNG',                    tag: 'Cirugía de Mano', featured: false },
-  { id: 3, src: '/ig/NoTodasLaRodillas001.TraumaS (1).png', tag: 'Especialidades', featured: false },
-  { id: 4, src: '/ig/SolucionesAMedida01.TS.png',          tag: 'Soluciones',     featured: false },
-  { id: 5, src: '/ig/Certificaciones.TS.png',              tag: 'Certificaciones', featured: false },
+  { id: 1, src: '/ig/logo.webp',                        tag: 'Nosotros',       featured: true  },
+  { id: 2, src: '/ig/post-quirofano.webp',                    tag: 'Cirugía de Mano', featured: false },
+  { id: 3, src: '/ig/post-rodillas.webp', tag: 'Especialidades', featured: false },
+  { id: 4, src: '/ig/post-soluciones.webp',          tag: 'Soluciones',     featured: false },
+  { id: 5, src: '/ig/post-certificaciones.webp',              tag: 'Certificaciones', featured: false },
 ]
 
 export default function InstagramFeed() {
@@ -39,7 +39,7 @@ export default function InstagramFeed() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 70% 60% at 50% 30%, rgba(0,82,163,0.12) 0%, transparent 70%)',
+            'radial-gradient(ellipse 70% 60% at 50% 30%, rgba(10,58,96,0.36) 0%, transparent 70%)',
         }}
       />
 
@@ -158,7 +158,7 @@ export default function InstagramFeed() {
             }}
             aria-label={`Ver imagen: ${featured.tag}`}
           >
-            <img
+            <img loading="lazy" decoding="async"
               src={featured.src}
               alt={featured.tag}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -206,7 +206,7 @@ export default function InstagramFeed() {
               }}
               aria-label={`Ver imagen: ${post.tag}`}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={post.src}
                 alt={post.tag}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -231,9 +231,9 @@ export default function InstagramFeed() {
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: 10,
+              fontSize: 11,
               letterSpacing: '0.14em',
-              color: 'rgba(255,255,255,0.25)',
+              color: 'rgba(255,255,255,0.5)',
               textTransform: 'uppercase',
             }}
           >
@@ -271,7 +271,7 @@ export default function InstagramFeed() {
                   pointerEvents: 'none',
                 }}
               />
-              <img
+              <img loading="lazy" decoding="async"
                 src={selectedImage}
                 alt="Vista ampliada"
                 className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl"
@@ -310,7 +310,7 @@ function PostTag({ tag }: { tag: string }) {
       <span
         style={{
           fontFamily: 'var(--font-mono)',
-          fontSize: 9,
+          fontSize: 11,
           fontWeight: 600,
           letterSpacing: '0.10em',
           textTransform: 'uppercase',

@@ -4,6 +4,7 @@
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
+import SistemasGrid from '../../features/osteosintesis/components/SistemasGrid'
 
 const empresa = 'TraumaSurgery'
 const titulo = 'Sistemas de Osteosíntesis'
@@ -14,7 +15,7 @@ const descripcion =
 ---
 
 <Layout title={`${titulo} | ${empresa}`} description={descripcion}>
-  <Header client:only="react" />
+  <Header client:load />
 
   <main id="contenido" class="block">
     <!-- Hero — Línea de producto -->
@@ -80,61 +81,8 @@ const descripcion =
       </div>
     </section>
 
-    <!-- Placeholder — Catálogo próximamente -->
-    <section
-      class="relative"
-      style="background: var(--bg-deep, #020b18);"
-      aria-labelledby="catalogo-title"
-    >
-      <div class="mx-auto max-w-7xl px-6 pb-32 lg:px-8">
-        <div
-          class="relative overflow-hidden rounded-2xl border p-10 sm:p-14"
-          style="
-            background: linear-gradient(180deg, rgba(10,30,48,0.85), rgba(4,14,31,0.85));
-            border-color: rgba(0,217,255,0.18);
-            box-shadow: 0 30px 80px -40px rgba(0,217,255,0.25);
-          "
-        >
-          <div
-            aria-hidden="true"
-            class="pointer-events-none absolute -left-16 -bottom-16 h-56 w-56 rounded-full"
-            style="background: radial-gradient(closest-side, rgba(0,217,255,0.18), transparent 70%);"
-          ></div>
-
-          <p
-            class="text-xs font-medium uppercase tracking-[0.22em]"
-            style="color: var(--ts-accent, #00d9ff);"
-          >
-            Catálogo
-          </p>
-          <h2
-            id="catalogo-title"
-            class="mt-3 font-heading text-2xl font-bold text-white sm:text-3xl"
-          >
-            Catálogo de productos próximamente
-          </h2>
-          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
-            Estamos preparando las fichas técnicas y especificaciones de cada sistema:
-            placas LCP/DCP, tornillos corticales y esponjosos, y clavos intramedulares
-            femorales, tibiales y humerales. Muy pronto disponible en esta sección.
-          </p>
-
-          <a
-            href="/#contacto"
-            class="mt-8 inline-flex min-h-[44px] items-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            style="
-              background: var(--ts-accent, #00d9ff);
-              color: #02121f;
-              --tw-ring-color: rgba(0,217,255,0.6);
-              --tw-ring-offset-color: #020b18;
-            "
-          >
-            Solicitar información
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- Catálogo — 5 sistemas, cada uno abre su modal -->
+    <SistemasGrid client:visible />
   </main>
 
   <Footer client:visible />

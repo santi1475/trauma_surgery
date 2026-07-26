@@ -45,15 +45,15 @@ function BadgeItem({ icon: Icon, label, variants }: Badge & { variants: Variants
           boxShadow: 'inset 0 0 8px rgba(0,217,255,0.08)',
         }}
       >
-        <Icon size={16} color="#22d3ee" strokeWidth={1.5} aria-hidden="true" />
+        <Icon size={16} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
       </div>
       <span
         style={{
           fontFamily: 'var(--font-mono)',
-          fontSize: 8,
+          fontSize: 11,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          color: 'rgba(255,255,255,0.45)',
+          color: 'rgba(255,255,255,0.5)',
           textAlign: 'center',
           lineHeight: 1.4,
           maxWidth: 72,

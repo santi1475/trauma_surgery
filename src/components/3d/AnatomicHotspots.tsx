@@ -240,7 +240,7 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
           <div style={textStyle}>
             <div style={{
               fontFamily: 'Orbitron, sans-serif',
-              fontSize: '10px',
+              fontSize: '11px',
               fontWeight: 700,
               letterSpacing: '0.11em',
               textTransform: 'uppercase',
@@ -258,13 +258,13 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
             {hotspot.sublabel && (
               <div style={{
                 fontFamily: 'Orbitron, sans-serif',
-                fontSize: '8px',
+                fontSize: '11px',
                 fontWeight: 500,
                 letterSpacing: '0.09em',
                 textTransform: 'uppercase',
                 whiteSpace: whiteSpaceMode,
                 maxWidth: textMaxW,
-                color: isSelected ? 'rgba(212,175,55,0.75)' : 'rgba(0,217,255,0.52)',
+                color: isSelected ? 'rgba(212,175,55,0.75)' : 'rgba(0,217,255,0.75)',
                 transition: 'color 0.3s',
                 marginTop: 3,
                 lineHeight: 1.3,
