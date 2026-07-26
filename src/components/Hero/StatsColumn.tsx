@@ -67,7 +67,7 @@ export function StatsColumn() {
               </div>
               <div>
                 <p className="text-2xl font-black text-white leading-none tabular-nums">{stat.value}</p>
-                <p className="text-[10px] tracking-widest uppercase text-gray-400 leading-tight max-w-[110px] mt-1">
+                <p className="text-[11px] tracking-widest uppercase text-gray-400 leading-tight max-w-[110px] mt-1">
                   {stat.label}
                 </p>
               </div>

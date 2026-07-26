@@ -204,7 +204,7 @@ export default function Visor3D({
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(0,82,163,0.25) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(10,58,96,0.6) 0%, transparent 70%)' }}
       />
 
       <VisorUIOverlay
@@ -263,7 +263,7 @@ export default function Visor3D({
                 <gridHelper args={[4, 20, '#003344', '#001a22']} />
                 {HOTSPOTS.map((h) => (
                   <Html key={h.id} position={h.position} style={{ pointerEvents: 'none' }}>
-                    <div style={{ color: '#ffff00', fontSize: '9px', fontFamily: 'monospace', whiteSpace: 'nowrap' }}>
+                    <div style={{ color: '#ffff00', fontSize: '11px', fontFamily: 'monospace', whiteSpace: 'nowrap' }}>
                       [{h.position.join(', ')}]
                     </div>
                   </Html>

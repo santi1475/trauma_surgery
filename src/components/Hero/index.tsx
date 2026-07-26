@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
 import { TechBackground } from './TechBackground'
 import { AnatomicalHotspots } from './AnatomicalHotspots'
@@ -8,6 +8,7 @@ import { StatsColumn } from './StatsColumn'
 import { FeatureList } from './FeatureList'
 import { AchievementBadges } from './AchievementBadges'
 import { CertificationCards } from './CertificationCards'
+import { PaisesOperamos } from '../PaisesOperamos'
 import { SLIDES } from './slides'
 
 // ── Tokens ────────────────────────────────────────────────────────────────
@@ -45,6 +46,8 @@ export default function Hero() {
   const prefersReduced = useReducedMotion()
   const [activeSlide, setActiveSlide] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const sectionRef = useRef<HTMLElement>(null)
 
   const next = useCallback(() => {
     setActiveSlide((p) => (p + 1) % SLIDES.length)
@@ -54,11 +57,21 @@ export default function Hero() {
     setActiveSlide((p) => (p - 1 + SLIDES.length) % SLIDES.length)
   }, [])
 
+  // El carrusel solo avanza si la sección está en pantalla: fuera del viewport
+  // rotar solo gasta CPU y fuerza descargas de imágenes que nadie ve.
   useEffect(() => {
-    if (prefersReduced || isPaused) return
+    const el = sectionRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(([e]) => setIsVisible(e.isIntersecting), { threshold: 0.15 })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (prefersReduced || isPaused || !isVisible) return
     const t = setInterval(next, 5000)
     return () => clearInterval(t)
-  }, [prefersReduced, isPaused, next])
+  }, [prefersReduced, isPaused, isVisible, next])
 
   const slide = SLIDES[activeSlide]
 
@@ -78,6 +91,7 @@ export default function Hero() {
   return (
     // ── Capa 0 — Wrapper base ────────────────────────────────────────────
     <section
+      ref={sectionRef}
       aria-label="Hero principal"
       className="relative w-full overflow-hidden min-h-screen pt-20 lg:pt-24"
       style={{ background: HERO_BG }}
@@ -114,18 +128,40 @@ export default function Hero() {
           }}
         >
           <AnimatePresence mode="wait">
-            <motion.img
+            {/* El fundido va en el contenedor para poder servir AVIF con
+                fallback WebP: el AVIF pesa ~1/3 y este es el elemento LCP. */}
+            <motion.div
               key={`img-${activeSlide}`}
-              src={slide.imageSrc}
-              alt={slide.imageLabel}
               variants={prefersReduced ? slideImgVariantsReduced : slideImgVariants}
               initial="enter"
               animate="center"
               exit="exit"
-              className="absolute inset-0 w-full h-full object-cover object-center select-none"
-              draggable={false}
-            />
+              className="absolute inset-0"
+            >
+              <picture>
+                <source srcSet={slide.imageSrc.replace('.webp', '.avif')} type="image/avif" />
+                <img
+                  src={slide.imageSrc}
+                  alt={slide.imageLabel}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-center select-none"
+                  draggable={false}
+                />
+              </picture>
+            </motion.div>
           </AnimatePresence>
+
+          {/* Móvil: la imagen queda detrás del copy (grid de 1 columna). Este
+              velo le devuelve contraste al texto sin ocultar la foto. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 lg:hidden"
+            style={{
+              background:
+                'linear-gradient(to bottom, rgba(2,11,24,0.92) 0%, rgba(2,11,24,0.72) 40%, rgba(2,11,24,0.55) 75%, rgba(2,11,24,0.9) 100%)',
+            }}
+          />
 
           <AnatomicalHotspots isActive={slide.id === 'movimiento'} />
         </div>
@@ -179,30 +215,7 @@ export default function Hero() {
               </AnimatePresence>
             </div>
 
-            <div className="pointer-events-auto flex flex-col gap-2 w-[230px]">
-              <span className="text-[9px] tracking-[0.2em] uppercase text-white/80">
-                Operamos en
-              </span>
-              <div className="flex gap-2.5">
-                {[
-                  { src: '/flags/peru.svg',     alt: 'Perú' },
-                  { src: '/flags/bolivia.svg',  alt: 'Bolivia' },
-                  { src: '/flags/colombia.svg', alt: 'Colombia' },
-                  { src: '/flags/paraguay.svg', alt: 'Paraguay' },
-                ].map((flag) => (
-                  <div
-                    key={flag.src}
-                    className="w-5 h-5 rounded-full overflow-hidden border border-white/10 flex-shrink-0 bg-white/5"
-                  >
-                    <img
-                      src={flag.src}
-                      alt={flag.alt}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <PaisesOperamos className="pointer-events-auto w-[230px]" />
           </div>
         </div>
 
@@ -222,7 +235,7 @@ export default function Hero() {
           />
           <span
             className="text-xs uppercase tracking-widest"
-            style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', fontWeight: 500 }}
+            style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500 }}
           >
             scroll
           </span>
@@ -239,10 +252,10 @@ export default function Hero() {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               style={{
                 fontFamily: 'var(--font-mono)',
-                fontSize: 9,
+                fontSize: 11,
                 letterSpacing: '0.18em',
                 textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.45)',
+                color: 'rgba(255,255,255,0.5)',
               }}
             >
               {slide.imageTag}
@@ -273,12 +286,12 @@ export default function Hero() {
             className="text-right"
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: 9,
+              fontSize: 11,
               letterSpacing: '0.14em',
-              color: 'rgba(255,255,255,0.45)',
+              color: 'rgba(255,255,255,0.5)',
             }}
           >
-            <span style={{ color: 'rgba(34,211,238,0.8)' }}>
+            <span style={{ color: 'rgba(0,217,255,0.8)' }}>
               {String(activeSlide + 1).padStart(2, '0')}
             </span>
             {' / '}
@@ -300,7 +313,7 @@ export default function Hero() {
               aria-hidden="true"
               className="absolute bottom-0 left-0 h-[2px] pointer-events-none"
               style={{
-                background: 'linear-gradient(to right, #06b6d4, #67e8f9)',
+                background: 'linear-gradient(to right, #00a8cc, #00d9ff)',
                 animation: 'hero-progress 5000ms linear forwards',
                 willChange: 'width',
               }}

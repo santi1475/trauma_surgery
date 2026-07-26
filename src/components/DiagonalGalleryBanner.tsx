@@ -17,25 +17,25 @@ const DEFAULT_PANELS: PanelData[] = [
     id: 'correr',
     titulo: 'MUÉVETE',
     subtitulo: 'Sin límites',
-    url: '/placeholders/actividad-correr.png',
+    url: '/placeholders/actividad-correr.webp',
   },
   {
     id: 'ciclismo',
     titulo: 'PEDALEA',
     subtitulo: 'Con confianza',
-    url: '/placeholders/actividad-ciclismo.png',
+    url: '/placeholders/actividad-ciclismo.webp',
   },
   {
     id: 'yoga',
     titulo: 'FLEXIONA',
     subtitulo: 'Tu cuerpo',
-    url: '/placeholders/actividad-yoga.png',
+    url: '/placeholders/actividad-yoga.webp',
   },
   {
     id: 'trekking',
     titulo: 'EXPLORA',
     subtitulo: 'Cada sendero',
-    url: '/placeholders/actividad-escalar.png',
+    url: '/placeholders/actividad-escalar.webp',
   },
 ]
 
@@ -63,7 +63,7 @@ function DiagonalPanel({
       style={{
         /* Skew del contenedor */
         transform: 'skewX(-12deg)',
-        borderRadius: '0.5rem',
+        borderRadius: 10,
       }}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
@@ -100,7 +100,7 @@ function DiagonalPanel({
         className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
           border: '1px solid rgba(0,217,255,0.25)',
-          borderRadius: '0.5rem',
+          borderRadius: 10,
           opacity: isHovered ? 1 : 0,
           boxShadow: isHovered
             ? 'inset 0 0 30px rgba(0,217,255,0.08)'
@@ -136,7 +136,7 @@ function DiagonalPanel({
         <motion.p
           className="font-sans"
           style={{
-            fontSize: 'clamp(10px, 1vw, 13px)',
+            fontSize: 'clamp(11px, 1vw, 13px)',
             color: 'rgba(255,255,255,0.55)',
             letterSpacing: '0.04em',
             textShadow: '0 1px 4px rgba(0,0,0,0.5)',
@@ -184,7 +184,7 @@ export default function DiagonalGalleryBanner({
           width: '60%',
           height: '90%',
           background:
-            'radial-gradient(ellipse at center, rgba(0,82,163,0.10) 0%, transparent 70%)',
+            'radial-gradient(ellipse at center, rgba(10,58,96,0.35) 0%, transparent 70%)',
         }}
       />
 
@@ -229,7 +229,7 @@ export default function DiagonalGalleryBanner({
               width: '45%',
               height: '100%',
               background:
-                'radial-gradient(ellipse at 20% 30%, rgba(0,82,163,0.12) 0%, transparent 60%)',
+                'radial-gradient(ellipse at 20% 30%, rgba(10,58,96,0.36) 0%, transparent 60%)',
             }}
           />
 
@@ -252,7 +252,7 @@ export default function DiagonalGalleryBanner({
                   color: 'var(--color-accent)',
                   letterSpacing: '0.14em',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 9,
+                  fontSize: 11,
                 }}
               >
                 Estilo de vida
@@ -296,7 +296,9 @@ export default function DiagonalGalleryBanner({
               {/* Botón ghost */}
               <motion.a
                 variants={itemVariants}
-                href="#estilo-vida"
+                // Apuntaba a #estilo-vida, que no existe en ninguna página.
+                // La galería de Instagram (#aliados) es donde están esas historias.
+                href="#aliados"
                 className="group inline-flex items-center gap-3 w-fit"
                 style={{
                   border: '1.5px solid rgba(0,217,255,0.45)',

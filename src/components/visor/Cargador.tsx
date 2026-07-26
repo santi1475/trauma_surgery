@@ -23,7 +23,7 @@ export function Cargador() {
         </div>
         <span style={{
           fontFamily: 'monospace',
-          fontSize: 10,
+          fontSize: 11,
           letterSpacing: '0.15em',
           color: '#00d9ff',
         }}>

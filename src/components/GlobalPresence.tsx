@@ -271,7 +271,7 @@ export default function GlobalPresence({
           width: '55%',
           height: '100%',
           background:
-            'radial-gradient(ellipse at top left, rgba(0,82,163,0.22) 0%, transparent 65%)',
+            'radial-gradient(ellipse at top left, rgba(10,58,96,0.6) 0%, transparent 65%)',
         }}
       />
 
@@ -327,7 +327,7 @@ export default function GlobalPresence({
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse 60% 80% at 25% 50%, rgba(0,82,163,0.16) 0%, transparent 60%)',
+                'radial-gradient(ellipse 60% 80% at 25% 50%, rgba(10,58,96,0.48) 0%, transparent 60%)',
             }}
           />
           {/* Scan line horizontal sutil */}
@@ -357,7 +357,7 @@ export default function GlobalPresence({
                 className="inline-block w-fit mb-6"
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 9,
+                  fontSize: 11,
                   fontWeight: 700,
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
@@ -416,7 +416,7 @@ export default function GlobalPresence({
                       key={country}
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: 10,
+                        fontSize: 11,
                         color: 'rgba(255,255,255,0.5)',
                         background: 'rgba(0,217,255,0.05)',
                         border: '1px solid rgba(0,217,255,0.12)',
@@ -497,7 +497,7 @@ export default function GlobalPresence({
                   height: '80%',
                   transform: 'translate(-50%, -50%)',
                   background:
-                    'radial-gradient(ellipse, rgba(0,140,220,0.18) 0%, rgba(0,82,163,0.08) 50%, transparent 70%)',
+                    'radial-gradient(ellipse, rgba(0,140,220,0.18) 0%, rgba(10,58,96,0.24) 50%, transparent 70%)',
                   filter: 'blur(8px)',
                 }}
               />

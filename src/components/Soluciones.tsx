@@ -71,7 +71,7 @@ export default function Soluciones() {
           >
             {/* Navega a la página de línea de producto: Sistemas de Reemplazo Articular */}
             <PixelButton
-              imageSrc="/IMG/HERO/Slide4.svg"
+              imageSrc="/IMG/HERO/Slide4.webp"
               containerClassName="h-64 sm:h-80 w-full"
               className="text-xl md:text-2xl font-bold"
               href="/productos/reemplazo-articular"
@@ -82,7 +82,7 @@ export default function Soluciones() {
             </PixelButton>
             {/* Navega a la página de línea de producto: Sistemas de Osteosíntesis */}
             <PixelButton
-              imageSrc="/IMG/HERO/Slide3.svg"
+              imageSrc="/IMG/HERO/Slide3.webp"
               containerClassName="h-64 sm:h-80 w-full sm:mt-12"
               className="text-xl md:text-2xl font-bold"
               href="/productos/osteosintesis"

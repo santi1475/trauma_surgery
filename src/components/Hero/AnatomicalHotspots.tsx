@@ -193,7 +193,7 @@ export function AnatomicalHotspots({ isActive }: { isActive: boolean }) {
 
                 {/* Label */}
                 <span
-                  className="font-mono text-[10px] tracking-[0.2em] uppercase whitespace-nowrap absolute"
+                  className="font-mono text-[11px] tracking-[0.2em] uppercase whitespace-nowrap absolute"
                   style={{
                     color: 'rgba(103,232,249,0.8)',
                     left: labelLeft,

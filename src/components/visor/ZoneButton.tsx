@@ -50,7 +50,7 @@ function ZoneButtonBase({ zone, active, onClick }: Props) {
       }} />
       <span style={{
         fontFamily: 'var(--font-mono)',
-        fontSize: 10,
+        fontSize: 11,
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
         color: active ? zone.color : 'rgba(255,255,255,0.45)',
@@ -60,7 +60,7 @@ function ZoneButtonBase({ zone, active, onClick }: Props) {
         {zone.label}
       </span>
       {active && (
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 8, color: zone.color, opacity: 0.8 }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: zone.color, opacity: 0.8 }}>
           ▶
         </span>
       )}

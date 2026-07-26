@@ -19,7 +19,7 @@ const COUNTRIES = [
   { flag: '🇵🇪', name: 'Perú', code: 'PE' },
   { flag: '🇧🇴', name: 'Bolivia', code: 'BO' },
   { flag: '🇨🇴', name: 'Colombia', code: 'CO' },
-  { flag: '🇺🇾', name: 'Paraguay', code: 'PY' },
+  { flag: '🇵🇾', name: 'Paraguay', code: 'PY' },
 ]
 
 const TOP_H = 36
@@ -135,7 +135,7 @@ export default function Header() {
           aria-label="TraumaSurgery — Inicio"
         >
           <div className="w-10 h-10 rounded-full overflow-hidden">
-            <img src="/ig/IMG_7229.PNG" alt="Logo TraumaSurgery" className="h-10 w-auto" />
+            <img src="/ig/logo.webp" alt="Logo TraumaSurgery" className="h-10 w-auto" />
           </div>
           <span
             style={{
@@ -184,12 +184,16 @@ export default function Header() {
                   position: 'absolute',
                   bottom: -3,
                   left: 0,
-                  width: 0,
+                  width: '100%',
                   height: 1,
-                  background: 'linear-gradient(90deg, #00d9ff, #0088aa)',
-                  transition: 'width 0.3s ease',
+                  background: 'linear-gradient(90deg, #00d9ff, #00a8cc)',
+                  // Escalado en vez de width: se compone en GPU y no provoca layout.
+                  // Tailwind v4 usa la propiedad `scale` (no `transform`), así que
+                  // la transición debe apuntar ahí o el subrayado aparece de golpe.
+                  transformOrigin: 'left',
+                  transition: 'scale 0.3s ease',
                 }}
-                className="group-hover:w-full"
+                className="scale-x-0 group-hover:scale-x-100"
               />
             </a>
           ))}
@@ -322,8 +326,8 @@ export default function Header() {
                   </div>
                   <span
                     style={{
-                      fontSize: 9,
-                      color: 'rgba(255,255,255,0.3)',
+                      fontSize: 11,
+                      color: 'rgba(255,255,255,0.5)',
                       fontFamily: 'var(--font-mono)',
                     }}
                   >

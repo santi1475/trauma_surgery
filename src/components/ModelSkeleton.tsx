@@ -88,13 +88,13 @@ function ZoneTooltip({ zone, visible }: { zone: ZonaAnatomica; visible: boolean 
         minWidth: 148,
         whiteSpace: 'nowrap',
       }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: zone.color, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 3 }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: zone.color, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 3 }}>
           {zone.icon} {zone.label}
         </div>
-        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 10, color: 'rgba(255,255,255,0.48)', letterSpacing: '0.03em', marginBottom: 4 }}>
+        <div style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.03em', marginBottom: 4 }}>
           {zone.categoria}
         </div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 8, color: `${zone.color}88`, letterSpacing: '0.1em' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: `${zone.color}88`, letterSpacing: '0.1em' }}>
           ▶ CLICK PARA EXPLORAR
         </div>
       </div>
