@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check:catalogo": "node src/features/osteosintesis/data/catalogo.check.ts",
     "astro": "astro"
   },
   "dependencies": {

@@ -9,9 +9,18 @@ import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import * as Iconos from 'lucide-react'
 import ModalProducto from '@/features/reemplazo-articular/components/ModalProducto'
 import { TextoRico } from '@/features/reemplazo-articular/components/TextoRico'
+import { BloqueInstrumental } from './BloqueInstrumental'
+import { BORDE, RADIO, SUPERFICIE } from './estilosTabla'
 import { TablaCatalogo } from './TablaCatalogo'
+import { TablaCodigos } from './TablaCodigos'
+import { TablaPlacas } from './TablaPlacas'
 import { getSistema } from '../data/sistemas'
-import { ATRIBUTOS, EYEBROW, type IconoNombre } from '../data/tipos'
+import { ATRIBUTOS, EYEBROW, type IconoNombre, type SistemaOsteo } from '../data/tipos'
+
+/** Un sistema tiene catálogo si trae cualquiera de los tres arquetipos. */
+export function tieneCatalogo(s: SistemaOsteo) {
+  return Boolean(s.filas || s.placas?.length || s.codigos?.length)
+}
 
 function Icono({ nombre, size = 18 }: { nombre?: IconoNombre; size?: number }) {
   const C =
@@ -179,25 +188,52 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
             animate="visible"
             className="min-w-0 lg:col-span-8"
           >
-            {datos.filas ? (
-              <>
-                <TablaCatalogo
-                  filas={datos.filas}
-                  caption={`Catálogo de referencias — ${datos.titulo.join(' ')}`}
-                />
-                {datos.notaTabla && (
-                  <p className="mt-3 text-xs text-white/40">
-                    <TextoRico texto={datos.notaTabla} />
+            {tieneCatalogo(datos) ? (
+              // Bloques en el mismo orden en que salen en el catálogo:
+              // placas → tornillería → matriz → instrumental.
+              <div className="flex flex-col gap-12">
+                {datos.placas?.map((t) => <TablaPlacas key={t.titulo} datos={t} />)}
+
+                {datos.codigos?.map((t, i) => (
+                  <TablaCodigos key={t.titulo ?? i} datos={t} />
+                ))}
+
+                {datos.filas && (
+                  <div>
+                    <TablaCatalogo
+                      filas={datos.filas}
+                      caption={`Catálogo de referencias — ${datos.titulo.join(' ')}`}
+                      huecos={datos.huecosTornillos}
+                    />
+                    {datos.notaTabla && (
+                      <p className="mt-3 text-xs text-white/50">
+                        <TextoRico texto={datos.notaTabla} />
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {datos.instrumental && <BloqueInstrumental datos={datos.instrumental} />}
+
+                {datos.fuente && (
+                  <p
+                    className="text-[11px] tracking-[0.08em] text-white/50"
+                    style={{ fontFamily: 'var(--font-mono)' }}
+                  >
+                    Fuente: {datos.fuente}
                   </p>
                 )}
-              </>
+              </div>
             ) : (
-              // Sistemas cuya tabla aún no se ha transcrito del PDF.
+              // Red de seguridad: hoy los 4 sistemas publicados traen tabla, así
+              // que esta rama no se pinta. Se conserva porque los otros 5 están
+              // comentados en sistemas.ts y volverán por ahí.
               <div
-                className="flex min-h-[320px] items-center justify-center rounded-xl border p-8 text-center"
+                className="flex min-h-[320px] items-center justify-center border p-8 text-center"
                 style={{
-                  borderColor: 'rgba(0,217,255,0.16)',
-                  background: 'rgba(2,11,24,0.6)',
+                  borderColor: BORDE,
+                  background: SUPERFICIE,
+                  borderRadius: RADIO,
                 }}
               >
                 <p className="max-w-sm text-sm leading-relaxed text-white/45">

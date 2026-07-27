@@ -1,11 +1,11 @@
 'use client'
-// Rejilla de los 5 sistemas de osteosíntesis. Cada tarjeta abre su modal.
+// Rejilla de los sistemas de osteosíntesis. Cada tarjeta abre su modal.
 // Mismo patrón de montaje diferido que CatalogoGrid de reemplazo articular:
 // un modal solo se monta tras su primera apertura.
 
 import { useRef, useState } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import ModalSistema from './ModalSistema'
+import ModalSistema, { tieneCatalogo } from './ModalSistema'
 import { sistemas } from '../data/sistemas'
 
 const LISTA: Variants = {
@@ -67,7 +67,9 @@ export default function SistemasGrid() {
               <button
                 type="button"
                 onClick={() => setAbierto(s.id)}
-                aria-label={`Ver detalles de ${s.titulo.join(' ')}`}
+                // El subtítulo entra en el nombre accesible: sin él, tibia
+                // proximal 3.5 y 5.0 son dos botones indistinguibles.
+                aria-label={`Ver detalles de ${[...s.titulo, s.subtitulo].filter(Boolean).join(' ')}`}
                 className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border text-left transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 style={{
                   borderColor: 'rgba(0,217,255,0.18)',
@@ -111,7 +113,7 @@ export default function SistemasGrid() {
                     className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
                     style={{ color: 'var(--ts-accent, #00d9ff)' }}
                   >
-                    {s.filas ? 'Ver referencias' : 'Ver sistema'}
+                    {tieneCatalogo(s) ? 'Ver referencias' : 'Ver sistema'}
                     <span aria-hidden="true">→</span>
                   </span>
                 </div>
