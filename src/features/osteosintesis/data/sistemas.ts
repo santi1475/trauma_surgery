@@ -41,6 +41,13 @@ export const sistemas: SistemaOsteo[] = [
     fuente: 'Catálogo de productos, págs. 2–3',
     placas: placasClavicula,
     instrumental: instrumentalClavicula,
+    pdf: {
+      url: '/docs/catalogos-placas-001.pdf',
+      titulo: 'Catálogo Oficial — Sistema de Clavícula',
+      peso: '5.3 MB',
+      paginas: 24,
+      paginaInicial: 2,
+    },
   },
   {
     id: 'humero',
@@ -53,6 +60,13 @@ export const sistemas: SistemaOsteo[] = [
     fuente: 'Catálogo de productos, pág. 6',
     codigos: codigosHumero,
     instrumental: instrumentalHumero,
+    pdf: {
+      url: '/docs/catalogos-placas-001.pdf',
+      titulo: 'Catálogo Oficial — Sistema de Húmero',
+      peso: '5.3 MB',
+      paginas: 24,
+      paginaInicial: 6,
+    },
   },
   {
     id: 'tornillos',
@@ -67,6 +81,13 @@ export const sistemas: SistemaOsteo[] = [
     huecosTornillos: HUECOS_TORNILLOS,
     notaTabla:
       'Longitud de rosca en mm. {L} indica la longitud total del tornillo.',
+    pdf: {
+      url: '/docs/catalogos-placas-001.pdf',
+      titulo: 'Catálogo Oficial — Tornillos Cannulados',
+      peso: '5.3 MB',
+      paginas: 24,
+      paginaInicial: 8,
+    },
   },
   {
     id: 'tibia-proximal-35',
@@ -80,6 +101,13 @@ export const sistemas: SistemaOsteo[] = [
     placas: placasTibia35,
     codigos: codigosTibia35,
     instrumental: instrumentalTibia35,
+    pdf: {
+      url: '/docs/catalogos-placas-001.pdf',
+      titulo: 'Catálogo Oficial — Tibia Proximal 3.5',
+      peso: '5.3 MB',
+      paginas: 24,
+      paginaInicial: 10,
+    },
   },
 
   // ─── COMENTADOS — pendientes de revisar con el cliente ───────────────

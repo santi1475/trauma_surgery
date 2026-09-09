@@ -2,9 +2,9 @@
 // A diferencia de reemplazo articular, aquí el contenido central es una
 // tabla de catálogo (números de parte), no una lista de características.
 
-import type { Imagen, IconoNombre, TextoRico } from '@/features/reemplazo-articular/data/tipos'
+import type { Imagen, IconoNombre, TextoRico, DocumentoPDF } from '@/features/reemplazo-articular/data/tipos'
 
-export type { Imagen, IconoNombre, TextoRico }
+export type { Imagen, IconoNombre, TextoRico, DocumentoPDF }
 
 /** Celda de la tabla: [longitud de rosca, número de parte]. null = no aplica. */
 export type Celda = [number, string] | null
@@ -159,6 +159,8 @@ export interface SistemaOsteo {
   instrumental?: Instrumental
   /** Nota bajo la tabla (fuente, unidades…). */
   notaTabla?: TextoRico
+  /** Documento PDF oficial asociado para consulta técnica o descarga. */
+  pdf?: DocumentoPDF
 }
 
 // ─── Constantes compartidas ───────────────────────────────────────────

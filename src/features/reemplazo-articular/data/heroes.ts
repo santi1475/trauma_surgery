@@ -13,6 +13,12 @@ export const heroes: Record<string, Hero> = {
     descripcion:
       'Soluciones diseñadas para restaurar la movilidad, aliviar el dolor y mejorar la {calidad de vida} de los pacientes.',
     imagen: { src: '/IMG/MODEL/CADERA.webp', alt: 'Prótesis de cadera' },
+    pdf: {
+      url: '/docs/catalogos-placas-001.pdf',
+      titulo: 'Catálogo Oficial de Implantes',
+      peso: '5.3 MB',
+      label: 'Ficha Técnica PDF',
+    },
   },
 
   hombro: {
@@ -47,5 +53,11 @@ export const heroes: Record<string, Hero> = {
     descripcion:
       'Soluciones de fijación interna para fracturas complejas, diseñadas para {estabilidad primaria} y consolidación ósea óptima.',
     imagen: { src: '/placeholders/placas-comerciales.webp', alt: 'Placas y tornillos' },
+    pdf: {
+      url: '/docs/catalogos-placas-001.pdf',
+      titulo: 'Catálogo de Placas y Tornillos — TraumaSurgery',
+      peso: '5.3 MB',
+      label: 'Catálogo Oficial PDF',
+    },
   },
 }

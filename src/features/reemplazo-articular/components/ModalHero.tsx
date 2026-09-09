@@ -146,21 +146,44 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
             </span>
           </p>
 
-          {/* CTA — pill cian, mismo tratamiento que el CTA del Hero */}
-          <motion.a
-            href={CTA_EMAIL.href}
-            className="mt-7 inline-flex min-h-[44px] w-fit items-center gap-2.5 rounded-full px-6 py-3 text-[11px] font-bold uppercase tracking-[0.14em] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            style={{
-              background: 'var(--ts-accent, #00d9ff)',
-              color: '#02121f',
-              ['--tw-ring-color' as string]: 'rgba(0,217,255,0.6)',
-              ['--tw-ring-offset-color' as string]: '#020b18',
-            }}
-            whileHover={prefersReduced ? {} : { boxShadow: '0 0 20px rgba(0,217,255,0.35)' }}
-            whileTap={prefersReduced ? {} : { scale: 0.97 }}
-          >
-            {CTA_EMAIL.label} <span aria-hidden="true">→</span>
-          </motion.a>
+          {/* CTAs */}
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <motion.a
+              href={CTA_EMAIL.href}
+              className="inline-flex min-h-[44px] w-fit items-center gap-2.5 rounded-full px-6 py-3 text-[11px] font-bold uppercase tracking-[0.14em] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              style={{
+                background: 'var(--ts-accent, #00d9ff)',
+                color: '#02121f',
+                ['--tw-ring-color' as string]: 'rgba(0,217,255,0.6)',
+                ['--tw-ring-offset-color' as string]: '#020b18',
+              }}
+              whileHover={prefersReduced ? {} : { boxShadow: '0 0 20px rgba(0,217,255,0.35)' }}
+              whileTap={prefersReduced ? {} : { scale: 0.97 }}
+            >
+              {CTA_EMAIL.label} <span aria-hidden="true">→</span>
+            </motion.a>
+
+            {data.pdf && (
+              <motion.a
+                href={data.pdf.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white/80 no-underline transition hover:text-white focus:outline-none focus-visible:ring-2"
+                style={{
+                  borderColor: 'rgba(0,217,255,0.35)',
+                  background: 'rgba(10,30,48,0.6)',
+                  ['--tw-ring-color' as string]: 'rgba(0,217,255,0.6)',
+                  fontFamily: 'var(--font-mono)',
+                }}
+                whileHover={prefersReduced ? {} : { borderColor: '#00d9ff', background: 'rgba(0,217,255,0.12)' }}
+                whileTap={prefersReduced ? {} : { scale: 0.97 }}
+              >
+                <Icono nombre="FileText" size={14} />
+                <span>{data.pdf.label ?? 'Catálogo PDF'}</span>
+                <span className="text-[10px] opacity-60">↗</span>
+              </motion.a>
+            )}
+          </div>
 
           {/* 4 pilares hexagonales */}
           <motion.ul

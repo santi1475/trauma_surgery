@@ -5,6 +5,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
+import { FileText } from 'lucide-react'
 import ModalSistema, { tieneCatalogo } from './ModalSistema'
 import { sistemas } from '../data/sistemas'
 
@@ -109,13 +110,28 @@ export default function SistemasGrid() {
                       {s.subtitulo}
                     </p>
                   )}
-                  <span
-                    className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
-                    style={{ color: 'var(--ts-accent, #00d9ff)' }}
-                  >
-                    {tieneCatalogo(s) ? 'Ver referencias' : 'Ver sistema'}
-                    <span aria-hidden="true">→</span>
-                  </span>
+                  <div className="mt-4 flex items-center justify-between">
+                    <span
+                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
+                      style={{ color: 'var(--ts-accent, #00d9ff)' }}
+                    >
+                      {tieneCatalogo(s) ? 'Ver referencias' : 'Ver sistema'}
+                      <span aria-hidden="true">→</span>
+                    </span>
+
+                    {s.pdf && (
+                      <span
+                        className="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-white/60"
+                        style={{
+                          borderColor: 'rgba(0,217,255,0.25)',
+                          background: 'rgba(0,217,255,0.06)',
+                        }}
+                      >
+                        <FileText size={11} className="text-[#00d9ff]" />
+                        <span>PDF</span>
+                      </span>
+                    )}
+                  </div>
                 </div>
               </button>
             </motion.li>

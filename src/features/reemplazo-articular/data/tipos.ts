@@ -29,6 +29,15 @@ export interface Item {
   imagen?: Imagen
 }
 
+export interface DocumentoPDF {
+  url: string
+  titulo?: string
+  peso?: string
+  paginas?: number
+  paginaInicial?: number
+  label?: string
+}
+
 // ─── Bloques ──────────────────────────────────────────────────────────
 
 export interface Hero {
@@ -48,6 +57,8 @@ export interface Hero {
   }>
   /** Banner lateral de refuerzo (hombro, mano). */
   claim?: TextoRico
+  /** Documento PDF oficial para técnica quirúrgica o catálogo. */
+  pdf?: DocumentoPDF
 }
 
 export interface Identidad {
@@ -92,6 +103,7 @@ export interface ProductoData {
   identidad: Identidad    // 2
   sistema?: Sistema       // 3
   caracteristicas: Item[] // 4
+  pdf?: DocumentoPDF
   // El footer es un badge fijo (BADGE_CALIDAD), no sale de la data.
   //
   // Bloques descartados por el cliente en los 5 productos: "Ingeniería del

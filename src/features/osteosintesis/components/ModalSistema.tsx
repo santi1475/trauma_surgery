@@ -4,9 +4,10 @@
 // Col 2 (ancha):    tabla de catálogo.
 // Abajo:            banda de atributos, a ancho completo.
 
-import { useId } from 'react'
+import { useState, useId } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import * as Iconos from 'lucide-react'
+import VisorPDF from '@/components/VisorPDF'
 import ModalProducto from '@/features/reemplazo-articular/components/ModalProducto'
 import { TextoRico } from '@/features/reemplazo-articular/components/TextoRico'
 import { BloqueInstrumental } from './BloqueInstrumental'
@@ -68,6 +69,7 @@ interface Props {
 }
 
 export default function ModalSistema({ sistema, open, onClose }: Props) {
+  const [vista, setVista] = useState<'tabla' | 'pdf'>('tabla')
   const titleId = useId()
   const prefersReduced = useReducedMotion()
   const vars = prefersReduced ? REDUCIDO : COL
@@ -181,14 +183,79 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
             </ul>
           </motion.div>
 
-          {/* ── Col 2 — tabla de catálogo ── */}
+          {/* ── Col 2 — tabla de catálogo / visor PDF ── */}
           <motion.div
             variants={vars}
             initial="hidden"
             animate="visible"
             className="min-w-0 lg:col-span-8"
           >
-            {tieneCatalogo(datos) ? (
+            {/* Switch de modo si el sistema tiene PDF asociado */}
+            {datos.pdf && (
+              <div
+                className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border p-2"
+                style={{
+                  borderColor: 'rgba(0, 217, 255, 0.18)',
+                  background: 'linear-gradient(180deg, rgba(10,30,48,0.5), rgba(2,11,24,0.75))',
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setVista('tabla')}
+                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider transition ${
+                      vista === 'tabla'
+                        ? 'bg-[#00d9ff] text-[#020b18] shadow-[0_0_16px_rgba(0,217,255,0.35)]'
+                        : 'text-white/60 hover:text-white'
+                    }`}
+                    style={{ fontFamily: 'var(--font-mono)' }}
+                  >
+                    <Iconos.TableProperties size={14} aria-hidden="true" />
+                    <span>Ficha de Referencias</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setVista('pdf')}
+                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider transition ${
+                      vista === 'pdf'
+                        ? 'bg-[#00d9ff] text-[#020b18] shadow-[0_0_16px_rgba(0,217,255,0.35)]'
+                        : 'text-white/60 hover:text-white'
+                    }`}
+                    style={{ fontFamily: 'var(--font-mono)' }}
+                  >
+                    <Iconos.FileText size={14} aria-hidden="true" />
+                    <span>Catálogo Oficial PDF</span>
+                    <span
+                      className="rounded px-1.5 py-0.5 text-[10px] font-mono font-normal uppercase"
+                      style={{
+                        background: vista === 'pdf' ? '#0A3A60' : 'rgba(0,217,255,0.12)',
+                        color: vista === 'pdf' ? '#ffffff' : '#00d9ff',
+                      }}
+                    >
+                      {datos.pdf.paginas ? `${datos.pdf.paginas}p` : 'PDF'}
+                    </span>
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-3 pr-2">
+                  <a
+                    href={datos.pdf.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-[#00d9ff] transition hover:underline"
+                    style={{ fontFamily: 'var(--font-mono)' }}
+                  >
+                    <span>Abrir en ventana completa</span>
+                    <Iconos.ExternalLink size={12} aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {vista === 'pdf' && datos.pdf ? (
+              <VisorPDF documento={datos.pdf} altura="700px" />
+            ) : tieneCatalogo(datos) ? (
               // Bloques en el mismo orden en que salen en el catálogo:
               // placas → tornillería → matriz → instrumental.
               <div className="flex flex-col gap-12">
