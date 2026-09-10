@@ -254,7 +254,7 @@ export function ModalDetalle({ data, scopeId }: { data: ProductoData; scopeId: s
               {/* Segunda línea: baja un paso si es larga (TRAPECIOMETACARPIANA,
                   Inlay patellar button) — como en las referencias. */}
               <span
-                className={`mt-1 block break-words text-cyan-400 ${
+                className={`mt-1 block break-words text-[#00d9ff] ${
                   identidad.nombreComercial[1].length > 14
                     ? 'text-lg md:text-xl'
                     : 'text-2xl md:text-3xl'

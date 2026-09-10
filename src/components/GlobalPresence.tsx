@@ -11,11 +11,19 @@ interface PresenceNode {
   y: number
 }
 
+/** Chips de país bajo el texto — mismos SVG de bandera que cabecera y pie. */
+const PAISES_CHIP = [
+  { nombre: 'Perú',     bandera: '/flags/peru.svg' },
+  { nombre: 'Bolivia',  bandera: '/flags/bolivia.svg' },
+  { nombre: 'Colombia', bandera: '/flags/colombia.svg' },
+  { nombre: 'Paraguay', bandera: '/flags/paraguay.svg' },
+]
+
 const NODES: PresenceNode[] = [
   { id: 'peru',      label: 'Perú',      x: 27, y: 62 },
   { id: 'colombia',  label: 'Colombia',  x: 25, y: 52 },
   { id: 'bolivia',   label: 'Bolivia',   x: 30, y: 66 },
-  { id: 'paraguay',   label: 'Paraguay',   x: 33, y: 72 },
+  { id: 'paraguay',  label: 'Paraguay',  x: 33, y: 72 },
   { id: 'usa',       label: 'EE.UU.',    x: 20, y: 38 },
   { id: 'europa',    label: 'Europa',    x: 52, y: 34 },
 ]
@@ -410,11 +418,14 @@ export default function GlobalPresence({
                 variants={itemVariants}
                 className="flex flex-wrap gap-2 mb-8"
               >
-                {['🇵🇪 Perú', '🇧🇴 Bolivia', '🇨🇴 Colombia', '🇵🇾 Paraguay'].map(
+                {PAISES_CHIP.map(
                   (country) => (
                     <span
-                      key={country}
+                      key={country.nombre}
                       style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 7,
                         fontFamily: 'var(--font-mono)',
                         fontSize: 11,
                         color: 'rgba(255,255,255,0.5)',
@@ -425,7 +436,16 @@ export default function GlobalPresence({
                         letterSpacing: '0.06em',
                       }}
                     >
-                      {country}
+                      <img
+                        src={country.bandera}
+                        alt=""
+                        width={14}
+                        height={14}
+                        loading="lazy"
+                        decoding="async"
+                        style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                      />
+                      {country.nombre}
                     </span>
                   )
                 )}

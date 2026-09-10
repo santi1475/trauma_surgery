@@ -5,8 +5,8 @@
 
 import { useRef, useState } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { FileText } from 'lucide-react'
-import ModalSistema, { tieneCatalogo } from './ModalSistema'
+import { ArrowRight, FileText } from 'lucide-react'
+import ModalSistema from './ModalSistema'
 import { sistemas } from '../data/sistemas'
 
 const LISTA: Variants = {
@@ -53,7 +53,8 @@ export default function SistemasGrid() {
           Sistemas disponibles
         </h2>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/60">
-          Consulta las referencias y especificaciones de cada sistema.
+          Cada sistema abre el catálogo oficial del fabricante, con sus referencias
+          y especificaciones tal como se publican.
         </p>
 
         <motion.ul
@@ -92,7 +93,7 @@ export default function SistemasGrid() {
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-contain p-6 transition duration-500 group-hover:scale-[1.03]"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
 
@@ -115,13 +116,13 @@ export default function SistemasGrid() {
                       className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
                       style={{ color: 'var(--ts-accent, #00d9ff)' }}
                     >
-                      {tieneCatalogo(s) ? 'Ver referencias' : 'Ver sistema'}
-                      <span aria-hidden="true">→</span>
+                      {s.pdf ? 'Ver catálogo oficial' : 'Ver sistema'}
+                      <ArrowRight size={13} strokeWidth={2} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5" />
                     </span>
 
                     {s.pdf && (
                       <span
-                        className="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-white/60"
+                        className="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-[11px] font-mono uppercase tracking-wider text-white/60"
                         style={{
                           borderColor: 'rgba(0,217,255,0.25)',
                           background: 'rgba(0,217,255,0.06)',

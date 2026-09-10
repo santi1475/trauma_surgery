@@ -66,8 +66,7 @@ export function CertificationCards() {
           className="flex items-center gap-3.5 rounded-xl p-3.5 shadow-lg cursor-default transition-shadow hover:shadow-[0_0_15px_rgba(0,217,255,0.15)]"
           style={{
             background: 'linear-gradient(135deg, rgba(4,14,31,0.9) 0%, rgba(4,14,31,0.6) 100%)',
-            border: '1px solid rgba(34,211,238,0.15)',
-            borderLeft: '3px solid rgba(34,211,238,0.7)',
+            border: '1px solid rgba(0,217,255,0.30)',
             backdropFilter: 'blur(8px)',
           }}
         >
@@ -87,10 +86,10 @@ export function CertificationCards() {
 
           <div
             className="self-stretch flex-shrink-0 w-px rounded-full"
-            style={{ background: 'linear-gradient(to bottom, transparent, rgba(34,211,238,0.3), transparent)' }}
+            style={{ background: 'linear-gradient(to bottom, transparent, rgba(0,217,255,0.3), transparent)' }}
           />
 
-          <p className="text-xs text-gray-300 leading-snug font-medium">
+          <p className="text-xs text-white/78 leading-snug font-medium">
             {card.label}
           </p>
         </motion.div>

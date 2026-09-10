@@ -4,19 +4,19 @@ import { staggerContainer, fadeInUp, reducedMotion } from '@/animations/variants
 import { NumberTicker } from './ui/number-ticker'
 
 const STATS = [
-  { value: 3, suffix: '', label: 'Países operativos', detail: 'Perú · Bolivia · Colombia' },
+  { value: 4, suffix: '', label: 'Países operativos', detail: 'Perú · Bolivia · Colombia · Paraguay' },
   { value: 15, suffix: '+', label: 'Años de experiencia', detail: 'Trayectoria comprobada' },
   { value: 500, suffix: '+', label: 'Cirujanos atendidos', detail: 'En toda la región' },
   { value: 24, suffix: '/7', label: 'Soporte técnico', detail: 'Disponibilidad permanente' },
 ]
 
 const VALORES = [
-  { icon: '⬡', label: 'Ética' },
-  { icon: '⬡', label: 'Pasión' },
-  { icon: '⬡', label: 'Cooperación' },
-  { icon: '⬡', label: 'Innovación' },
-  { icon: '⬡', label: 'Transparencia' },
-  { icon: '⬡', label: 'Compromiso' },
+  'Ética',
+  'Pasión',
+  'Cooperación',
+  'Innovación',
+  'Transparencia',
+  'Compromiso',
 ]
 
 export default function GlobalStats() {
@@ -88,7 +88,7 @@ export default function GlobalStats() {
               maxWidth: '42ch',
             }}
           >
-            Conectando cirujanos, hospitales y clínicas en Perú, Bolivia y Colombia
+            Conectando cirujanos, hospitales y clínicas en Perú, Bolivia, Colombia y Paraguay
             con dispositivos médicos de certificación internacional.
           </motion.p>
         </motion.div>
@@ -173,9 +173,9 @@ export default function GlobalStats() {
           </motion.p>
 
           <motion.div variants={container} className="flex flex-wrap justify-center gap-3">
-            {VALORES.map((v) => (
+            {VALORES.map((valor) => (
               <motion.span
-                key={v.label}
+                key={valor}
                 variants={item}
                 className="px-5 py-2 rounded-full text-sm font-medium"
                 style={{
@@ -185,7 +185,7 @@ export default function GlobalStats() {
                   letterSpacing: '0.04em',
                 }}
               >
-                {v.label}
+                {valor}
               </motion.span>
             ))}
           </motion.div>

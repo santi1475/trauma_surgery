@@ -55,19 +55,24 @@ export function StatsColumn() {
         return (
           <motion.div key={stat.label} variants={itemVars}>
             <div 
-              className="flex items-center gap-3 py-3 px-4 rounded-xl border border-white/5 mb-2 transition-all duration-300 hover:bg-white/5"
+              className="flex items-center gap-3 py-3 px-4 rounded-xl border border-[#00d9ff]/15 mb-2 transition-all duration-300 hover:bg-white/5"
               style={{ 
                 background: 'rgba(10, 58, 96, 0.15)', 
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
               }}
             >
-              <div className="w-9 h-9 rounded-full border border-cyan-700/40 flex items-center justify-center flex-shrink-0">
-                <Icon size={16} className="text-cyan-400" strokeWidth={1.5} aria-hidden="true" />
+              <div className="w-9 h-9 rounded-full border border-[#00a8cc]/40 flex items-center justify-center flex-shrink-0">
+                <Icon size={16} className="text-[#00d9ff]" strokeWidth={1.5} aria-hidden="true" />
               </div>
               <div>
-                <p className="text-2xl font-black text-white leading-none tabular-nums">{stat.value}</p>
-                <p className="text-[11px] tracking-widest uppercase text-gray-400 leading-tight max-w-[110px] mt-1">
+                <p
+                  className="text-2xl font-bold text-white leading-none tabular-nums"
+                  style={{ fontFamily: 'var(--font-mono)' }}
+                >
+                  {stat.value}
+                </p>
+                <p className="text-[11px] tracking-widest uppercase text-white/60 leading-tight max-w-[136px] mt-1.5">
                   {stat.label}
                 </p>
               </div>

@@ -165,8 +165,6 @@ export interface SistemaOsteo {
 
 // ─── Constantes compartidas ───────────────────────────────────────────
 
-export const EYEBROW = 'PLACAS DE OSTEOSÍNTESIS'
-
 /** Banda inferior — igual en los 5 modales (viene de la referencia del cliente). */
 export const ATRIBUTOS: Array<{ titulo: string; texto: string; icono: IconoNombre }> = [
   { titulo: 'MATERIALES DE ALTA CALIDAD', texto: 'Titanio grado médico', icono: 'Atom' },

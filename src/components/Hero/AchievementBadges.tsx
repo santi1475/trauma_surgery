@@ -41,7 +41,7 @@ function BadgeItem({ icon: Icon, label, variants }: Badge & { variants: Variants
           width: 36,
           height: 36,
           background: 'rgba(4,14,31,0.6)',
-          border: '1px solid rgba(34,211,238,0.25)',
+          border: '1px solid rgba(0,217,255,0.25)',
           boxShadow: 'inset 0 0 8px rgba(0,217,255,0.08)',
         }}
       >

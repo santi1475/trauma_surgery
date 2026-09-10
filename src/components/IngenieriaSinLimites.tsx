@@ -475,7 +475,7 @@ function RightColumnVisual({
       <HudCorners />
 
       {/* Video del implante con fundidos perimetrales — cross-fade entre slides */}
-      <div className="image-wrapper" aria-hidden="false" style={{ backgroundColor: '#000' }}>
+      <div className="image-wrapper" aria-hidden="false" style={{ backgroundColor: '#020b18' }}>
         <AnimatePresence initial={false} mode="sync">
           <motion.video
             id={`slide-${slide.id}`}

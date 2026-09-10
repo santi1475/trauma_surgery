@@ -124,7 +124,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
             <span className="block whitespace-nowrap text-2xl text-white md:text-3xl">
               {data.titulo[0]}
             </span>
-            <span className="mt-2 block whitespace-nowrap text-3xl text-cyan-400 md:text-4xl lg:text-5xl">
+            <span className="mt-2 block whitespace-nowrap text-3xl text-[#00d9ff] md:text-4xl lg:text-5xl">
               {data.titulo[1]}
             </span>
           </h2>
@@ -160,7 +160,8 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
               whileHover={prefersReduced ? {} : { boxShadow: '0 0 20px rgba(0,217,255,0.35)' }}
               whileTap={prefersReduced ? {} : { scale: 0.97 }}
             >
-              {CTA_EMAIL.label} <span aria-hidden="true">→</span>
+              <span>{CTA_EMAIL.label}</span>
+                <Iconos.ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
             </motion.a>
 
             {data.pdf && (
@@ -180,7 +181,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
               >
                 <Icono nombre="FileText" size={14} />
                 <span>{data.pdf.label ?? 'Catálogo PDF'}</span>
-                <span className="text-[10px] opacity-60">↗</span>
+                <Iconos.ExternalLink size={12} strokeWidth={2} aria-hidden="true" className="opacity-70" />
               </motion.a>
             )}
           </div>
@@ -247,7 +248,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
               <span className="mt-0.5 shrink-0">
                 <Icono nombre="ShieldCheck" size={18} />
               </span>
-              <p className="text-xs leading-snug text-gray-300">
+              <p className="text-xs leading-snug text-white/78">
                 <TextoRico texto={data.claim} />
               </p>
             </div>

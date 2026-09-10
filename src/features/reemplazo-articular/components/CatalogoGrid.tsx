@@ -355,7 +355,7 @@ export default function CatalogoGrid() {
               HOMBRO
             </span>
             <p
-              className="relative border-l-2 pl-6 text-base leading-relaxed text-white/75 sm:text-lg"
+              className="relative border-l pl-6 text-base leading-relaxed text-white/75 sm:text-lg"
               style={{ borderColor: '#00d9ff' }}
             >
               Soluciones avanzadas para cada región anatómica

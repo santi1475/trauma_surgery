@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { HOTSPOTS, type HotspotData } from '@/data/hotspots'
+import { IconoZona } from '@/components/IconoZona'
 
 interface AnatomicHotspotsProps {
   hoveredZone: string | null
@@ -224,16 +225,14 @@ function Hotspot({ hotspot, index, isHovered, isSelected, dimmed, onHover, onSel
             justifyContent: 'center',
             transition: 'border-color 0.3s, box-shadow 0.3s',
           }}>
-            <span style={{
-              fontSize: iconSize,
-              lineHeight: 1,
-              filter: isSelected
-                ? 'sepia(1) saturate(4) hue-rotate(5deg) brightness(1.2)'
-                : isHovered ? 'brightness(1.3)' : 'brightness(0.9)',
-              transition: 'filter 0.3s',
-            }}>
-              {hotspot.icon}
-            </span>
+            <IconoZona
+              zona={hotspot.id}
+              size={iconSize}
+              // El color lo lleva el glifo, no un filtro sobre un emoji ajeno.
+              className={
+                isSelected || isHovered ? 'text-[#00d9ff]' : 'text-[#00d9ff]/70'
+              }
+            />
           </div>
 
           {/* Bloque de texto */}

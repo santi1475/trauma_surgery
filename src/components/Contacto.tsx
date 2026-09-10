@@ -1,5 +1,6 @@
 'use client'
 import { motion, useReducedMotion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 import { staggerContainer, fadeInUp, reducedMotion } from '@/animations/variants'
 
 const DATOS_CONTACTO = [
@@ -129,8 +130,8 @@ export default function Contacto() {
               margin: '0 auto',
             }}
           >
-            Nuestro equipo técnico está disponible para asesorarte en selección de implantes,
-            disponibilidad de instrumental y logística quirúrgica en Perú, Bolivia y Colombia.
+            Nuestro equipo técnico está disponible para asesorarle en selección de implantes,
+            disponibilidad de instrumental y logística quirúrgica en Perú, Bolivia, Colombia y Paraguay.
           </motion.p>
         </motion.div>
 
@@ -207,9 +208,8 @@ export default function Contacto() {
                         fontWeight: 600,
                         fontSize: '0.88rem',
                         fontVariantNumeric: 'tabular-nums',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                        overflowWrap: 'anywhere',
+                        lineHeight: 1.35,
                         transition: 'color 0.2s',
                       }}
                       className="group-hover:text-[#00d9ff]"
@@ -428,12 +428,16 @@ export default function Contacto() {
                   color: '#00d9ff',
                   textDecoration: 'none',
                   flexShrink: 0,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
                   transition: 'opacity 0.2s',
                 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = '0.7')}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = '1')}
               >
-                Cómo llegar →
+                <span>Cómo llegar</span>
+                <ArrowRight size={13} strokeWidth={2} aria-hidden="true" />
               </a>
             </div>
           </motion.div>

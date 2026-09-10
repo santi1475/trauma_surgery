@@ -159,11 +159,11 @@ export function AnatomicalHotspots({ isActive }: { isActive: boolean }) {
                   style={{ width: dotSize, height: dotSize, top: 0, left: 0 }}
                 >
                   <span
-                    className="hud-pulse-ring absolute rounded-full bg-cyan-400/50"
+                    className="hud-pulse-ring absolute rounded-full bg-[#00d9ff]/50"
                     style={{ width: dotSize, height: dotSize }}
                   />
                   <span
-                    className="relative rounded-full bg-cyan-400 z-10"
+                    className="relative rounded-full bg-[#00d9ff] z-10"
                     style={{ width: dotSize, height: dotSize }}
                   />
                 </div>
@@ -182,7 +182,7 @@ export function AnatomicalHotspots({ isActive }: { isActive: boolean }) {
                 >
                   <path
                     d={pathD}
-                    stroke="rgba(34,211,238,0.5)"
+                    stroke="rgba(0,217,255,0.5)"
                     strokeWidth={lineWidth}
                     fill="none"
                     strokeLinecap="round"
@@ -195,7 +195,7 @@ export function AnatomicalHotspots({ isActive }: { isActive: boolean }) {
                 <span
                   className="font-mono text-[11px] tracking-[0.2em] uppercase whitespace-nowrap absolute"
                   style={{
-                    color: 'rgba(103,232,249,0.8)',
+                    color: 'rgba(0,217,255,0.8)',
                     left: labelLeft,
                     top: labelTop,
                     transform: side === 'left'

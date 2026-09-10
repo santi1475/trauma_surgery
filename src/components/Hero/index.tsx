@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { TechBackground } from './TechBackground'
 import { AnatomicalHotspots } from './AnatomicalHotspots'
 import { SlideText } from './SlideText'
@@ -163,7 +164,12 @@ export default function Hero() {
             }}
           />
 
-          <AnatomicalHotspots isActive={slide.id === 'movimiento'} />
+          {/* Las anotaciones anatómicas están calibradas sobre la foto a dos
+              columnas. Por debajo de lg la foto pasa a fondo del copy y las
+              etiquetas se salían por ambos bordes: allí no se pintan. */}
+          <div className="pointer-events-none absolute inset-0 hidden lg:block">
+            <AnatomicalHotspots isActive={slide.id === 'movimiento'} />
+          </div>
         </div>
       </div>
 
@@ -268,17 +274,17 @@ export default function Hero() {
               type="button"
               onClick={prev}
               aria-label="Slide anterior"
-              className="w-7 h-7 rounded-full border border-white/15 text-white/70 text-sm hover:border-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-400/5 transition-colors"
+              className="grid h-7 w-7 place-items-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-[#00d9ff]/60 hover:bg-[#00d9ff]/5 hover:text-[#00d9ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00d9ff]/60"
             >
-              ‹
+              <ChevronLeft size={15} strokeWidth={1.75} aria-hidden="true" />
             </button>
             <button
               type="button"
               onClick={next}
               aria-label="Slide siguiente"
-              className="w-7 h-7 rounded-full border border-white/15 text-white/70 text-sm hover:border-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-400/5 transition-colors"
+              className="grid h-7 w-7 place-items-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-[#00d9ff]/60 hover:bg-[#00d9ff]/5 hover:text-[#00d9ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00d9ff]/60"
             >
-              ›
+              <ChevronRight size={15} strokeWidth={1.75} aria-hidden="true" />
             </button>
           </div>
 

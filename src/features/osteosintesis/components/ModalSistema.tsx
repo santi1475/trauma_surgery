@@ -1,10 +1,15 @@
 'use client'
 // Modal de un sistema de osteosíntesis.
 // Col 1 (estrecha): título + imagen de impacto + pilares verticales.
-// Col 2 (ancha):    tabla de catálogo.
+// Col 2 (ancha):    catálogo oficial en PDF.
 // Abajo:            banda de atributos, a ancho completo.
+//
+// El PDF del fabricante manda: si el sistema trae `pdf`, se muestra ese
+// documento y nada más. Las tablas transcritas (TablaPlacas / TablaCodigos /
+// TablaCatalogo / BloqueInstrumental) siguen en el repositorio y se pintan
+// como respaldo cuando un sistema todavía no tiene su PDF asignado.
 
-import { useState, useId } from 'react'
+import { useId } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import * as Iconos from 'lucide-react'
 import VisorPDF from '@/components/VisorPDF'
@@ -16,10 +21,10 @@ import { TablaCatalogo } from './TablaCatalogo'
 import { TablaCodigos } from './TablaCodigos'
 import { TablaPlacas } from './TablaPlacas'
 import { getSistema } from '../data/sistemas'
-import { ATRIBUTOS, EYEBROW, type IconoNombre, type SistemaOsteo } from '../data/tipos'
+import { ATRIBUTOS, type IconoNombre, type SistemaOsteo } from '../data/tipos'
 
 /** Un sistema tiene catálogo si trae cualquiera de los tres arquetipos. */
-export function tieneCatalogo(s: SistemaOsteo) {
+function tieneCatalogo(s: SistemaOsteo) {
   return Boolean(s.filas || s.placas?.length || s.codigos?.length)
 }
 
@@ -69,7 +74,6 @@ interface Props {
 }
 
 export default function ModalSistema({ sistema, open, onClose }: Props) {
-  const [vista, setVista] = useState<'tabla' | 'pdf'>('tabla')
   const titleId = useId()
   const prefersReduced = useReducedMotion()
   const vars = prefersReduced ? REDUCIDO : COL
@@ -100,19 +104,14 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
             animate="visible"
             className="lg:col-span-4"
           >
-            <p
-              className="text-xs uppercase tracking-[0.22em] text-white/45"
-              style={{ fontFamily: 'var(--font-mono)' }}
-            >
-              {EYEBROW}
-            </p>
-
+            {/* Sin etiqueta sobre el título: repetía palabra por palabra el
+                subtítulo que ya va debajo, y el título se sostiene solo. */}
             <h2
               id={titleId}
-              className="mt-3 font-black leading-[1.05] tracking-tight"
+              className="font-black leading-[1.05] tracking-tight"
               style={{ fontFamily: 'var(--font-heading)' }}
             >
-              <span className="block text-xl text-cyan-400 md:text-2xl">
+              <span className="block text-xl text-[#00d9ff] md:text-2xl">
                 {datos.titulo[0]}
               </span>
               <span className="mt-1 block break-words text-3xl text-white md:text-4xl">
@@ -141,7 +140,9 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
 
             {/* Imagen de impacto — columna estrecha, formato vertical */}
             <div
-              className="relative mt-7 flex aspect-[3/4] items-center justify-center overflow-hidden rounded-2xl border"
+              // En móvil las dos columnas se apilan: en formato vertical la imagen
+              // empujaba el catálogo casi una pantalla hacia abajo.
+              className="relative mt-7 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl border lg:aspect-[3/4]"
               style={{
                 background:
                   'radial-gradient(closest-side, rgba(0,217,255,0.14), transparent 72%), linear-gradient(180deg, rgba(10,30,48,0.8), rgba(2,11,24,0.95))',
@@ -157,13 +158,12 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
                   backgroundSize: '40px 40px',
                 }}
               />
-              {/* ponytail: placeholder hasta que lleguen los renders del cliente. */}
               <img
                 src={datos.imagen.src}
                 alt={datos.imagen.alt}
                 loading="lazy"
                 decoding="async"
-                className="relative h-full w-full object-contain p-6"
+                className="relative h-full w-full object-cover"
               />
             </div>
 
@@ -183,78 +183,15 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
             </ul>
           </motion.div>
 
-          {/* ── Col 2 — tabla de catálogo / visor PDF ── */}
+          {/* ── Col 2 — catálogo oficial en PDF (tabla solo como respaldo) ── */}
           <motion.div
             variants={vars}
             initial="hidden"
             animate="visible"
             className="min-w-0 lg:col-span-8"
           >
-            {/* Switch de modo si el sistema tiene PDF asociado */}
-            {datos.pdf && (
-              <div
-                className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border p-2"
-                style={{
-                  borderColor: 'rgba(0, 217, 255, 0.18)',
-                  background: 'linear-gradient(180deg, rgba(10,30,48,0.5), rgba(2,11,24,0.75))',
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setVista('tabla')}
-                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider transition ${
-                      vista === 'tabla'
-                        ? 'bg-[#00d9ff] text-[#020b18] shadow-[0_0_16px_rgba(0,217,255,0.35)]'
-                        : 'text-white/60 hover:text-white'
-                    }`}
-                    style={{ fontFamily: 'var(--font-mono)' }}
-                  >
-                    <Iconos.TableProperties size={14} aria-hidden="true" />
-                    <span>Ficha de Referencias</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setVista('pdf')}
-                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider transition ${
-                      vista === 'pdf'
-                        ? 'bg-[#00d9ff] text-[#020b18] shadow-[0_0_16px_rgba(0,217,255,0.35)]'
-                        : 'text-white/60 hover:text-white'
-                    }`}
-                    style={{ fontFamily: 'var(--font-mono)' }}
-                  >
-                    <Iconos.FileText size={14} aria-hidden="true" />
-                    <span>Catálogo Oficial PDF</span>
-                    <span
-                      className="rounded px-1.5 py-0.5 text-[10px] font-mono font-normal uppercase"
-                      style={{
-                        background: vista === 'pdf' ? '#0A3A60' : 'rgba(0,217,255,0.12)',
-                        color: vista === 'pdf' ? '#ffffff' : '#00d9ff',
-                      }}
-                    >
-                      {datos.pdf.paginas ? `${datos.pdf.paginas}p` : 'PDF'}
-                    </span>
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-3 pr-2">
-                  <a
-                    href={datos.pdf.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-[#00d9ff] transition hover:underline"
-                    style={{ fontFamily: 'var(--font-mono)' }}
-                  >
-                    <span>Abrir en ventana completa</span>
-                    <Iconos.ExternalLink size={12} aria-hidden="true" />
-                  </a>
-                </div>
-              </div>
-            )}
-
-            {vista === 'pdf' && datos.pdf ? (
-              <VisorPDF documento={datos.pdf} altura="700px" />
+            {datos.pdf ? (
+              <VisorPDF documento={datos.pdf} altura="min(78vh, 820px)" />
             ) : tieneCatalogo(datos) ? (
               // Bloques en el mismo orden en que salen en el catálogo:
               // placas → tornillería → matriz → instrumental.
@@ -292,9 +229,9 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
                 )}
               </div>
             ) : (
-              // Red de seguridad: hoy los 4 sistemas publicados traen tabla, así
-              // que esta rama no se pinta. Se conserva porque los otros 5 están
-              // comentados en sistemas.ts y volverán por ahí.
+              // Red de seguridad: un sistema sin PDF y sin tabla. Hoy no se
+              // pinta, pero los 5 sistemas comentados en sistemas.ts volverán
+              // por aquí mientras no tengan documento asignado.
               <div
                 className="flex min-h-[320px] items-center justify-center border p-8 text-center"
                 style={{
@@ -304,7 +241,7 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
                 }}
               >
                 <p className="max-w-sm text-sm leading-relaxed text-white/45">
-                  Catálogo de referencias en preparación. Escríbenos para recibir la
+                  Catálogo de referencias en preparación. Escríbanos para recibir la
                   ficha técnica completa de este sistema.
                 </p>
               </div>

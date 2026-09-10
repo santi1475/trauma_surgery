@@ -40,7 +40,7 @@ const ITEM_VARIANTS_REDUCED: Variants = {
 function FeatureItem({ icon: Icon, label, variants }: Feature & { variants: Variants }) {
   return (
     <motion.div variants={variants} className="flex flex-col items-center gap-2">
-      <div className="border border-cyan-800/50 rounded-full p-2 flex items-center justify-center">
+      <div className="border border-[#00a8cc]/50 rounded-full p-2 flex items-center justify-center">
         <Icon size={14} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
       </div>
       <span

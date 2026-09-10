@@ -1,16 +1,14 @@
 // Los sistemas de osteosíntesis del catálogo.
-// Textos y tablas tomados de .docs/ref/Catálogos.Placas001.TraumaSurgery (2).pdf
 //
-// El PDF tiene 9 sistemas, no 5: clavícula, húmero, tornillo cannulado de
-// comprensión, tibia proximal 3.5, placa de mano, tibia proximal 5.0, LCP
-// fémur distal 5.0, tornillos canulados y LCP radio distal Galaxy.
+// Cada sistema apunta a su propio catálogo oficial en PDF, publicado en
+// `public/docs/<id>.pdf`. El PDF del fabricante es la vista principal del
+// modal: manda el documento, no una transcripción nuestra.
 //
-// Publicados: los 4 primeros (págs. 1–11), todos con su tabla transcrita.
-// Los otros 5 están COMENTADOS al final del array: se abrían sin referencias y
-// quedan fuera de la rejilla hasta revisarlos con el cliente.
-//
-// Ojo: tibia proximal 3.5 y 5.0 son sistemas SEPARADOS en el catálogo, con
-// tornillería distinta. Antes iban fusionados en una sola ficha '3.5 / 5.0'.
+// Las tablas transcritas (clavícula, húmero, tornillo de compresión y tibia
+// proximal 3.5) siguen en el repositorio y en los campos `placas`, `codigos`
+// e `instrumental`. No se pintan mientras el sistema tenga PDF; quedan como
+// respaldo y como fuente de datos si más adelante hace falta buscar por
+// código, algo que estos PDF no permiten (su texto está vectorizado).
 
 import { instrumentalClavicula, placasClavicula } from './clavicula'
 import { codigosHumero, instrumentalHumero } from './humero'
@@ -36,17 +34,16 @@ export const sistemas: SistemaOsteo[] = [
     subtitulo: 'PLACAS DE OSTEOSÍNTESIS',
     descripcion:
       'Sistema de osteosíntesis avanzado para {máxima estabilidad quirúrgica} en fracturas de clavícula.',
-    imagen: { src: '/IMG/MODEL/HOMBRO.webp', alt: 'Sistema de clavícula' },
+    imagen: { src: '/IMG/CATALOGO/clavicula.webp', alt: 'Placa de clavícula fijada con tornillos' },
     pilares: PILARES_PLACAS,
-    fuente: 'Catálogo de productos, págs. 2–3',
+    fuente: 'Catálogo Sistema de Clavícula',
     placas: placasClavicula,
     instrumental: instrumentalClavicula,
     pdf: {
-      url: '/docs/catalogos-placas-001.pdf',
+      url: '/docs/clavicula.pdf',
       titulo: 'Catálogo Oficial — Sistema de Clavícula',
-      peso: '5.3 MB',
-      paginas: 24,
-      paginaInicial: 2,
+      peso: '8.8 MB',
+      paginas: 4,
     },
   },
   {
@@ -55,38 +52,64 @@ export const sistemas: SistemaOsteo[] = [
     subtitulo: 'PLACAS DE OSTEOSÍNTESIS',
     descripcion:
       'Soluciones anatómicas para {fijación estable y segura} en fracturas del húmero.',
-    imagen: { src: '/IMG/MODEL/HOMBRO.webp', alt: 'Sistema de húmero' },
+    imagen: { src: '/IMG/CATALOGO/humero.webp', alt: 'Placa de húmero proximal con tornillos de bloqueo' },
     pilares: PILARES_PLACAS,
-    fuente: 'Catálogo de productos, pág. 6',
+    fuente: 'Catálogo Sistema de Húmero',
     codigos: codigosHumero,
     instrumental: instrumentalHumero,
     pdf: {
-      url: '/docs/catalogos-placas-001.pdf',
+      url: '/docs/humero.pdf',
       titulo: 'Catálogo Oficial — Sistema de Húmero',
-      peso: '5.3 MB',
-      paginas: 24,
-      paginaInicial: 6,
+      peso: '9.4 MB',
+      paginas: 4,
     },
   },
   {
-    id: 'tornillos',
-    titulo: ['SISTEMA DE', 'TORNILLO'],
-    subtitulo: 'CANNULADO DE COMPRENSIÓN',
+    id: 'muneca',
+    titulo: ['SISTEMA DE', 'MUÑECA'],
+    subtitulo: 'ÁNGULO VARIABLE',
     descripcion:
-      'Diseñado para proporcionar {compresión precisa} y estable en procedimientos ortopédicos.',
-    imagen: { src: '/IMG/MODEL/PIE.webp', alt: 'Tornillo cannulado de compresión' },
-    pilares: PILARES_OSTEO,
-    fuente: 'Catálogo de productos, pág. 8',
-    filas: filasTornillos,
-    huecosTornillos: HUECOS_TORNILLOS,
-    notaTabla:
-      'Longitud de rosca en mm. {L} indica la longitud total del tornillo.',
+      'Placas de radio distal de {ángulo variable}, en versión estrecha y estándar, izquierda y derecha.',
+    imagen: { src: '/IMG/CATALOGO/muneca.webp', alt: 'Placa de muñeca de ángulo variable' },
+    pilares: PILARES_PLACAS,
+    fuente: 'Catálogo Sistema de Muñeca',
     pdf: {
-      url: '/docs/catalogos-placas-001.pdf',
-      titulo: 'Catálogo Oficial — Tornillos Cannulados',
-      peso: '5.3 MB',
-      paginas: 24,
-      paginaInicial: 8,
+      url: '/docs/muneca.pdf',
+      titulo: 'Catálogo Oficial — Sistema de Muñeca',
+      peso: '13.6 MB',
+      paginas: 6,
+    },
+  },
+  {
+    id: 'radio-distal-galaxy',
+    titulo: ['SISTEMA LCP', 'RADIO DISTAL GALAXY'],
+    subtitulo: 'NARROW / STANDARD PLATE',
+    descripcion:
+      'Placas LCP de radio distal en anchos de 22 y 25 mm, con {geometría diferenciada} para lado izquierdo y derecho.',
+    imagen: { src: '/IMG/CATALOGO/radio-distal-galaxy.webp', alt: 'Placa LCP de radio distal Galaxy' },
+    pilares: PILARES_PLACAS,
+    fuente: 'Catálogo Sistema LCP Radio Distal Galaxy',
+    pdf: {
+      url: '/docs/radio-distal-galaxy.pdf',
+      titulo: 'Catálogo Oficial — LCP Radio Distal Galaxy',
+      peso: '12.3 MB',
+      paginas: 4,
+    },
+  },
+  {
+    id: 'placa-de-mano',
+    titulo: ['SISTEMA DE', 'PLACA DE MANO'],
+    subtitulo: '1.3 / 1.5 / 2.0 / 2.3',
+    descripcion:
+      'Placas para {falanges y metacarpianos} en cuatro diámetros, con bajo perfil y alta retención.',
+    imagen: { src: '/IMG/CATALOGO/placa-de-mano.webp', alt: 'Placas de mano sobre metacarpianos' },
+    pilares: PILARES_PLACAS,
+    fuente: 'Catálogo Sistema de Placa de Mano',
+    pdf: {
+      url: '/docs/placa-de-mano.pdf',
+      titulo: 'Catálogo Oficial — Sistema de Placa de Mano',
+      peso: '9.9 MB',
+      paginas: 4,
     },
   },
   {
@@ -95,61 +118,122 @@ export const sistemas: SistemaOsteo[] = [
     subtitulo: '3.5',
     descripcion:
       'Placas anatómicas para tibia proximal con {fijación angular estable} y tornillos canulados de bloqueo.',
-    imagen: { src: '/IMG/MODEL/RODILLA.webp', alt: 'Sistema de tibia proximal 3.5' },
+    imagen: { src: '/IMG/CATALOGO/tibia-proximal-35.webp', alt: 'Placa de tibia proximal 3.5' },
     pilares: PILARES_PLACAS,
-    fuente: 'Catálogo de productos, págs. 10–11',
+    fuente: 'Catálogo Sistema de Tibia Proximal 3.5',
     placas: placasTibia35,
     codigos: codigosTibia35,
     instrumental: instrumentalTibia35,
     pdf: {
-      url: '/docs/catalogos-placas-001.pdf',
+      url: '/docs/tibia-proximal-35.pdf',
       titulo: 'Catálogo Oficial — Tibia Proximal 3.5',
-      peso: '5.3 MB',
-      paginas: 24,
-      paginaInicial: 10,
+      peso: '9.6 MB',
+      paginas: 4,
     },
   },
-
-  // ─── COMENTADOS — pendientes de revisar con el cliente ───────────────
-  //
-  // Estos sistemas existen en el catálogo pero su tabla aún no se ha
-  // transcrito, así que el modal se abría sin referencias. Se retiran de la
-  // rejilla hasta decidir con el cliente qué se publica y con qué datos.
-  //
-  // Para reactivar uno: descomentarlo y añadirle su tabla (placas / codigos /
-  // instrumental), igual que los cuatro de arriba. Las páginas del PDF de cada
-  // uno están en `fuente`.
-  //
-  // {
-  //   id: 'mano',
-  //   titulo: ['SISTEMA DE', 'PLACA DE MANO'],
-  //   subtitulo: '1.3 / 1.5 / 2.0 / 2.3',
-  //   descripcion:
-  //     'Placas para {falanges proximales y metacarpianos}, con bajo torque de inserción y alta retención.',
-  //   imagen: { src: '/IMG/MODEL/MANO.webp', alt: 'Sistema de placa de mano' },
-  //   pilares: PILARES_PLACAS,
-  //   fuente: 'Catálogo de productos, págs. 14–16',
-  // },
-  // {
-  //   id: 'tibia-proximal-50',
-  //   titulo: ['SISTEMA DE', 'TIBIA PROXIMAL'],
-  //   subtitulo: '5.0',
-  //   descripcion:
-  //     'Placas de tibia proximal de {fragmento grande} con tornillos canulados de bloqueo de 5.0.',
-  //   imagen: { src: '/IMG/MODEL/RODILLA.webp', alt: 'Sistema de tibia proximal 5.0' },
-  //   pilares: PILARES_PLACAS,
-  //   fuente: 'Catálogo de productos, págs. 18–19',
-  // },
-  // {
-  //   id: 'femur-distal',
-  //   titulo: ['SISTEMA LCP', 'FÉMUR DISTAL'],
-  //   subtitulo: '5.0',
-  //   descripcion:
-  //     'Sistema LCP de {ángulo variable} para fracturas de fémur distal, con tornillos canulados y corticales.',
-  //   imagen: { src: '/IMG/MODEL/RODILLA.webp', alt: 'Sistema LCP fémur distal' },
-  //   pilares: PILARES_PLACAS,
-  //   fuente: 'Catálogo de productos, págs. 22–24',
-  // },
+  {
+    id: 'tibia-proximal-50',
+    titulo: ['SISTEMA DE', 'TIBIA PROXIMAL'],
+    subtitulo: '5.0',
+    descripcion:
+      'Placas de tibia proximal de {fragmento grande} con tornillos canulados de bloqueo de 5.0.',
+    imagen: { src: '/IMG/CATALOGO/tibia-proximal-50.webp', alt: 'Placa de tibia proximal 5.0' },
+    pilares: PILARES_PLACAS,
+    fuente: 'Catálogo Sistema de Tibia Proximal 5.0',
+    pdf: {
+      url: '/docs/tibia-proximal-50.pdf',
+      titulo: 'Catálogo Oficial — Tibia Proximal 5.0',
+      peso: '9.0 MB',
+      paginas: 4,
+    },
+  },
+  {
+    id: 'femur-distal-50',
+    titulo: ['SISTEMA LCP', 'FÉMUR DISTAL'],
+    subtitulo: '5.0',
+    descripcion:
+      'Sistema LCP de {ángulo variable} para fracturas de fémur distal, con tornillos canulados y corticales.',
+    imagen: { src: '/IMG/CATALOGO/femur-distal-50.webp', alt: 'Placa LCP de fémur distal 5.0' },
+    pilares: PILARES_PLACAS,
+    fuente: 'Catálogo Sistema LCP Fémur Distal 5.0',
+    pdf: {
+      url: '/docs/femur-distal-50.pdf',
+      titulo: 'Catálogo Oficial — LCP Fémur Distal 5.0',
+      peso: '8.9 MB',
+      paginas: 4,
+    },
+  },
+  {
+    id: 'osteotomia-lcp-50',
+    titulo: ['SISTEMA DE', 'OSTEOTOMÍA LCP 5.0'],
+    subtitulo: 'FÉMUR DISTAL / TIBIA PROXIMAL / TIBIA DISTAL',
+    descripcion:
+      'Placas HTO para {osteotomías correctoras} de fémur distal, tibia proximal y tibia distal.',
+    imagen: { src: '/IMG/CATALOGO/osteotomia-lcp-50.webp', alt: 'Placa HTO de osteotomía LCP 5.0' },
+    pilares: PILARES_PLACAS,
+    fuente: 'Catálogo Sistema de Osteotomía LCP 5.0',
+    pdf: {
+      url: '/docs/osteotomia-lcp-50.pdf',
+      titulo: 'Catálogo Oficial — Osteotomía LCP 5.0',
+      peso: '13.5 MB',
+      paginas: 6,
+    },
+  },
+  {
+    id: 'lcp-pie-28',
+    titulo: ['SISTEMA LCP', 'DE PIE 2.8'],
+    subtitulo: 'ANTEPIÉ / MEDIOPIÉ',
+    descripcion:
+      'Placas preformadas de 1.3 t y 1.6 t para antepié y mediopié, en versiones {recta, en T, en rejilla y en ala}.',
+    imagen: { src: '/IMG/CATALOGO/lcp-pie-28.webp', alt: 'Placas LCP de pie 2.8' },
+    pilares: PILARES_PLACAS,
+    fuente: 'Catálogo Sistema LCP de Pie 2.8',
+    pdf: {
+      url: '/docs/lcp-pie-28.pdf',
+      titulo: 'Catálogo Oficial — LCP de Pie 2.8',
+      peso: '15.4 MB',
+      paginas: 6,
+    },
+  },
+  {
+    id: 'tornillos',
+    titulo: ['SISTEMA DE', 'TORNILLO'],
+    subtitulo: 'CANULADO DE COMPRESIÓN',
+    descripcion:
+      'Diseñado para proporcionar {compresión precisa} y estable en procedimientos ortopédicos.',
+    imagen: {
+      src: '/IMG/CATALOGO/tornillo-canulado-compresion.webp',
+      alt: 'Tornillos canulados de compresión sin cabeza',
+    },
+    pilares: PILARES_OSTEO,
+    fuente: 'Catálogo Sistema de Tornillo Canulado de Compresión',
+    filas: filasTornillos,
+    huecosTornillos: HUECOS_TORNILLOS,
+    notaTabla:
+      'Longitud de rosca en mm. {L} indica la longitud total del tornillo.',
+    pdf: {
+      url: '/docs/tornillo-canulado-compresion.pdf',
+      titulo: 'Catálogo Oficial — Tornillo Canulado de Compresión',
+      peso: '5.0 MB',
+      paginas: 2,
+    },
+  },
+  {
+    id: 'tornillos-canulados',
+    titulo: ['SISTEMA DE', 'TORNILLOS CANULADOS'],
+    subtitulo: 'Ø2.4 / Ø3.0 / Ø3.7',
+    descripcion:
+      'Tornillos canulados de punta estriada y {baja resistencia a la inserción}, con instrumental completo en bandeja.',
+    imagen: { src: '/IMG/CATALOGO/tornillos-canulados.webp', alt: 'Tornillos canulados sobre estructura ósea' },
+    pilares: PILARES_OSTEO,
+    fuente: 'Catálogo Sistema de Tornillos Canulados',
+    pdf: {
+      url: '/docs/tornillos-canulados.pdf',
+      titulo: 'Catálogo Oficial — Tornillos Canulados',
+      peso: '11.5 MB',
+      paginas: 3,
+    },
+  },
 ]
 
 export function getSistema(id: string) {

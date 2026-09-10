@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeInUp } from '@/animations/variants'
 import Visor3D from './Visor3D'
@@ -10,10 +10,31 @@ import { ZonesGallery } from './visor/ZonesGallery'
 
 type VistaMode = 'anterior' | 'completa'
 
+/**
+ * DESIGN.md exige un respaldo estático si WebGL no carga. Sin esta
+ * comprobación, un navegador sin WebGL (o con la aceleración desactivada)
+ * pintaba la sección vacía: solo los hotspots flotando sobre el degradado.
+ *
+ * ponytail: una sonda basta — el soporte no cambia dentro de la sesión.
+ */
+function detectarWebGL(): boolean {
+  try {
+    const lienzo = document.createElement('canvas')
+    return Boolean(lienzo.getContext('webgl2') || lienzo.getContext('webgl'))
+  } catch {
+    return false
+  }
+}
+
 export default function ProductosSection() {
   const [modo, setModo] = useState<VistaMode>('anterior')
   const [selectedZone, setSelectedZone] = useState<ZonaAnatomica | null>(null)
   const isDesktop = useMediaQuery('(min-width: 1024px)')
+  // Arranca en false igual que useMediaQuery: así el HTML servido y el primer
+  // render del cliente coinciden, y la decisión se toma tras montar.
+  const [hayWebGL, setHayWebGL] = useState(false)
+
+  useEffect(() => setHayWebGL(detectarWebGL()), [])
 
   const handleZoneSelect = (zone: ZonaAnatomica | null) => {
     setSelectedZone(zone)
@@ -59,7 +80,8 @@ export default function ProductosSection() {
           Mobile (<lg): flujo normal arriba de la galería.                  */}
       <div
         className={
-          isDesktop
+          // El encabezado se superpone al visor; sobre la galería va en flujo.
+          isDesktop && hayWebGL
             ? 'absolute top-8 left-0 right-0 z-10 flex flex-col items-center pointer-events-none'
             : 'relative z-10 flex flex-col items-center px-5 pt-24 pb-2'
         }
@@ -101,7 +123,7 @@ export default function ProductosSection() {
       {/* ── Experiencia principal ─────────────────────────────────────────
           Desktop: Visor 3D inmersivo + toggle bar.
           Mobile/Tablet (<lg): galería de tarjetas con banner sugerencia.  */}
-      {isDesktop ? (
+      {isDesktop && hayWebGL ? (
         <>
           <Visor3D
             showPanel={modo === 'anterior'}

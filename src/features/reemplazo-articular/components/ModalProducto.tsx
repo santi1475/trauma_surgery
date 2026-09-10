@@ -100,7 +100,7 @@ export default function ModalProducto({
       {open && (
         <motion.div
           key="modal-overlay"
-          className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md"
+          className="fixed inset-0 z-50 overflow-y-auto bg-[#020b18]/85 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

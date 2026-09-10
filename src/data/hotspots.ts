@@ -1,8 +1,9 @@
+import type { ZonaIcono } from '@/components/IconoZona'
+
 export interface HotspotData {
-  id: string
+  id: ZonaIcono
   label: string
   sublabel?: string
-  icon: string
 
   /** Posición 3D en el modelo (mundo Three.js). */
   position: [number, number, number]
@@ -59,7 +60,6 @@ export const HOTSPOTS: HotspotData[] = [
     id: 'mano',
     label: 'MANO',
     sublabel: 'Y MUÑECA',
-    icon: '🖐️',
     // ⚠ Estimado — recalibrar
     position: [-0.30, 0.05, 0.05],
     labelOffset: [-140, -15],
@@ -69,7 +69,6 @@ export const HOTSPOTS: HotspotData[] = [
     id: 'hombro',
     label: 'HOMBRO',
     sublabel: 'EXTREMIDAD SUPERIOR',
-    icon: '🦾',
     position: [-0.202, 0.585, -0.0011],
     labelOffset: [-130, -25],
     side: 'left',
@@ -78,7 +77,6 @@ export const HOTSPOTS: HotspotData[] = [
     id: 'cadera',
     label: 'CADERA',
     sublabel: 'Y ACETÁBULO',
-    icon: '🦴',
     position: [0.109, 0.134, 0.013],
     labelOffset: [130, 15],
     side: 'right',
@@ -87,7 +85,6 @@ export const HOTSPOTS: HotspotData[] = [
     id: 'rodilla',
     label: 'RODILLA',
     sublabel: 'EXTREMIDAD INFERIOR',
-    icon: '🦿',
     position: [0.100, -0.356, -0.041],
     labelOffset: [130, 5],
     side: 'right',
@@ -96,7 +93,6 @@ export const HOTSPOTS: HotspotData[] = [
     id: 'pie',
     label: 'PIE',
     sublabel: 'Y TOBILLO',
-    icon: '🦶',
     position: [0.080, -0.72, -0.020],
     labelOffset: [130, 10],
     side: 'right',

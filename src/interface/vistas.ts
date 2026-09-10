@@ -7,5 +7,4 @@ export interface Enfoque3D {
 
 export interface VistaAnatomica extends Enfoque3D {
   label: string;
-  icon: string;
 }

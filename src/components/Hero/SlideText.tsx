@@ -1,6 +1,7 @@
 'use client'
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 
 export type HeadlinePart = { text: string; cyan?: boolean }
 
@@ -71,9 +72,11 @@ export function SlideText({
         {copy.headline.map((line, i) => {
           const hasWhiteText = line.some(part => !part.cyan)
           return (
-            <div key={i} className={`block ${hasWhiteText && i < copy.headline.length - 1 ? 'mb-3 md:mb-4' : ''}`}>
+            // text-balance: en móvil "Comprometidos con tu" dejaba "tu" solo
+            // en su renglón. El equilibrado reparte las palabras entre líneas.
+            <div key={i} className={`block text-balance ${hasWhiteText && i < copy.headline.length - 1 ? 'mb-3 md:mb-4' : ''}`}>
               {line.map((part, j) => (
-              <span key={j} className={part.cyan ? 'text-cyan-400' : 'text-white font-normal text-3xl md:text-4xl lg:text-5xl'}>
+              <span key={j} className={part.cyan ? 'text-[#00d9ff]' : 'text-white font-normal text-3xl md:text-4xl lg:text-5xl'}>
                 {part.text}{j < line.length - 1 ? ' ' : ''}
               </span>
             ))}
@@ -143,7 +146,8 @@ export function SlideText({
         }}
         whileTap={{ scale: 0.97 }}
       >
-        {ctaLabel} →
+        <span>{ctaLabel}</span>
+        <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
       </motion.a>
     </motion.div>
   )

@@ -34,7 +34,6 @@ export interface DocumentoPDF {
   titulo?: string
   peso?: string
   paginas?: number
-  paginaInicial?: number
   label?: string
 }
 
@@ -125,7 +124,7 @@ export const CTA_EMAIL = {
   href: 'mailto:traumasurgery.eirl@gmail.com',
 } as const
 
-export const NOTA_CONTACTO = 'Contacta con {nosotros} si necesitas más información.'
+export const NOTA_CONTACTO = 'Contacte con {nosotros} si necesita más información.'
 
 export const PILARES: Array<{ titulo: string; icono: IconoNombre }> = [
   { titulo: 'TECNOLOGÍA DE VANGUARDIA', icono: 'Cpu' },

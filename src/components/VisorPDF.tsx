@@ -12,7 +12,6 @@ export interface DocumentoPDF {
   titulo?: string
   peso?: string
   paginas?: number
-  paginaInicial?: number
 }
 
 interface Props {
@@ -24,10 +23,10 @@ export default function VisorPDF({ documento, altura = '680px' }: Props) {
   const [cargando, setCargando] = useState(true)
   const [errorCarga, setErrorCarga] = useState(false)
 
-  // Extraer URL limpia para descarga y añadir parámetros de vista nativos de PDF
+  // URL limpia para la descarga; al iframe se le pasan los parámetros de
+  // vista que entiende el visor nativo del navegador.
   const cleanUrl = documento.url.split('#')[0]
-  const targetPage = documento.paginaInicial ? `#page=${documento.paginaInicial}&toolbar=1&navpanes=0` : '#toolbar=1&navpanes=0'
-  const iframeSrc = `${cleanUrl}${targetPage}`
+  const iframeSrc = `${cleanUrl}#toolbar=1&navpanes=0`
 
   return (
     <div
@@ -180,9 +179,10 @@ export default function VisorPDF({ documento, altura = '680px' }: Props) {
             href={documento.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#00d9ff] underline underline-offset-4 hover:text-white"
+            className="inline-flex items-center gap-1.5 text-[#00d9ff] underline underline-offset-4 hover:text-white"
           >
-            Abrir en pestaña nueva ↗
+            <span>Abrir en pestaña nueva</span>
+            <ExternalLink size={12} strokeWidth={2} aria-hidden="true" />
           </a>
         </div>
       </div>

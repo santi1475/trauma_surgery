@@ -7,6 +7,7 @@ import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import type { ComponentProps } from 'react'
 import type { GLTF } from 'three-stdlib'
 import { ZONAS_ANATOMICAS, type ZonaAnatomica } from '@/data/zonasAnatomicas'
+import { IconoZona } from '@/components/IconoZona'
 
 type GLTFResult = GLTF & {
   nodes: Record<string, THREE.Object3D>
@@ -80,22 +81,26 @@ function ZoneTooltip({ zone, visible }: { zone: ZonaAnatomica; visible: boolean 
     >
       <div style={{
         background: 'rgba(2,6,18,0.92)',
-        border: `1px solid ${zone.color}44`,
-        borderLeft: `2px solid ${zone.color}`,
+        border: `1px solid ${zone.color}66`,
         backdropFilter: 'blur(14px)',
         borderRadius: 6,
         padding: '7px 13px',
         minWidth: 148,
         whiteSpace: 'nowrap',
       }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: zone.color, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 3 }}>
-          {zone.icon} {zone.label}
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: zone.color, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 3, display: 'flex', alignItems: 'center', gap: 6 }}>
+          <IconoZona zona={zone.id} size={13} className="shrink-0" />
+          {zone.label}
         </div>
         <div style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.03em', marginBottom: 4 }}>
           {zone.categoria}
         </div>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: `${zone.color}88`, letterSpacing: '0.1em' }}>
-          ▶ CLICK PARA EXPLORAR
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+               style={{ display: 'inline-block', marginRight: 6, verticalAlign: 'baseline' }}>
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          CLICK PARA EXPLORAR
         </div>
       </div>
     </Html>
