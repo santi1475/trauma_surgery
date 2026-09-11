@@ -135,9 +135,19 @@ export interface Instrumental {
 
 // ─── Ficha del sistema ────────────────────────────────────────────────
 
+export type Categoria =
+  | 'placas'
+  | 'tornillos'
+  | 'ligamentos'
+  | 'anclajes'
+  | 'pequenas-articulaciones'
+  | 'menisco'
+
 export interface SistemaOsteo {
   /** Slug: 'tornillos' | 'clavicula' | … */
   id: string
+  /** Grupo de la rejilla; ver GRUPOS en sistemas.ts. */
+  categoria: Categoria
   /** Título en 2 líneas: la segunda va en cian. */
   titulo: [string, string]
   /** Bajada del título, ej. 'CANNULADO DE COMPRESIÓN'. */
@@ -185,6 +195,17 @@ export const PILARES_OSTEO: Array<{ titulo: string; icono: IconoNombre }> = [
 /** Pilares de los sistemas de placas (rótulos del catálogo PDF). */
 export const PILARES_PLACAS: Array<{ titulo: string; icono: IconoNombre }> = [
   { titulo: 'ÁNGULO VARIABLE', icono: 'Compass' },
+  { titulo: 'DISEÑO ANATÓMICO', icono: 'Ruler' },
+  { titulo: 'ALTA RESISTENCIA', icono: 'ShieldCheck' },
+]
+
+/**
+ * Pilares de artroscopia y anclajes (catálogos de 2026-09-10). Sus portadas
+ * imprimen los mismos tres rótulos que las placas, pero «ángulo variable» no
+ * describe una aguja de sutura ni un botón cortical: se sustituye.
+ */
+export const PILARES_ARTRO: Array<{ titulo: string; icono: IconoNombre }> = [
+  { titulo: 'FIJACIÓN SEGURA', icono: 'Crosshair' },
   { titulo: 'DISEÑO ANATÓMICO', icono: 'Ruler' },
   { titulo: 'ALTA RESISTENCIA', icono: 'ShieldCheck' },
 ]

@@ -11,7 +11,7 @@
 
 import { useId } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import * as Iconos from 'lucide-react'
+import { icono } from '@/components/iconos'
 import VisorPDF from '@/components/VisorPDF'
 import ModalProducto from '@/features/reemplazo-articular/components/ModalProducto'
 import { TextoRico } from '@/features/reemplazo-articular/components/TextoRico'
@@ -29,9 +29,7 @@ function tieneCatalogo(s: SistemaOsteo) {
 }
 
 function Icono({ nombre, size = 18 }: { nombre?: IconoNombre; size?: number }) {
-  const C =
-    (nombre && (Iconos as unknown as Record<string, Iconos.LucideIcon>)[nombre]) ||
-    Iconos.Hexagon
+  const C = icono(nombre)
   return <C size={size} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
 }
 

@@ -6,16 +6,14 @@
 // Debajo, un footer con los bloques que varían por producto.
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import * as Iconos from 'lucide-react'
+import { icono } from '@/components/iconos'
 import { BADGE_CALIDAD, type Item, type ProductoData, type Sistema } from '../data/tipos'
 import { TextoRico } from './TextoRico'
 
 // ─── Piezas compartidas ───────────────────────────────────────────────
 
 function Icono({ nombre, size = 18 }: { nombre?: string; size?: number }) {
-  const Componente =
-    (nombre && (Iconos as unknown as Record<string, Iconos.LucideIcon>)[nombre]) ||
-    Iconos.Hexagon
+  const Componente = icono(nombre)
   return <Componente size={size} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
 }
 

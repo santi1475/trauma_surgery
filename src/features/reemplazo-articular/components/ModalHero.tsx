@@ -4,7 +4,8 @@
 // Certificaciones y países se reutilizan del Hero de la landing.
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import * as Iconos from 'lucide-react'
+import { ArrowRight, ExternalLink } from 'lucide-react'
+import { icono } from '@/components/iconos'
 import { CertificationCards } from '@/components/Hero/CertificationCards'
 import { PaisesOperamos } from '@/components/PaisesOperamos'
 import {
@@ -40,8 +41,7 @@ const REDUCIDO: Variants = {
 // ponytail: los iconos salen de lucide por nombre; si el nombre no existe cae a Hexagon.
 // Alternativa (set de iconos a medida) solo si el cliente entrega los SVG.
 function Icono({ nombre, size = 16 }: { nombre?: IconoNombre; size?: number }) {
-  const Componente =
-    (nombre && (Iconos as unknown as Record<string, Iconos.LucideIcon>)[nombre]) || Iconos.Hexagon
+  const Componente = icono(nombre)
   return <Componente size={size} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
 }
 
@@ -161,7 +161,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
               whileTap={prefersReduced ? {} : { scale: 0.97 }}
             >
               <span>{CTA_EMAIL.label}</span>
-                <Iconos.ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
+                <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
             </motion.a>
 
             {data.pdf && (
@@ -181,7 +181,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
               >
                 <Icono nombre="FileText" size={14} />
                 <span>{data.pdf.label ?? 'Catálogo PDF'}</span>
-                <Iconos.ExternalLink size={12} strokeWidth={2} aria-hidden="true" className="opacity-70" />
+                <ExternalLink size={12} strokeWidth={2} aria-hidden="true" className="opacity-70" />
               </motion.a>
             )}
           </div>
