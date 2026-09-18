@@ -78,11 +78,12 @@ interface AnnotationData {
 
 interface Slide {
   id: string
-  videoPath: string
-  posterPath?: string
+  imagePath: string
   badgeLabel: string
   headingPrimary: string
   headingAccent: string
+  /** Tamaño del titular; la columna mide 420 px y «ARTROPLASTIA» no cabe a 56 px. */
+  headingSize?: string
   description: string
   features: FeatureItem[]
   annotations: AnnotationData[]
@@ -96,8 +97,7 @@ interface Slide {
 const SLIDES: Slide[] = [
   {
     id: 'fibular',
-    videoPath: '/models/01.webm',
-    posterPath: '/models/01.poster.webp',
+    imagePath: '/models/tibia-distal-3d.webp',
     badgeLabel: 'Ingeniería Avanzada',
     headingPrimary: 'INGENIERÍA',
     headingAccent: 'SIN LÍMITES',
@@ -112,20 +112,20 @@ const SLIDES: Slide[] = [
     ],
     annotations: [
       { position: { top: '25%', left: '5%' }, side: 'left', label: 'TITANIO MÉDICO GRADO 4', text: 'Biocompatible · Alta resistencia · Ligero', delay: 300 },
-      { position: { top: '15%', left: '60%' }, side: 'right', label: 'DISEÑO ANATÓMICO', text: 'Adaptación precisa a la morfología ósea para una fijación segura.', delay: 500 },
+      { position: { top: '12%', left: '62%' }, side: 'right', label: 'DISEÑO ANATÓMICO', text: 'Adaptación precisa a la morfología ósea para una fijación segura.', delay: 500 },
       { position: { top: '65%', left: '3%' }, side: 'left', label: 'INGENIERÍA BIOMECÁNICA', text: 'Distribución optimizada de cargas para favorecer la consolidación ósea.', delay: 700 },
-      { position: { top: '70%', left: '58%' }, side: 'right', label: 'PRECISIÓN QUIRÚRGICA', text: 'Tolerancias ≤ 0.01 mm para máxima estabilidad.', delay: 900 },
+      { position: { top: '78%', left: '62%' }, side: 'right', label: 'PRECISIÓN QUIRÚRGICA', text: 'Tolerancias ≤ 0.01 mm para máxima estabilidad.', delay: 900 },
     ],
     cornerBadge: 'ISO 13485',
     showBlueprint: true,
   },
   {
     id: 'cadera',
-    videoPath: '/models/02.webm',
-    posterPath: '/models/02.poster.webp',
+    imagePath: '/models/artroplastia-cadera-clean.webp',
     badgeLabel: 'Artroplastia Avanzada',
     headingPrimary: 'ARTROPLASTIA TOTAL',
     headingAccent: 'GEOMETRÍA FEMORAL',
+    headingSize: 'clamp(28px, 4.2vw, 45px)',
     description:
       'Sistema de prótesis de cadera de alta precisión que integra metalurgia médica y geometría femoral biomimética. Optimizado para restaurar la movilidad articular con anclaje primario estable y desgaste ultra-bajo a largo plazo.',
     features: [
@@ -339,13 +339,6 @@ function RightColumnVisual({
 }) {
   const fadeDuration = prefersReduced ? 0 : 0.55
 
-  // El vídeo pesa ~1.3 MB y esta sección va bajo el fold. En SSR se emite solo
-  // el poster; el `src` se adjunta al hidratar, que con client:visible ocurre
-  // cuando la sección entra en pantalla. Sin esto el navegador lo descargaba
-  // durante la carga inicial de la home.
-  const [hidratado, setHidratado] = useState(false)
-  useEffect(() => setHidratado(true), [])
-
   return (
     <div
       style={{
@@ -403,8 +396,9 @@ function RightColumnVisual({
           width: 100%;
           height: 100%;
           object-fit: contain;
-          object-position: center;
-          background-color: #000;
+          /* Ligeramente a la izquierda: deja sitio a las anotaciones del lado derecho */
+          object-position: 42% center;
+          background-color: transparent;
           z-index: 1;
         }
         .ann {
@@ -418,79 +412,53 @@ function RightColumnVisual({
         .ann-right { animation-name: fadeInRight; }
         .ann-card {
           background: rgba(2, 13, 26, 0.6);
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
-          border: 1px solid rgba(0, 212, 255, 0.20);
+          border: 1px solid rgba(0, 217, 255, 0.28);
           border-radius: 4px;
           padding: 8px 12px;
-          transition: filter 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
         }
         .ann-label {
           font-family: var(--font-mono, monospace);
           font-size: 11px;
-          font-weight: 700;
-          color: ${ACCENT};
-          letter-spacing: 1.5px;
+          letter-spacing: 0.14em;
+          color: #00d9ff;
           text-transform: uppercase;
-          line-height: 1.3;
-          transition: filter 0.25s ease;
+          font-weight: 600;
+          margin-bottom: 2px;
         }
         .ann-text {
-          font-family: var(--font-sans, sans-serif);
           font-size: 11px;
           color: rgba(255, 255, 255, 0.78);
-          line-height: 1.45;
-          margin-top: 4px;
+          line-height: 1.4;
         }
         .ann-line {
           height: 1px;
-          width: 60px;
-          border-bottom: 1px dashed ${ACCENT};
-          opacity: 0.55;
-          transition: opacity 0.25s ease, border-bottom-style 0.25s ease;
+          background: linear-gradient(to right, #00d9ff, transparent);
+          margin-top: 4px;
         }
-        .ann-left .ann-line  { margin-left: 8px;  margin-top: -10px; }
-        .ann-right .ann-line { margin-right: 8px; margin-top: -10px; margin-left: auto; }
-        .ann-right .ann-card { text-align: right; }
-
-        .ann:hover .ann-label { filter: brightness(1.2); }
-        .ann:hover .ann-line  { opacity: 1; border-bottom-style: solid; }
-        .ann:hover .ann-card  { border-color: rgba(0, 212, 255, 0.45); }
-
-        .blueprint-card {
-          opacity: 0;
-          animation: fadeIn 0.8s ease-out forwards;
+        .ann-right .ann-line {
+          background: linear-gradient(to left, #00d9ff, transparent);
         }
-        .iso-badge { opacity: 0; animation: fadeIn 0.8s 0.4s ease-out forwards; }
-
         @media (prefers-reduced-motion: reduce) {
-          .ann, .blueprint-card, .iso-badge {
-            opacity: 1 !important;
-            animation: none !important;
-            transform: none !important;
-          }
+          .ann { opacity: 1; animation: none; }
         }
       `}</style>
 
       <HudCorners />
 
-      {/* Video del implante con fundidos perimetrales — cross-fade entre slides */}
+      {/* Imagen del implante con fundidos perimetrales — cross-fade entre slides.
+          Antes era vídeo (01/02.webm); el cliente pidió renders fijos (2026-09-17). */}
       <div className="image-wrapper" aria-hidden="false" style={{ backgroundColor: '#020b18' }}>
         <AnimatePresence initial={false} mode="sync">
-          <motion.video
+          <motion.img
             id={`slide-${slide.id}`}
             key={slide.id}
-            src={hidratado ? slide.videoPath : undefined}
-            poster={slide.posterPath}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-            disablePictureInPicture
-            controlsList="nodownload noplaybackrate noremoteplayback"
-            aria-label={`Demostración técnica · ${slide.headingPrimary} ${slide.headingAccent}`}
+            src={slide.imagePath}
+            alt={`Demostración técnica · ${slide.headingPrimary} ${slide.headingAccent}`}
             className="implant-media"
+            loading="lazy"
+            decoding="async"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -628,7 +596,7 @@ export default function IngenieriaSinLimites() {
                   variants={itemVariants}
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(32px, 5vw, 56px)',
+                    fontSize: slide.headingSize ?? 'clamp(32px, 5vw, 56px)',
                     fontWeight: 800,
                     lineHeight: 1.0,
                     letterSpacing: '-0.01em',
@@ -642,7 +610,7 @@ export default function IngenieriaSinLimites() {
                   variants={itemVariants}
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(32px, 5vw, 56px)',
+                    fontSize: slide.headingSize ?? 'clamp(32px, 5vw, 56px)',
                     fontWeight: 800,
                     lineHeight: 1.0,
                     letterSpacing: '-0.01em',

@@ -5,11 +5,9 @@ const NAV_COLS = [
   {
     heading: 'Soluciones',
     links: [
-      { label: 'Osteosíntesis', href: '#soluciones' },
-      { label: 'Reemplazos articulares', href: '#soluciones' },
-      { label: 'Cirugía de mano', href: '#soluciones' },
-      { label: 'Columna vertebral', href: '#soluciones' },
-      { label: 'Trauma pélvico', href: '#soluciones' },
+      { label: 'Reemplazos articulares', href: '/productos/reemplazo-articular' },
+      { label: 'Osteosíntesis', href: '/productos/osteosintesis' },
+      { label: 'Medicina del deporte', href: '/productos/medicina-del-deporte' },
     ],
   },
   {

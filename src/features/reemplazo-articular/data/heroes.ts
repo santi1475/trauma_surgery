@@ -13,12 +13,8 @@ export const heroes: Record<string, Hero> = {
     descripcion:
       'Soluciones diseñadas para restaurar la movilidad, aliviar el dolor y mejorar la {calidad de vida} de los pacientes.',
     imagen: { src: '/IMG/MODEL/CADERA.webp', alt: 'Prótesis de cadera' },
-    pdf: {
-      url: '/docs/catalogos-placas-001.pdf',
-      titulo: 'Catálogo Oficial de Implantes',
-      peso: '5.3 MB',
-      label: 'Ficha Técnica PDF',
-    },
+    // Sin `pdf` a propósito: antes enlazaba el catálogo de placas (clavícula) y el
+    // cliente lo señaló (2026-09-17). Se añade cuando entregue el catálogo de cadera.
   },
 
   hombro: {
@@ -31,12 +27,18 @@ export const heroes: Record<string, Hero> = {
   },
 
   mano: {
-    titulo: ['PRÓTESIS', 'DE MANO'],
+    titulo: ['PRÓTESIS', 'DE MANO'], // «DE MANO Y DEDOS» no cabe en la columna del hero
     descripcion:
-      'Soluciones diseñadas para restaurar la movilidad, aliviar el dolor y mejorar la {calidad de vida} de los pacientes.',
-    imagen: { src: '/IMG/MODEL/MANO.webp', alt: 'Prótesis de mano' },
+      'Soluciones para artroplastia trapeciometacarpiana {Horus® TMC} e implantes para articulaciones interfalángicas y metacarpofalángicas {Digitalis®}.',
+    imagen: { src: '/IMG/MODEL/MANO.webp', alt: 'Prótesis de mano y Digitalis' },
     claim:
-      'Diseñada para la artroplastia de la articulación trapeciometacarpiana (TM) con fijación {cementless} y tecnología modular.',
+      'Diseñada para artroplastia trapeciometacarpiana (TM) y pequeñas articulaciones interfalángicas con fijación {cementless} y tecnología modular.',
+    pdf: {
+      url: '/docs/digitalis.pdf',
+      titulo: 'Catálogo Oficial — Prótesis Digitalis MCP / PIP',
+      peso: '0.6 MB',
+      label: 'Catálogo Digitalis PDF',
+    },
   },
 
   rodilla: {
@@ -44,20 +46,5 @@ export const heroes: Record<string, Hero> = {
     descripcion:
       'Soluciones diseñadas para restaurar la movilidad, aliviar el dolor y mejorar la {calidad de vida} de los pacientes.',
     imagen: { src: '/IMG/MODEL/RODILLA.webp', alt: 'Prótesis de rodilla' },
-  },
-
-  // Sin referencia visual del cliente todavía — hereda el patrón.
-  placas: {
-    eyebrow: 'OSTEOSÍNTESIS',
-    titulo: ['PLACAS', 'Y TORNILLOS'],
-    descripcion:
-      'Soluciones de fijación interna para fracturas complejas, diseñadas para {estabilidad primaria} y consolidación ósea óptima.',
-    imagen: { src: '/placeholders/placas-comerciales.webp', alt: 'Placas y tornillos' },
-    pdf: {
-      url: '/docs/catalogos-placas-001.pdf',
-      titulo: 'Catálogo de Placas y Tornillos — TraumaSurgery',
-      peso: '5.3 MB',
-      label: 'Catálogo Oficial PDF',
-    },
   },
 }

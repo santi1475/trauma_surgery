@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ─── Tipos ──────────────────────────────────────────────────────────────
 
-type RegionId = 'cadera' | 'rodilla' | 'hombro' | 'mano' | 'placas'
+type RegionId = 'cadera' | 'rodilla' | 'hombro' | 'mano'
 
 interface Producto {
   id: RegionId
@@ -74,20 +74,6 @@ const IconMano = () => (
   </svg>
 )
 
-const IconPlacas = () => (
-  <svg {...iconBase} aria-hidden="true">
-    <rect x="14" y="34" width="52" height="12" rx="6" />
-    <circle cx="22" cy="40" r="2" />
-    <circle cx="34" cy="40" r="2" />
-    <circle cx="46" cy="40" r="2" />
-    <circle cx="58" cy="40" r="2" />
-    <path d="M40 14v12" />
-    <path d="M40 54v12" />
-    <path d="M36 18l4-4 4 4" />
-    <path d="M36 62l4 4 4-4" />
-  </svg>
-)
-
 // ─── Datos ──────────────────────────────────────────────────────────────
 
 const productos: Producto[] = [
@@ -114,12 +100,6 @@ const productos: Producto[] = [
     titulo: 'Mano',
     subtitulo: 'Implantes para muñeca y articulaciones digitales en reconstrucción de precisión.',
     Icono: IconMano,
-  },
-  {
-    id: 'placas',
-    titulo: 'Placas y Tornillos',
-    subtitulo: 'Sistemas de osteosíntesis para fijación interna en fracturas complejas.',
-    Icono: IconPlacas,
   },
 ]
 
@@ -337,7 +317,7 @@ export default function CatalogoGrid() {
               Tecnología que transforma cada movimiento
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-              Portafolio integral de implantes y sistemas para reconstrucción y osteosíntesis.
+              Portafolio integral de prótesis para reconstrucción articular de cadera, rodilla, hombro y mano.
             </p>
           </div>
 
@@ -366,7 +346,7 @@ export default function CatalogoGrid() {
         {/* ─── PARTE B — Grid de tarjetas ─── */}
         <div className="mt-16 lg:mt-20">
           <ul
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 lg:grid lg:grid-cols-5 lg:overflow-visible lg:pb-0"
+            className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0"
             role="list"
             style={{ scrollbarWidth: 'thin' }}
           >
@@ -410,7 +390,7 @@ export default function CatalogoGrid() {
       </div>
 
       {/* Modales de detalle — montados una sola vez tras la primera apertura. */}
-      {(['cadera', 'rodilla', 'hombro', 'mano', 'placas'] as RegionId[]).map((id) => {
+      {(['cadera', 'rodilla', 'hombro', 'mano'] as RegionId[]).map((id) => {
         if (!openedCache.current.has(id) && selected !== id) return null
         const isOpen = selected === id
         return (

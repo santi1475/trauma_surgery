@@ -1,5 +1,6 @@
 'use client'
-// Rejilla de los sistemas de osteosíntesis, agrupada por familia (GRUPOS).
+// Rejilla de sistemas agrupada por familia. Por defecto pinta osteosíntesis;
+// la página de medicina del deporte le pasa sus propios `sistemas` y `grupos`.
 // Con 24 sistemas una rejilla plana obligaba a recorrer nueve filas para
 // encontrar un anclaje: el índice superior salta al grupo y cada grupo lleva
 // su propia rejilla. Cada tarjeta abre su modal.
@@ -12,7 +13,8 @@ import { ArrowRight, FileText } from 'lucide-react'
 // El modal (visor PDF, tablas de respaldo y sus datos) se descarga en la
 // primera apertura, no al hidratar la rejilla.
 const ModalSistema = lazy(() => import('./ModalSistema'))
-import { GRUPOS, sistemas } from '../data/sistemas'
+import { GRUPOS, sistemas as SISTEMAS_OSTEO } from '../data/sistemas'
+import type { Categoria, SistemaOsteo } from '../data/tipos'
 
 const LISTA: Variants = {
   hidden: {},
@@ -29,7 +31,12 @@ const REDUCIDO: Variants = {
 
 const MONO = { fontFamily: 'var(--font-mono)' } as const
 
-export default function SistemasGrid() {
+interface Props {
+  sistemas?: SistemaOsteo[]
+  grupos?: Array<{ id: Categoria; titulo: string; texto: string }>
+}
+
+export default function SistemasGrid({ sistemas = SISTEMAS_OSTEO, grupos: GRUPOS_IN = GRUPOS }: Props) {
   const [abierto, setAbierto] = useState<string | null>(null)
   const vistos = useRef(new Set<string>())
   const prefersReduced = useReducedMotion()
@@ -39,7 +46,7 @@ export default function SistemasGrid() {
 
   if (abierto) vistos.current.add(abierto)
 
-  const grupos = GRUPOS.map((g) => ({
+  const grupos = GRUPOS_IN.map((g) => ({
     ...g,
     sistemas: sistemas.filter((s) => s.categoria === g.id),
   })).filter((g) => g.sistemas.length > 0)

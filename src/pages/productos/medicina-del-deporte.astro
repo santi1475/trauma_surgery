@@ -1,17 +1,21 @@
 ---
-// Página: Sistemas de Osteosíntesis
-// Línea de producto — placas y tornillos
+// Página: Medicina del Deporte
+// Línea de producto — artroscopia: fijación ligamentaria, anclajes de sutura y menisco
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import SistemasGrid from '../../features/osteosintesis/components/SistemasGrid'
+import {
+  GRUPOS_MEDICINA_DEPORTE,
+  sistemasMedicinaDeporte,
+} from '../../features/medicina-del-deporte/data/sistemas'
 
 const empresa = 'TraumaSurgery'
-const titulo = 'Sistemas de Osteosíntesis'
+const titulo = 'Medicina del Deporte'
 const subtitulo =
-  'Placas anatómicas de bloqueo y tornillería canulada para la fijación interna de fracturas.'
+  'Sistemas para cirugía artroscópica: fijación de ligamento cruzado y sindesmosis, anclajes de sutura, pequeñas articulaciones y reparación meniscal.'
 const descripcion =
-  'Sistemas de osteosíntesis: placas anatómicas de bloqueo y tornillos canulados. Catálogos oficiales del fabricante. Materiales certificados ISO y CE.'
+  'Medicina del deporte y artroscopia: tornillos de interferencia, botones corticales, anclajes de sutura y reparación de menisco. Catálogos oficiales del fabricante. Materiales certificados ISO y CE.'
 ---
 
 <Layout title={`${titulo} | ${empresa}`} description={descripcion}>
@@ -81,8 +85,8 @@ const descripcion =
       </div>
     </section>
 
-    <!-- Catálogo — los sistemas activos de sistemas.ts, cada uno abre su modal -->
-    <SistemasGrid client:visible />
+    <!-- Catálogo — los sistemas de medicina-del-deporte/data, cada uno abre su modal -->
+    <SistemasGrid client:visible sistemas={sistemasMedicinaDeporte} grupos={GRUPOS_MEDICINA_DEPORTE} />
   </main>
 
   <Footer client:visible />
