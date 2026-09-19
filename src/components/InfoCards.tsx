@@ -31,14 +31,14 @@ const DIFERENCIALES: Diferencial[] = [
     icon: <ScanLine size={20} strokeWidth={1.5} />,
     title: 'Diseño anatómico',
     description: 'Geometría por lateralidad, adaptada a la morfología ósea de la población latinoamericana y verificada con cirujanos.',
-    accentColor: '#00bfff',
+    accentColor: '#00c8f0',
   },
   {
     id: 'esterilizable',
     icon: <Wind size={20} strokeWidth={1.5} />,
     title: 'Esterilizable',
     description: 'Compatible con autoclave y óxido de etileno. Instrumental reutilizable con ciclos de esterilización validados.',
-    accentColor: '#4dd0ff',
+    accentColor: '#0099cc',
   },
   {
     id: 'calidad',
@@ -80,7 +80,7 @@ export default function InfoCards() {
     <section
       id="recursos"
       className="relative overflow-hidden py-24 lg:py-32"
-      style={{ background: '#020d1a' }}
+      style={{ background: 'var(--ts-bg-deep)' }}
       aria-label="Diferenciales, ventajas y certificaciones"
     >
       {/* Fondo: grid técnico sutil */}
@@ -89,7 +89,7 @@ export default function InfoCards() {
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0,168,204,0.025) 59px, rgba(0,168,204,0.025) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,168,204,0.025) 59px, rgba(0,168,204,0.025) 60px)',
+            'repeating-linear-gradient(0deg, transparent, transparent 59px, rgb(var(--ts-accent-deep-rgb)/0.025) 59px, rgb(var(--ts-accent-deep-rgb)/0.025) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgb(var(--ts-accent-deep-rgb)/0.025) 59px, rgb(var(--ts-accent-deep-rgb)/0.025) 60px)',
         }}
       />
 
@@ -108,9 +108,9 @@ export default function InfoCards() {
               variants={item}
               className="inline-block text-xs font-mono tracking-widest uppercase px-4 py-1.5 rounded mb-4"
               style={{
-                background: 'rgba(0,168,204,0.10)',
-                border: '1px solid rgba(0,168,204,0.30)',
-                color: 'var(--color-accent)',
+                background: 'rgb(var(--ts-accent-deep-rgb)/0.10)',
+                border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.30)',
+                color: 'var(--ts-accent)',
                 letterSpacing: '0.15em',
               }}
             >
@@ -122,21 +122,21 @@ export default function InfoCards() {
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 700,
                 color: '#ffffff',
-                fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+                fontSize: 'var(--text-display)',
                 letterSpacing: '-0.01em',
                 lineHeight: 1.15,
                 margin: 0,
               }}
             >
               Por qué{' '}
-              <span style={{ color: '#00d9ff' }}>TraumaSurgery</span>
+              <span style={{ color: 'var(--ts-accent)' }}>TraumaSurgery</span>
             </motion.h2>
           </div>
           <motion.p
             variants={item}
             style={{
               color: 'rgba(255,255,255,0.5)',
-              fontSize: 13,
+              fontSize: 14,
               maxWidth: 340,
               lineHeight: 1.65,
               textAlign: 'right',
@@ -213,7 +213,7 @@ export default function InfoCards() {
               <p
                 style={{
                   color: 'rgba(255,255,255,0.5)',
-                  fontSize: 11,
+                  fontSize: 14,
                   lineHeight: 1.65,
                   flex: 1,
                 }}
@@ -239,7 +239,7 @@ export default function InfoCards() {
       <div
         aria-hidden="true"
         className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,168,204,0.22), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgb(var(--ts-accent-deep-rgb)/0.22), transparent)' }}
       />
     </section>
   )

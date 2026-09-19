@@ -1,4 +1,3 @@
-import React from 'react'
 import { Html, useProgress } from '@react-three/drei'
 
 export function Cargador() {
@@ -9,23 +8,27 @@ export function Cargador() {
         <div style={{
           width: 80,
           height: 2,
-          background: 'rgba(0,217,255,0.15)',
+          background: 'rgb(var(--ts-accent-rgb)/0.15)',
           borderRadius: 2,
           overflow: 'hidden',
         }}>
+          {/* La barra avanza con scaleX, no con width: animar la anchura
+              provoca reflow en cada frame y está prohibido por CLAUDE.md. */}
           <div style={{
-            width: `${progress}%`,
+            width: '100%',
             height: '100%',
-            background: 'linear-gradient(90deg, #00a8cc, #00d9ff)',
-            transition: 'width 0.3s ease',
-            boxShadow: '0 0 10px #00d9ff',
+            transformOrigin: 'left center',
+            transform: `scaleX(${Math.min(progress, 100) / 100})`,
+            background: 'linear-gradient(90deg, var(--ts-accent-deep), var(--ts-accent))',
+            transition: 'transform 0.3s ease-out',
+            boxShadow: '0 0 10px var(--ts-accent)',
           }} />
         </div>
         <span style={{
-          fontFamily: 'monospace',
+          fontFamily: 'var(--font-mono)',
           fontSize: 11,
           letterSpacing: '0.15em',
-          color: '#00d9ff',
+          color: 'var(--ts-accent)',
         }}>
           CARGANDO {progress.toFixed(0)}%
         </span>

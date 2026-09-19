@@ -13,7 +13,7 @@ export default function Soluciones() {
     <section
       id="soluciones"
       className="py-24 lg:py-32"
-      style={{ background: 'var(--bg-deep, #020d1a)' }}
+      style={{ background: 'var(--ts-bg-deep)' }}
       aria-labelledby="soluciones-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -29,7 +29,7 @@ export default function Soluciones() {
             <motion.p
               variants={item}
               className="text-xs font-mono tracking-widest uppercase mb-4"
-              style={{ color: 'var(--color-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
+              style={{ color: 'var(--ts-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
             >
               Portafolio de productos
             </motion.p>
@@ -39,7 +39,7 @@ export default function Soluciones() {
               style={{
                 fontWeight: 700,
                 color: '#ffffff',
-                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                fontSize: 'var(--text-display)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,
               }}
@@ -67,13 +67,13 @@ export default function Soluciones() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full"
+            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-5 w-full"
           >
             {/* Navega a la página de línea de producto: Sistemas de Reemplazo Articular */}
             <PixelButton
-              imageSrc="/IMG/HERO/Slide4.webp"
+              imageSrc="/IMG/HERO/reemplazo-articular.webp"
               containerClassName="h-64 sm:h-80 w-full"
-              className="text-xl md:text-2xl font-bold"
+              className="text-lg md:text-xl font-bold"
               href="/productos/reemplazo-articular"
               ariaLabel="Ver línea de producto: Sistemas de Reemplazo Articular"
               loop
@@ -83,13 +83,24 @@ export default function Soluciones() {
             {/* Navega a la página de línea de producto: Sistemas de Osteosíntesis */}
             <PixelButton
               imageSrc="/IMG/HERO/Slide3.webp"
-              containerClassName="h-64 sm:h-80 w-full sm:mt-12"
-              className="text-xl md:text-2xl font-bold"
+              containerClassName="h-64 sm:h-80 w-full"
+              className="text-lg md:text-xl font-bold"
               href="/productos/osteosintesis"
               ariaLabel="Ver línea de producto: Sistemas de Osteosíntesis"
               loop
             >
               Sistemas de Osteosíntesis
+            </PixelButton>
+            {/* Navega a la página de línea de producto: Medicina del Deporte */}
+            <PixelButton
+              imageSrc="/IMG/HERO/medicina-deporte.webp"
+              containerClassName="h-64 sm:h-80 w-full"
+              className="text-lg md:text-xl font-bold"
+              href="/productos/medicina-del-deporte"
+              ariaLabel="Ver línea de producto: Medicina del Deporte"
+              loop
+            >
+              Medicina del Deporte
             </PixelButton>
           </motion.div>
         </div>

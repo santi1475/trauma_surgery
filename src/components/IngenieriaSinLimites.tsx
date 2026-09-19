@@ -8,54 +8,54 @@ import { cn } from '@/lib/utils'
 // ─────────────────────────────────────────────────────────────────────
 // Iconografía SVG — reutilizable entre slides
 // ─────────────────────────────────────────────────────────────────────
-const ACCENT = '#00d4ff'
+const ACCENT = 'var(--ts-accent)'
 
 const IconTitanio = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <path d="M8 2l1.5 3 3.5.5-2.5 2.5.5 3.5L8 10l-3 1.5.5-3.5L3 5.5 6.5 5 8 2z" stroke="#00d9ff" strokeWidth="1.3" strokeLinejoin="round" />
+    <path d="M8 2l1.5 3 3.5.5-2.5 2.5.5 3.5L8 10l-3 1.5.5-3.5L3 5.5 6.5 5 8 2z" stroke="var(--ts-accent)" strokeWidth="1.3" strokeLinejoin="round" />
   </svg>
 )
 const IconCertificacion = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <rect x="2" y="2" width="12" height="12" rx="2" stroke="#00d9ff" strokeWidth="1.3" />
-    <path d="M5 8h6M8 5v6" stroke="#00d9ff" strokeWidth="1.3" strokeLinecap="round" />
+    <rect x="2" y="2" width="12" height="12" rx="2" stroke="var(--ts-accent)" strokeWidth="1.3" />
+    <path d="M5 8h6M8 5v6" stroke="var(--ts-accent)" strokeWidth="1.3" strokeLinecap="round" />
   </svg>
 )
 const IconPrecision = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="8" r="5" stroke="#00d9ff" strokeWidth="1.3" />
-    <path d="M8 5v3" stroke="#00d9ff" strokeWidth="1.5" strokeLinecap="round" />
-    <circle cx="8" cy="11" r="0.8" fill="#00d9ff" />
+    <circle cx="8" cy="8" r="5" stroke="var(--ts-accent)" strokeWidth="1.3" />
+    <path d="M8 5v3" stroke="var(--ts-accent)" strokeWidth="1.5" strokeLinecap="round" />
+    <circle cx="8" cy="11" r="0.8" fill="var(--ts-accent)" />
   </svg>
 )
 const IconAnatomico = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <path d="M3 13L8 3l5 10H3z" stroke="#00d9ff" strokeWidth="1.3" strokeLinejoin="round" />
-    <path d="M6.5 10h3" stroke="#00d9ff" strokeWidth="1.3" strokeLinecap="round" />
+    <path d="M3 13L8 3l5 10H3z" stroke="var(--ts-accent)" strokeWidth="1.3" strokeLinejoin="round" />
+    <path d="M6.5 10h3" stroke="var(--ts-accent)" strokeWidth="1.3" strokeLinecap="round" />
   </svg>
 )
 const IconBio = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <path d="M2 8a6 6 0 1012 0A6 6 0 002 8z" stroke="#00d9ff" strokeWidth="1.3" />
-    <path d="M6 8l1.5 1.5L10 6" stroke="#00d9ff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2 8a6 6 0 1012 0A6 6 0 002 8z" stroke="var(--ts-accent)" strokeWidth="1.3" />
+    <path d="M6 8l1.5 1.5L10 6" stroke="var(--ts-accent)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 const IconRecubrimiento = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="8" r="6" stroke="#00d9ff" strokeWidth="1.3" />
-    <circle cx="8" cy="8" r="3" stroke="#00d9ff" strokeWidth="0.8" strokeDasharray="1.2 1" />
+    <circle cx="8" cy="8" r="6" stroke="var(--ts-accent)" strokeWidth="1.3" />
+    <circle cx="8" cy="8" r="3" stroke="var(--ts-accent)" strokeWidth="0.8" strokeDasharray="1.2 1" />
   </svg>
 )
 const IconCeramica = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="6" r="3" stroke="#00d9ff" strokeWidth="1.3" />
-    <path d="M5 9 L4 13 L12 13 L11 9 Z" stroke="#00d9ff" strokeWidth="1.1" strokeLinejoin="round" />
+    <circle cx="8" cy="6" r="3" stroke="var(--ts-accent)" strokeWidth="1.3" />
+    <path d="M5 9 L4 13 L12 13 L11 9 Z" stroke="var(--ts-accent)" strokeWidth="1.1" strokeLinejoin="round" />
   </svg>
 )
 const IconCuna = (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-    <path d="M8 2 L13 13 L3 13 Z" stroke="#00d9ff" strokeWidth="1.2" strokeLinejoin="round" />
-    <path d="M8 6 L8 13 M5.5 9.5 L10.5 9.5" stroke="#00d9ff" strokeWidth="0.8" opacity="0.6" />
+    <path d="M8 2 L13 13 L3 13 Z" stroke="var(--ts-accent)" strokeWidth="1.2" strokeLinejoin="round" />
+    <path d="M8 6 L8 13 M5.5 9.5 L10.5 9.5" stroke="var(--ts-accent)" strokeWidth="0.8" opacity="0.6" />
   </svg>
 )
 
@@ -78,11 +78,12 @@ interface AnnotationData {
 
 interface Slide {
   id: string
-  videoPath: string
-  posterPath?: string
+  imagePath: string
   badgeLabel: string
   headingPrimary: string
   headingAccent: string
+  /** Tamaño del titular; la columna mide 420 px y «ARTROPLASTIA» no cabe a 56 px. */
+  headingSize?: string
   description: string
   features: FeatureItem[]
   annotations: AnnotationData[]
@@ -96,8 +97,7 @@ interface Slide {
 const SLIDES: Slide[] = [
   {
     id: 'fibular',
-    videoPath: '/models/01.webm',
-    posterPath: '/models/01.poster.webp',
+    imagePath: '/models/tibia-distal-3d.webp',
     badgeLabel: 'Ingeniería Avanzada',
     headingPrimary: 'INGENIERÍA',
     headingAccent: 'SIN LÍMITES',
@@ -112,20 +112,20 @@ const SLIDES: Slide[] = [
     ],
     annotations: [
       { position: { top: '25%', left: '5%' }, side: 'left', label: 'TITANIO MÉDICO GRADO 4', text: 'Biocompatible · Alta resistencia · Ligero', delay: 300 },
-      { position: { top: '15%', left: '60%' }, side: 'right', label: 'DISEÑO ANATÓMICO', text: 'Adaptación precisa a la morfología ósea para una fijación segura.', delay: 500 },
+      { position: { top: '12%', left: '62%' }, side: 'right', label: 'DISEÑO ANATÓMICO', text: 'Adaptación precisa a la morfología ósea para una fijación segura.', delay: 500 },
       { position: { top: '65%', left: '3%' }, side: 'left', label: 'INGENIERÍA BIOMECÁNICA', text: 'Distribución optimizada de cargas para favorecer la consolidación ósea.', delay: 700 },
-      { position: { top: '70%', left: '58%' }, side: 'right', label: 'PRECISIÓN QUIRÚRGICA', text: 'Tolerancias ≤ 0.01 mm para máxima estabilidad.', delay: 900 },
+      { position: { top: '78%', left: '62%' }, side: 'right', label: 'PRECISIÓN QUIRÚRGICA', text: 'Tolerancias ≤ 0.01 mm para máxima estabilidad.', delay: 900 },
     ],
     cornerBadge: 'ISO 13485',
     showBlueprint: true,
   },
   {
     id: 'cadera',
-    videoPath: '/models/02.webm',
-    posterPath: '/models/02.poster.webp',
+    imagePath: '/models/artroplastia-cadera-clean.webp',
     badgeLabel: 'Artroplastia Avanzada',
     headingPrimary: 'ARTROPLASTIA TOTAL',
     headingAccent: 'GEOMETRÍA FEMORAL',
+    headingSize: 'clamp(28px, 4.2vw, 45px)',
     description:
       'Sistema de prótesis de cadera de alta precisión que integra metalurgia médica y geometría femoral biomimética. Optimizado para restaurar la movilidad articular con anclaje primario estable y desgaste ultra-bajo a largo plazo.',
     features: [
@@ -181,7 +181,7 @@ function MiniBlueprint() {
         top: '35%',
         width: 130,
         background: 'rgba(0,20,40,0.85)',
-        border: `1px solid ${ACCENT}40`,
+        border: `1px solid rgb(var(--ts-accent-rgb)/0.25)`,
         borderRadius: 4,
         padding: '10px 8px',
         backdropFilter: 'blur(6px)',
@@ -191,7 +191,7 @@ function MiniBlueprint() {
     >
       <div
         style={{
-          fontFamily: 'var(--font-mono, monospace)',
+          fontFamily: 'var(--font-mono)',
           fontSize: 11,
           letterSpacing: '0.18em',
           color: ACCENT,
@@ -264,7 +264,7 @@ function IsoBadge({ label }: { label: string }) {
         padding: '4px 10px',
         background: 'rgba(0,20,40,0.7)',
         border: `1px solid ${ACCENT}`,
-        fontFamily: 'var(--font-mono, monospace)',
+        fontFamily: 'var(--font-mono)',
         fontSize: 11,
         color: ACCENT,
         letterSpacing: '2px',
@@ -296,7 +296,7 @@ function SlideControls({
       aria-label="Navegación de slides técnicos"
       style={{
         background: 'rgba(2,13,26,0.72)',
-        border: `1px solid ${ACCENT}33`,
+        border: `1px solid rgb(var(--ts-accent-rgb)/0.2)`,
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
       }}
@@ -315,10 +315,11 @@ function SlideControls({
             aria-label={`Ver ${s.headingPrimary} ${s.headingAccent}`}
             onClick={() => onChange(i)}
             className={cn(
-              'h-1.5 min-w-0 rounded-full p-0 border-0 transition-all duration-300',
-              'hover:bg-transparent focus-visible:ring-[#00d9ff]/40',
+              // El pseudo amplía el área de toque a 30px sin engordar el punto visual.
+              'relative h-1.5 min-w-0 rounded-full p-0 border-0 transition-all duration-300 before:absolute before:-inset-x-1 before:-inset-y-3 before:content-[""]',
+              'hover:bg-transparent focus-visible:ring-ts-accent/40',
               active
-                ? 'w-10 bg-[#00d9ff] hover:bg-[#00d9ff]'
+                ? 'w-10 bg-ts-accent hover:bg-ts-accent'
                 : 'w-5 bg-white/20 hover:bg-white/40',
             )}
           />
@@ -338,13 +339,6 @@ function RightColumnVisual({
   controls: ReactNode
 }) {
   const fadeDuration = prefersReduced ? 0 : 0.55
-
-  // El vídeo pesa ~1.3 MB y esta sección va bajo el fold. En SSR se emite solo
-  // el poster; el `src` se adjunta al hidratar, que con client:visible ocurre
-  // cuando la sección entra en pantalla. Sin esto el navegador lo descargaba
-  // durante la carga inicial de la home.
-  const [hidratado, setHidratado] = useState(false)
-  useEffect(() => setHidratado(true), [])
 
   return (
     <div
@@ -376,7 +370,7 @@ function RightColumnVisual({
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 120px;
-          background: linear-gradient(to bottom, #020d1a 0%, transparent 100%);
+          background: linear-gradient(to bottom, var(--ts-bg-deep) 0%, transparent 100%);
           z-index: 2;
           pointer-events: none;
         }
@@ -385,7 +379,7 @@ function RightColumnVisual({
           position: absolute;
           bottom: 0; left: 0; right: 0;
           height: 150px;
-          background: linear-gradient(to top, #020d1a 0%, transparent 100%);
+          background: linear-gradient(to top, var(--ts-bg-deep) 0%, transparent 100%);
           z-index: 2;
           pointer-events: none;
         }
@@ -393,7 +387,7 @@ function RightColumnVisual({
           position: absolute;
           top: 0; left: 0; bottom: 0;
           width: 100px;
-          background: linear-gradient(to right, #020d1a 0%, transparent 100%);
+          background: linear-gradient(to right, var(--ts-bg-deep) 0%, transparent 100%);
           z-index: 2;
           pointer-events: none;
         }
@@ -403,8 +397,9 @@ function RightColumnVisual({
           width: 100%;
           height: 100%;
           object-fit: contain;
-          object-position: center;
-          background-color: #000;
+          /* Ligeramente a la izquierda: deja sitio a las anotaciones del lado derecho */
+          object-position: 42% center;
+          background-color: transparent;
           z-index: 1;
         }
         .ann {
@@ -418,79 +413,53 @@ function RightColumnVisual({
         .ann-right { animation-name: fadeInRight; }
         .ann-card {
           background: rgba(2, 13, 26, 0.6);
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
-          border: 1px solid rgba(0, 212, 255, 0.20);
+          border: 1px solid rgb(var(--ts-accent-rgb)/0.28);
           border-radius: 4px;
           padding: 8px 12px;
-          transition: filter 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
         }
         .ann-label {
-          font-family: var(--font-mono, monospace);
+          font-family: var(--font-mono);
           font-size: 11px;
-          font-weight: 700;
-          color: ${ACCENT};
-          letter-spacing: 1.5px;
+          letter-spacing: 0.14em;
+          color: var(--ts-accent);
           text-transform: uppercase;
-          line-height: 1.3;
-          transition: filter 0.25s ease;
+          font-weight: 600;
+          margin-bottom: 2px;
         }
         .ann-text {
-          font-family: var(--font-sans, sans-serif);
           font-size: 11px;
           color: rgba(255, 255, 255, 0.78);
-          line-height: 1.45;
-          margin-top: 4px;
+          line-height: 1.4;
         }
         .ann-line {
           height: 1px;
-          width: 60px;
-          border-bottom: 1px dashed ${ACCENT};
-          opacity: 0.55;
-          transition: opacity 0.25s ease, border-bottom-style 0.25s ease;
+          background: linear-gradient(to right, var(--ts-accent), transparent);
+          margin-top: 4px;
         }
-        .ann-left .ann-line  { margin-left: 8px;  margin-top: -10px; }
-        .ann-right .ann-line { margin-right: 8px; margin-top: -10px; margin-left: auto; }
-        .ann-right .ann-card { text-align: right; }
-
-        .ann:hover .ann-label { filter: brightness(1.2); }
-        .ann:hover .ann-line  { opacity: 1; border-bottom-style: solid; }
-        .ann:hover .ann-card  { border-color: rgba(0, 212, 255, 0.45); }
-
-        .blueprint-card {
-          opacity: 0;
-          animation: fadeIn 0.8s ease-out forwards;
+        .ann-right .ann-line {
+          background: linear-gradient(to left, var(--ts-accent), transparent);
         }
-        .iso-badge { opacity: 0; animation: fadeIn 0.8s 0.4s ease-out forwards; }
-
         @media (prefers-reduced-motion: reduce) {
-          .ann, .blueprint-card, .iso-badge {
-            opacity: 1 !important;
-            animation: none !important;
-            transform: none !important;
-          }
+          .ann { opacity: 1; animation: none; }
         }
       `}</style>
 
       <HudCorners />
 
-      {/* Video del implante con fundidos perimetrales — cross-fade entre slides */}
-      <div className="image-wrapper" aria-hidden="false" style={{ backgroundColor: '#000' }}>
+      {/* Imagen del implante con fundidos perimetrales — cross-fade entre slides.
+          Antes era vídeo (01/02.webm); el cliente pidió renders fijos (2026-09-17). */}
+      <div className="image-wrapper" aria-hidden="false" style={{ backgroundColor: 'var(--ts-bg-deep)' }}>
         <AnimatePresence initial={false} mode="sync">
-          <motion.video
+          <motion.img
             id={`slide-${slide.id}`}
             key={slide.id}
-            src={hidratado ? slide.videoPath : undefined}
-            poster={slide.posterPath}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-            disablePictureInPicture
-            controlsList="nodownload noplaybackrate noremoteplayback"
-            aria-label={`Demostración técnica · ${slide.headingPrimary} ${slide.headingAccent}`}
+            src={slide.imagePath}
+            alt={`Demostración técnica · ${slide.headingPrimary} ${slide.headingAccent}`}
             className="implant-media"
+            loading="lazy"
+            decoding="async"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -541,7 +510,7 @@ export default function IngenieriaSinLimites() {
     <section
       id="ingenieria"
       className="relative overflow-hidden"
-      style={{ backgroundColor: '#020d1a' }}
+      style={{ backgroundColor: 'var(--ts-bg-deep)' }}
       aria-label="Ingeniería sin límites · presentación técnica interactiva"
     >
       {/* Fondo: grid técnico tenue */}
@@ -550,7 +519,7 @@ export default function IngenieriaSinLimites() {
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0,168,204,0.03) 59px, rgba(0,168,204,0.03) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,168,204,0.03) 59px, rgba(0,168,204,0.03) 60px)',
+            'repeating-linear-gradient(0deg, transparent, transparent 59px, rgb(var(--ts-accent-deep-rgb)/0.03) 59px, rgb(var(--ts-accent-deep-rgb)/0.03) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgb(var(--ts-accent-deep-rgb)/0.03) 59px, rgb(var(--ts-accent-deep-rgb)/0.03) 60px)',
         }}
       />
 
@@ -563,9 +532,9 @@ export default function IngenieriaSinLimites() {
           top: '50%',
           transform: 'translateY(-50%)',
           fontFamily: 'var(--font-heading)',
-          fontSize: 'clamp(140px, 22vw, 260px)',
+          fontSize: 'var(--text-watermark)',
           fontWeight: 800,
-          color: 'rgba(0,168,204,0.035)',
+          color: 'rgb(var(--ts-accent-deep-rgb)/0.035)',
           lineHeight: 1,
           letterSpacing: '-0.04em',
           userSelect: 'none',
@@ -584,8 +553,8 @@ export default function IngenieriaSinLimites() {
           transform: 'translateY(-50%)',
           width: '40%',
           height: '80%',
-          // Navy de marca (--ts-primary #0A3A60) en vez del azul suelto #0052A3.
-          background: 'radial-gradient(ellipse at left center, rgba(10,58,96,0.6) 0%, transparent 70%)',
+          // Navy de marca (--ts-primary var(--ts-primary)) en vez del azul suelto #0052A3.
+          background: 'radial-gradient(ellipse at left center, rgb(var(--ts-primary-rgb)/0.6) 0%, transparent 70%)',
         }}
       />
 
@@ -613,9 +582,9 @@ export default function IngenieriaSinLimites() {
                   variants={itemVariants}
                   className="inline-block text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded mb-6"
                   style={{
-                    background: 'rgba(0,168,204,0.10)',
-                    border: '1px solid rgba(0,168,204,0.30)',
-                    color: 'var(--color-accent)',
+                    background: 'rgb(var(--ts-accent-deep-rgb)/0.10)',
+                    border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.30)',
+                    color: 'var(--ts-accent)',
                     letterSpacing: '0.15em',
                     fontFamily: 'var(--font-mono)',
                   }}
@@ -628,7 +597,7 @@ export default function IngenieriaSinLimites() {
                   variants={itemVariants}
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(32px, 5vw, 56px)',
+                    fontSize: slide.headingSize ?? 'clamp(32px, 5vw, 56px)',
                     fontWeight: 800,
                     lineHeight: 1.0,
                     letterSpacing: '-0.01em',
@@ -642,11 +611,11 @@ export default function IngenieriaSinLimites() {
                   variants={itemVariants}
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(32px, 5vw, 56px)',
+                    fontSize: slide.headingSize ?? 'clamp(32px, 5vw, 56px)',
                     fontWeight: 800,
                     lineHeight: 1.0,
                     letterSpacing: '-0.01em',
-                    color: '#00d9ff',
+                    color: 'var(--ts-accent)',
                     marginBottom: 28,
                   }}
                 >
@@ -673,31 +642,24 @@ export default function IngenieriaSinLimites() {
                     <motion.div
                       key={feat.title}
                       variants={itemVariants}
-                      className="flex items-start gap-4 group"
+                      className="flex items-start gap-4 group border border-white/4 bg-white/2 hover:border-ts-accent/18 hover:bg-ts-accent/4"
                       style={{
                         padding: '12px 14px',
                         borderRadius: 8,
-                        border: '1px solid rgba(255,255,255,0.04)',
-                        background: 'rgba(255,255,255,0.02)',
                         transition: 'border-color 0.2s, background 0.2s',
-                      }}
-                      whileHover={{
-                        borderColor: 'rgba(0,217,255,0.18)',
-                        backgroundColor: 'rgba(0,217,255,0.04)',
-                        transition: { duration: 0.2 },
                       }}
                     >
                       <div
                         style={{
                           width: 30,
                           height: 30,
-                          border: '1px solid rgba(0,217,255,0.25)',
+                          border: '1px solid rgb(var(--ts-accent-rgb)/0.25)',
                           borderRadius: 6,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
                           flexShrink: 0,
-                          background: 'rgba(0,168,204,0.08)',
+                          background: 'rgb(var(--ts-accent-deep-rgb)/0.08)',
                         }}
                       >
                         {feat.icon}
@@ -717,7 +679,7 @@ export default function IngenieriaSinLimites() {
                         <p
                           style={{
                             color: 'rgba(255,255,255,0.5)',
-                            fontSize: 11,
+                            fontSize: 14,
                             lineHeight: 1.6,
                             margin: 0,
                           }}
@@ -739,8 +701,8 @@ export default function IngenieriaSinLimites() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 10,
-                  background: '#00d9ff',
-                  color: '#020d1a',
+                  background: 'var(--ts-accent)',
+                  color: 'var(--ts-bg-deep)',
                   fontSize: 11,
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
@@ -752,7 +714,7 @@ export default function IngenieriaSinLimites() {
                   fontFamily: 'var(--font-mono)',
                 }}
                 onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 28px rgba(0,217,255,0.40)'
+                  ;(e.currentTarget as HTMLElement).style.boxShadow = '0 0 28px rgb(var(--ts-accent-rgb)/0.40)'
                   ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
                 }}
                 onMouseLeave={(e) => {
@@ -796,7 +758,7 @@ export default function IngenieriaSinLimites() {
       <div
         aria-hidden="true"
         className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,168,204,0.25), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgb(var(--ts-accent-deep-rgb)/0.25), transparent)' }}
       />
     </section>
   )

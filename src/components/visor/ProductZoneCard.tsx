@@ -52,7 +52,7 @@ function ProductZoneCardBase({ zone }: Props) {
           background: `
             radial-gradient(ellipse at 50% 40%, ${accent}1f, transparent 65%),
             radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.55), transparent 70%),
-            linear-gradient(180deg, rgba(0,217,255,0.04) 0%, rgba(2,6,18,0.0) 100%)
+            linear-gradient(180deg, rgb(var(--ts-accent-rgb)/0.04) 0%, rgba(2,6,18,0.0) 100%)
           `,
           borderBottom: `1px solid ${accent}22`,
         }}
@@ -159,7 +159,7 @@ function ProductZoneCardBase({ zone }: Props) {
         </span>
         <CardTitle
           style={{
-            fontFamily: 'var(--font-display, var(--font-mono))',
+            fontFamily: 'var(--font-heading)',
             fontSize: 26,
             fontWeight: 700,
             color: '#ffffff',
@@ -254,14 +254,14 @@ function ProductZoneCardBase({ zone }: Props) {
           size="lg"
           className={cn(
             'w-full h-10 rounded-md font-semibold tracking-[0.14em] uppercase text-xs',
-            'bg-[#0A3A60] text-white hover:bg-[#0A3A60]/90',
-            'border border-[color:var(--cta-accent,#00d9ff)]/40 hover:border-[color:var(--cta-accent,#00d9ff)]',
-            'focus-visible:ring-2 focus-visible:ring-[color:var(--cta-accent,#00d9ff)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020d1a]',
+            'bg-ts-primary text-white hover:bg-ts-primary/90',
+            'border border-[color:var(--cta-accent)]/40 hover:border-[color:var(--cta-accent)]',
+            'focus-visible:ring-2 focus-visible:ring-[color:var(--cta-accent)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ts-bg-deep',
           )}
           style={
             {
               '--cta-accent': accent,
-              fontFamily: 'var(--font-display, var(--font-mono))',
+              fontFamily: 'var(--font-mono)',
               boxShadow: `0 0 24px ${accent}33`,
             } as React.CSSProperties
           }

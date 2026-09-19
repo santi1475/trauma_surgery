@@ -63,11 +63,10 @@ export function CertificationCards() {
           variants={itemVars}
           whileHover={!prefersReduced ? { scale: 1.01, x: 2 } : {}}
           role="listitem"
-          className="flex items-center gap-3.5 rounded-xl p-3.5 shadow-lg cursor-default transition-shadow hover:shadow-[0_0_15px_rgba(0,217,255,0.15)]"
+          className="flex items-center gap-3.5 rounded-xl p-3.5 shadow-lg cursor-default transition-shadow hover:shadow-[0_0_15px_rgb(var(--ts-accent-rgb)/0.15)]"
           style={{
             background: 'linear-gradient(135deg, rgba(4,14,31,0.9) 0%, rgba(4,14,31,0.6) 100%)',
-            border: '1px solid rgba(34,211,238,0.15)',
-            borderLeft: '3px solid rgba(34,211,238,0.7)',
+            border: '1px solid rgb(var(--ts-accent-rgb)/0.30)',
             backdropFilter: 'blur(8px)',
           }}
         >
@@ -80,17 +79,17 @@ export function CertificationCards() {
                 width: 40,
                 height: 40,
                 objectFit: 'contain',
-                filter: 'drop-shadow(0 0 8px rgba(0,217,255,0.25))',
+                filter: 'drop-shadow(0 0 8px rgb(var(--ts-accent-rgb)/0.25))',
               }}
             />
           </div>
 
           <div
             className="self-stretch flex-shrink-0 w-px rounded-full"
-            style={{ background: 'linear-gradient(to bottom, transparent, rgba(34,211,238,0.3), transparent)' }}
+            style={{ background: 'linear-gradient(to bottom, transparent, rgb(var(--ts-accent-rgb)/0.3), transparent)' }}
           />
 
-          <p className="text-xs text-gray-300 leading-snug font-medium">
+          <p className="text-xs text-white/78 leading-snug font-medium">
             {card.label}
           </p>
         </motion.div>

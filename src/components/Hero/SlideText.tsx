@@ -1,6 +1,7 @@
 'use client'
 import type { ReactNode } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 
 export type HeadlinePart = { text: string; cyan?: boolean }
 
@@ -71,9 +72,11 @@ export function SlideText({
         {copy.headline.map((line, i) => {
           const hasWhiteText = line.some(part => !part.cyan)
           return (
-            <div key={i} className={`block ${hasWhiteText && i < copy.headline.length - 1 ? 'mb-3 md:mb-4' : ''}`}>
+            // text-balance: en móvil "Comprometidos con tu" dejaba "tu" solo
+            // en su renglón. El equilibrado reparte las palabras entre líneas.
+            <div key={i} className={`block text-balance ${hasWhiteText && i < copy.headline.length - 1 ? 'mb-3 md:mb-4' : ''}`}>
               {line.map((part, j) => (
-              <span key={j} className={part.cyan ? 'text-cyan-400' : 'text-white font-normal text-3xl md:text-4xl lg:text-5xl'}>
+              <span key={j} className={part.cyan ? 'text-ts-accent' : 'text-white font-normal text-3xl md:text-4xl lg:text-5xl'}>
                 {part.text}{j < line.length - 1 ? ' ' : ''}
               </span>
             ))}
@@ -86,7 +89,7 @@ export function SlideText({
       <p
         style={{
           color: 'rgba(255,255,255,0.55)',
-          fontSize: 13,
+          fontSize: 14,
           lineHeight: 1.7,
           letterSpacing: '0.01em',
           marginBottom: 12,
@@ -103,7 +106,7 @@ export function SlideText({
       {copy.accent && (
         <p
           style={{
-            color: '#00d9ff',
+            color: 'var(--ts-accent)',
             fontSize: 11,
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
@@ -120,12 +123,11 @@ export function SlideText({
       {/* CTA */}
       <motion.a
         href={ctaHref}
+        className="border-[1.5px] border-white/30 text-white hover:border-ts-accent hover:bg-ts-accent/8 hover:shadow-[0_0_20px_rgb(var(--ts-accent-rgb)/0.15)]"
         style={{
           display: 'inline-flex',
           alignItems: 'center',
           gap: 10,
-          border: '1.5px solid rgba(255,255,255,0.3)',
-          color: '#ffffff',
           fontSize: 11,
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
@@ -136,14 +138,10 @@ export function SlideText({
           width: 'fit-content',
           transition: 'border-color 0.25s, background 0.25s, box-shadow 0.25s',
         }}
-        whileHover={{
-          borderColor: '#00d9ff',
-          backgroundColor: 'rgba(0,217,255,0.08)',
-          boxShadow: '0 0 20px rgba(0,217,255,0.15)',
-        }}
         whileTap={{ scale: 0.97 }}
       >
-        {ctaLabel} →
+        <span>{ctaLabel}</span>
+        <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
       </motion.a>
     </motion.div>
   )

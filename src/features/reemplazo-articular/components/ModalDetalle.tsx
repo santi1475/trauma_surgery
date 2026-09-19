@@ -6,17 +6,15 @@
 // Debajo, un footer con los bloques que varían por producto.
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import * as Iconos from 'lucide-react'
+import { icono } from '@/components/iconos'
 import { BADGE_CALIDAD, type Item, type ProductoData, type Sistema } from '../data/tipos'
 import { TextoRico } from './TextoRico'
 
 // ─── Piezas compartidas ───────────────────────────────────────────────
 
 function Icono({ nombre, size = 18 }: { nombre?: string; size?: number }) {
-  const Componente =
-    (nombre && (Iconos as unknown as Record<string, Iconos.LucideIcon>)[nombre]) ||
-    Iconos.Hexagon
-  return <Componente size={size} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
+  const Componente = icono(nombre)
+  return <Componente size={size} color="var(--ts-accent)" strokeWidth={1.5} aria-hidden="true" />
 }
 
 /** Icono dentro de hexágono — marca visual de todos los items. */
@@ -29,8 +27,8 @@ function IconoHex({ nombre, size = 44 }: { nombre?: string; size?: number }) {
       <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <polygon
           points="50,4 92,28 92,72 50,96 8,72 8,28"
-          fill="rgba(0,217,255,0.06)"
-          stroke="rgba(0,217,255,0.4)"
+          fill="rgb(var(--ts-accent-rgb)/0.06)"
+          stroke="rgb(var(--ts-accent-rgb)/0.4)"
           strokeWidth="3"
           strokeLinejoin="round"
         />
@@ -46,22 +44,22 @@ function IconoHex({ nombre, size = 44 }: { nombre?: string; size?: number }) {
 function TituloBloque({ children, id }: { children: string; id?: string }) {
   return (
     <div className="mb-6 flex items-center gap-3">
-      <span className="h-px flex-1" style={{ background: 'rgba(0,217,255,0.25)' }} />
+      <span className="h-px flex-1" style={{ background: 'rgb(var(--ts-accent-rgb)/0.25)' }} />
       <h3
         id={id}
         className="text-center text-xs font-bold uppercase tracking-[0.18em]"
-        style={{ color: 'var(--ts-accent, #00d9ff)', fontFamily: 'var(--font-mono)' }}
+        style={{ color: 'var(--ts-accent)', fontFamily: 'var(--font-mono)' }}
       >
         {children}
       </h3>
-      <span className="h-px flex-1" style={{ background: 'rgba(0,217,255,0.25)' }} />
+      <span className="h-px flex-1" style={{ background: 'rgb(var(--ts-accent-rgb)/0.25)' }} />
     </div>
   )
 }
 
 const PANEL = {
-  borderColor: 'rgba(0,217,255,0.15)',
-  background: 'linear-gradient(180deg, rgba(10,30,48,0.55), rgba(2,11,24,0.8))',
+  borderColor: 'rgb(var(--ts-accent-rgb)/0.15)',
+  background: 'linear-gradient(180deg, rgba(10,30,48,0.55), rgb(var(--ts-bg-deep-rgb)/0.8))',
 }
 
 const LISTA: Variants = {
@@ -95,7 +93,7 @@ function ListaItems({ items, vars }: { items: Item[]; vars: Variants }) {
                 {item.titulo}
               </p>
             )}
-            <p className="text-[13px] leading-[1.6] text-white/70">
+            <p className="text-sm leading-[1.6] text-white/70">
               <TextoRico texto={item.texto} />
             </p>
           </div>
@@ -120,7 +118,7 @@ function BloqueSistema({ sistema, vars }: { sistema: Sistema; vars: Variants }) 
           >
             <p
               className="text-lg font-bold leading-none"
-              style={{ color: 'var(--ts-accent, #00d9ff)', fontFamily: 'var(--font-heading)' }}
+              style={{ color: 'var(--ts-accent)', fontFamily: 'var(--font-heading)' }}
             >
               {String(i + 1).padStart(2, '0')}
             </p>
@@ -131,7 +129,7 @@ function BloqueSistema({ sistema, vars }: { sistema: Sistema; vars: Variants }) 
               <ul className="mt-2 space-y-1">
                 {c.bullets.map((b) => (
                   <li key={b} className="flex gap-1.5 text-xs leading-snug text-white/60">
-                    <span style={{ color: 'var(--ts-accent, #00d9ff)' }}>·</span>
+                    <span style={{ color: 'var(--ts-accent)' }}>·</span>
                     <span><TextoRico texto={b} /></span>
                   </li>
                 ))}
@@ -151,14 +149,14 @@ function BloqueSistema({ sistema, vars }: { sistema: Sistema; vars: Variants }) 
             <span
               className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-bold"
               style={{
-                borderColor: 'rgba(0,217,255,0.5)',
-                color: 'var(--ts-accent, #00d9ff)',
+                borderColor: 'rgb(var(--ts-accent-rgb)/0.5)',
+                color: 'var(--ts-accent)',
                 fontFamily: 'var(--font-mono)',
               }}
             >
               {i + 1}
             </span>
-            <span className="text-[13px] leading-[1.6] text-white/75">
+            <span className="text-sm leading-[1.6] text-white/75">
               <TextoRico texto={c.titulo} />
             </span>
           </motion.li>
@@ -183,7 +181,7 @@ function BloqueSistema({ sistema, vars }: { sistema: Sistema; vars: Variants }) 
               alt={c.imagen.alt}
               loading="lazy"
               className="h-12 w-12 shrink-0 rounded-lg object-contain"
-              style={{ background: 'rgba(0,217,255,0.06)' }}
+              style={{ background: 'rgb(var(--ts-accent-rgb)/0.06)' }}
             />
           ) : (
             <IconoHex nombre={c.icono} size={44} />
@@ -191,12 +189,12 @@ function BloqueSistema({ sistema, vars }: { sistema: Sistema; vars: Variants }) 
           <div className="min-w-0 flex-1">
             <p
               className="text-xs font-bold uppercase leading-snug tracking-wide"
-              style={{ color: 'var(--ts-accent, #00d9ff)' }}
+              style={{ color: 'var(--ts-accent)' }}
             >
               {c.titulo}
             </p>
             {c.texto && (
-              <p className="mt-1 text-xs leading-[1.6] text-white/60">
+              <p className="mt-1 text-sm leading-[1.6] text-white/60">
                 <TextoRico texto={c.texto} />
               </p>
             )}
@@ -230,7 +228,7 @@ export function ModalDetalle({ data, scopeId }: { data: ProductoData; scopeId: s
       {/* ════════ DETALLE — 3 columnas ════════ */}
       <section
         className="border-b px-6 py-12 sm:px-10 sm:py-14 lg:px-14"
-        style={{ borderColor: 'rgba(0,217,255,0.14)' }}
+        style={{ borderColor: 'rgb(var(--ts-accent-rgb)/0.14)' }}
         aria-labelledby={identidadId}
       >
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
@@ -254,7 +252,7 @@ export function ModalDetalle({ data, scopeId }: { data: ProductoData; scopeId: s
               {/* Segunda línea: baja un paso si es larga (TRAPECIOMETACARPIANA,
                   Inlay patellar button) — como en las referencias. */}
               <span
-                className={`mt-1 block break-words text-cyan-400 ${
+                className={`mt-1 block break-words text-ts-accent ${
                   identidad.nombreComercial[1].length > 14
                     ? 'text-lg md:text-xl'
                     : 'text-2xl md:text-3xl'
@@ -269,7 +267,7 @@ export function ModalDetalle({ data, scopeId }: { data: ProductoData; scopeId: s
             </p>
 
             {identidad.descripcion && (
-              <p className="mt-3 text-[13px] leading-[1.7] text-white/60">
+              <p className="mt-3 text-sm leading-[1.7] text-white/60">
                 <TextoRico texto={identidad.descripcion} />
               </p>
             )}
@@ -288,8 +286,8 @@ export function ModalDetalle({ data, scopeId }: { data: ProductoData; scopeId: s
               className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-2xl border lg:sticky lg:top-6 lg:min-h-[560px]"
               style={{
                 background:
-                  'radial-gradient(closest-side, rgba(0,217,255,0.14), transparent 72%), linear-gradient(180deg, rgba(10,30,48,0.8), rgba(2,11,24,0.95))',
-                borderColor: 'rgba(0,217,255,0.20)',
+                  'radial-gradient(closest-side, rgb(var(--ts-accent-rgb)/0.14), transparent 72%), linear-gradient(180deg, rgba(10,30,48,0.8), rgb(var(--ts-bg-deep-rgb)/0.95))',
+                borderColor: 'rgb(var(--ts-accent-rgb)/0.20)',
               }}
             >
               <div
@@ -297,7 +295,7 @@ export function ModalDetalle({ data, scopeId }: { data: ProductoData; scopeId: s
                 className="pointer-events-none absolute inset-0 opacity-[0.07]"
                 style={{
                   backgroundImage:
-                    'linear-gradient(rgba(0,217,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,217,255,0.5) 1px, transparent 1px)',
+                    'linear-gradient(rgb(var(--ts-accent-rgb)/0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--ts-accent-rgb)/0.5) 1px, transparent 1px)',
                   backgroundSize: '44px 44px',
                 }}
               />
@@ -328,7 +326,7 @@ export function ModalDetalle({ data, scopeId }: { data: ProductoData; scopeId: s
           style={PANEL}
         >
           <IconoHex nombre={BADGE_CALIDAD.icono} size={40} />
-          <p className="text-[13px] leading-[1.6] text-white/70">
+          <p className="text-sm leading-[1.6] text-white/70">
             <TextoRico texto={BADGE_CALIDAD.texto} />
           </p>
         </div>

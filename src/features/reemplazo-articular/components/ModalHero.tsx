@@ -4,7 +4,8 @@
 // Certificaciones y países se reutilizan del Hero de la landing.
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import * as Iconos from 'lucide-react'
+import { ArrowRight, ExternalLink } from 'lucide-react'
+import { icono } from '@/components/iconos'
 import { CertificationCards } from '@/components/Hero/CertificationCards'
 import { PaisesOperamos } from '@/components/PaisesOperamos'
 import {
@@ -40,9 +41,8 @@ const REDUCIDO: Variants = {
 // ponytail: los iconos salen de lucide por nombre; si el nombre no existe cae a Hexagon.
 // Alternativa (set de iconos a medida) solo si el cliente entrega los SVG.
 function Icono({ nombre, size = 16 }: { nombre?: IconoNombre; size?: number }) {
-  const Componente =
-    (nombre && (Iconos as unknown as Record<string, Iconos.LucideIcon>)[nombre]) || Iconos.Hexagon
-  return <Componente size={size} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
+  const Componente = icono(nombre)
+  return <Componente size={size} color="var(--ts-accent)" strokeWidth={1.5} aria-hidden="true" />
 }
 
 /** Hexágono contenedor del pilar — outline cian con el icono centrado. */
@@ -57,8 +57,8 @@ function PilarHexagonal({ titulo, icono }: { titulo: string; icono?: IconoNombre
         >
           <polygon
             points="50,4 92,28 92,72 50,96 8,72 8,28"
-            fill="rgba(0,217,255,0.06)"
-            stroke="rgba(0,217,255,0.45)"
+            fill="rgb(var(--ts-accent-rgb)/0.06)"
+            stroke="rgb(var(--ts-accent-rgb)/0.45)"
             strokeWidth="3"
             strokeLinejoin="round"
           />
@@ -86,7 +86,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
   return (
     <section
       className="relative overflow-hidden border-b px-6 pb-12 pt-12 sm:px-10 sm:pt-14 lg:px-14"
-      style={{ borderColor: 'rgba(0,217,255,0.14)', background: 'var(--bg-deep, #020b18)' }}
+      style={{ borderColor: 'rgb(var(--ts-accent-rgb)/0.14)', background: 'var(--ts-bg-deep)' }}
       aria-label="Resumen del producto"
     >
       {/* Atmósfera — glow radial + grid técnico */}
@@ -95,7 +95,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(60% 50% at 55% 25%, rgba(0,217,255,0.10), transparent 65%)',
+            'radial-gradient(60% 50% at 55% 25%, rgb(var(--ts-accent-rgb)/0.10), transparent 65%)',
         }}
       />
 
@@ -124,20 +124,20 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
             <span className="block whitespace-nowrap text-2xl text-white md:text-3xl">
               {data.titulo[0]}
             </span>
-            <span className="mt-2 block whitespace-nowrap text-3xl text-cyan-400 md:text-4xl lg:text-5xl">
+            <span className="mt-2 block whitespace-nowrap text-3xl text-ts-accent md:text-4xl lg:text-5xl">
               {data.titulo[1]}
             </span>
           </h2>
 
           <p
-            className="max-w-md text-[13px] leading-[1.7]"
+            className="max-w-md text-sm leading-[1.7]"
             style={{ color: 'rgba(255,255,255,0.55)' }}
           >
             <TextoRico texto={data.descripcion} />
           </p>
 
           {/* Nota de contacto */}
-          <p className="mt-5 flex items-start gap-2.5 text-[13px] leading-[1.6] text-white/55">
+          <p className="mt-5 flex items-start gap-2.5 text-sm leading-[1.6] text-white/55">
             <span className="mt-0.5 shrink-0">
               <Icono nombre="MessageCircle" size={16} />
             </span>
@@ -146,21 +146,32 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
             </span>
           </p>
 
-          {/* CTA — pill cian, mismo tratamiento que el CTA del Hero */}
-          <motion.a
-            href={CTA_EMAIL.href}
-            className="mt-7 inline-flex min-h-[44px] w-fit items-center gap-2.5 rounded-full px-6 py-3 text-[11px] font-bold uppercase tracking-[0.14em] no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            style={{
-              background: 'var(--ts-accent, #00d9ff)',
-              color: '#02121f',
-              ['--tw-ring-color' as string]: 'rgba(0,217,255,0.6)',
-              ['--tw-ring-offset-color' as string]: '#020b18',
-            }}
-            whileHover={prefersReduced ? {} : { boxShadow: '0 0 20px rgba(0,217,255,0.35)' }}
-            whileTap={prefersReduced ? {} : { scale: 0.97 }}
-          >
-            {CTA_EMAIL.label} <span aria-hidden="true">→</span>
-          </motion.a>
+          {/* CTAs */}
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <motion.a
+              href={CTA_EMAIL.href}
+              className="inline-flex min-h-[44px] w-fit items-center gap-2.5 rounded-full bg-ts-accent px-6 py-3 text-[11px] font-bold uppercase tracking-[0.14em] text-ts-bg-deep no-underline transition-shadow hover:shadow-[0_0_20px_rgb(var(--ts-accent-rgb)/0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ts-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ts-bg-deep"
+              whileTap={prefersReduced ? {} : { scale: 0.97 }}
+            >
+              <span>{CTA_EMAIL.label}</span>
+                <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
+            </motion.a>
+
+            {data.pdf && (
+              <motion.a
+                href={data.pdf.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-ts-accent/35 bg-ts-bg-card/60 px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white/80 no-underline transition hover:border-ts-accent hover:bg-ts-accent/12 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-ts-accent/60"
+                style={{ fontFamily: 'var(--font-mono)' }}
+                whileTap={prefersReduced ? {} : { scale: 0.97 }}
+              >
+                <Icono nombre="FileText" size={14} />
+                <span>{data.pdf.label ?? 'Catálogo PDF'}</span>
+                <ExternalLink size={12} strokeWidth={2} aria-hidden="true" className="opacity-70" />
+              </motion.a>
+            )}
+          </div>
 
           {/* 4 pilares hexagonales */}
           <motion.ul
@@ -189,8 +200,8 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
             className="relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl border"
             style={{
               background:
-                'radial-gradient(closest-side, rgba(0,217,255,0.12), transparent 70%), linear-gradient(180deg, rgba(10,30,48,0.8), rgba(2,11,24,0.95))',
-              borderColor: 'rgba(0,217,255,0.20)',
+                'radial-gradient(closest-side, rgb(var(--ts-accent-rgb)/0.12), transparent 70%), linear-gradient(180deg, rgba(10,30,48,0.8), rgb(var(--ts-bg-deep-rgb)/0.95))',
+              borderColor: 'rgb(var(--ts-accent-rgb)/0.20)',
             }}
           >
             <div
@@ -198,7 +209,7 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
               className="pointer-events-none absolute inset-0 opacity-[0.08]"
               style={{
                 backgroundImage:
-                  'linear-gradient(rgba(0,217,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,217,255,0.5) 1px, transparent 1px)',
+                  'linear-gradient(rgb(var(--ts-accent-rgb)/0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--ts-accent-rgb)/0.5) 1px, transparent 1px)',
                 backgroundSize: '40px 40px',
               }}
             />
@@ -217,14 +228,14 @@ export function ModalHero({ data, titleId }: { data: Hero; titleId: string }) {
             <div
               className="mt-4 flex items-start gap-3 rounded-xl border p-4"
               style={{
-                borderColor: 'rgba(0,217,255,0.15)',
+                borderColor: 'rgb(var(--ts-accent-rgb)/0.15)',
                 background: 'rgba(4,14,31,0.7)',
               }}
             >
               <span className="mt-0.5 shrink-0">
                 <Icono nombre="ShieldCheck" size={18} />
               </span>
-              <p className="text-xs leading-snug text-gray-300">
+              <p className="text-sm leading-snug text-white/78">
                 <TextoRico texto={data.claim} />
               </p>
             </div>

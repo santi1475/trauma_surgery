@@ -90,9 +90,9 @@ const jsonLd = {
       .ts-skel {
         background: linear-gradient(
           90deg,
-          rgba(0, 217, 255, 0.05) 0%,
-          rgba(0, 217, 255, 0.14) 50%,
-          rgba(0, 217, 255, 0.05) 100%
+          rgb(var(--ts-accent-rgb)/0.05) 0%,
+          rgb(var(--ts-accent-rgb)/0.14) 50%,
+          rgb(var(--ts-accent-rgb)/0.05) 100%
         );
         background-size: 200% 100%;
         animation: ts-skel-shimmer 1.4s linear infinite;
@@ -126,7 +126,7 @@ const jsonLd = {
         top: -100px;
         z-index: 200;
         padding: 10px 18px;
-        background: #00d9ff;
+        background: var(--ts-accent);
         color: #01070f;
         font-weight: 700;
         border-radius: 6px;
@@ -135,7 +135,7 @@ const jsonLd = {
       .ts-skip-link:focus-visible { top: 12px; }
 
       @media (prefers-reduced-motion: reduce) {
-        .ts-skel { animation: none; background: rgba(0, 217, 255, 0.10); }
+        .ts-skel { animation: none; background: rgb(var(--ts-accent-rgb)/0.10); }
         .ts-transition-overlay, .ts-skip-link { transition: none !important; }
       }
     </style>
@@ -156,7 +156,7 @@ const jsonLd = {
       aria-hidden="true"
     >
       <!-- Wireframe del Header en transición -->
-      <div style="height:76px;padding:18px 60px;border-bottom:1px solid rgba(0,217,255,0.18);display:flex;align-items:center;justify-content:space-between;background:#01070f;">
+      <div style="height:76px;padding:18px 60px;border-bottom:1px solid rgb(var(--ts-accent-rgb)/0.18);display:flex;align-items:center;justify-content:space-between;background:#01070f;">
         <div style="display:flex;align-items:center;gap:10px;">
           <div class="ts-skel" style="width:40px;height:40px;border-radius:9999px;"></div>
           <div class="ts-skel" style="width:140px;height:14px;"></div>
@@ -177,7 +177,7 @@ const jsonLd = {
         <div class="ts-skel" style="width:55%;height:48px;margin-bottom:32px;"></div>
         <div class="ts-skel" style="width:90%;max-width:600px;height:14px;margin-bottom:8px;"></div>
         <div class="ts-skel" style="width:80%;max-width:520px;height:14px;margin-bottom:40px;"></div>
-        <div class="ts-skel" style="width:96px;height:2px;background:#00d9ff;opacity:.5;"></div>
+        <div class="ts-skel" style="width:96px;height:2px;background:var(--ts-accent);opacity:.5;"></div>
       </div>
     </div>
 

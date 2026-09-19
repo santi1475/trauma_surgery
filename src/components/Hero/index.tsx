@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, useReducedMotion, AnimatePresence, type Variants } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { TechBackground } from './TechBackground'
 import { AnatomicalHotspots } from './AnatomicalHotspots'
 import { SlideText } from './SlideText'
@@ -12,8 +13,8 @@ import { PaisesOperamos } from '../PaisesOperamos'
 import { SLIDES } from './slides'
 
 // ── Tokens ────────────────────────────────────────────────────────────────
-const HERO_BG = '#020b18'   // Fondo quirúrgico profundo
-const ACCENT  = '#00d9ff'   // Cian biotecnológico
+const HERO_BG = 'var(--ts-bg-deep)'   // Fondo quirúrgico profundo
+const ACCENT  = 'var(--ts-accent)'   // Cian biotecnológico
 
 // Máscara de fundido — Capa 2 derecha → izquierda (transparente → opaco)
 const IMAGE_MASK =
@@ -159,11 +160,16 @@ export default function Hero() {
             className="absolute inset-0 lg:hidden"
             style={{
               background:
-                'linear-gradient(to bottom, rgba(2,11,24,0.92) 0%, rgba(2,11,24,0.72) 40%, rgba(2,11,24,0.55) 75%, rgba(2,11,24,0.9) 100%)',
+                'linear-gradient(to bottom, rgb(var(--ts-bg-deep-rgb)/0.92) 0%, rgb(var(--ts-bg-deep-rgb)/0.72) 40%, rgb(var(--ts-bg-deep-rgb)/0.55) 75%, rgb(var(--ts-bg-deep-rgb)/0.9) 100%)',
             }}
           />
 
-          <AnatomicalHotspots isActive={slide.id === 'movimiento'} />
+          {/* Las anotaciones anatómicas están calibradas sobre la foto a dos
+              columnas. Por debajo de lg la foto pasa a fondo del copy y las
+              etiquetas se salían por ambos bordes: allí no se pintan. */}
+          <div className="pointer-events-none absolute inset-0 hidden lg:block">
+            <AnatomicalHotspots isActive={slide.id === 'movimiento'} />
+          </div>
         </div>
       </div>
 
@@ -181,7 +187,7 @@ export default function Hero() {
           className="absolute left-1/2 top-0 bottom-0 w-px origin-top hidden lg:block"
           style={{
             background:
-              'linear-gradient(to bottom, transparent, rgba(0,217,255,0.2) 30%, rgba(0,217,255,0.35) 60%, transparent)',
+              'linear-gradient(to bottom, transparent, rgb(var(--ts-accent-rgb)/0.2) 30%, rgb(var(--ts-accent-rgb)/0.35) 60%, transparent)',
           }}
           aria-hidden="true"
         />
@@ -268,17 +274,17 @@ export default function Hero() {
               type="button"
               onClick={prev}
               aria-label="Slide anterior"
-              className="w-7 h-7 rounded-full border border-white/15 text-white/70 text-sm hover:border-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-400/5 transition-colors"
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-ts-accent/60 hover:bg-ts-accent/5 hover:text-ts-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ts-accent/60"
             >
-              ‹
+              <ChevronLeft size={15} strokeWidth={1.75} aria-hidden="true" />
             </button>
             <button
               type="button"
               onClick={next}
               aria-label="Slide siguiente"
-              className="w-7 h-7 rounded-full border border-white/15 text-white/70 text-sm hover:border-cyan-400/60 hover:text-cyan-300 hover:bg-cyan-400/5 transition-colors"
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-ts-accent/60 hover:bg-ts-accent/5 hover:text-ts-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ts-accent/60"
             >
-              ›
+              <ChevronRight size={15} strokeWidth={1.75} aria-hidden="true" />
             </button>
           </div>
 
@@ -291,7 +297,7 @@ export default function Hero() {
               color: 'rgba(255,255,255,0.5)',
             }}
           >
-            <span style={{ color: 'rgba(0,217,255,0.8)' }}>
+            <span style={{ color: 'rgb(var(--ts-accent-rgb)/0.8)' }}>
               {String(activeSlide + 1).padStart(2, '0')}
             </span>
             {' / '}
@@ -313,7 +319,7 @@ export default function Hero() {
               aria-hidden="true"
               className="absolute bottom-0 left-0 h-[2px] pointer-events-none"
               style={{
-                background: 'linear-gradient(to right, #00a8cc, #00d9ff)',
+                background: 'linear-gradient(to right, var(--ts-accent-deep), var(--ts-accent))',
                 animation: 'hero-progress 5000ms linear forwards',
                 willChange: 'width',
               }}
@@ -327,7 +333,7 @@ export default function Hero() {
           className="absolute bottom-0 left-0 right-0 h-px"
           style={{
             background:
-              'linear-gradient(90deg, transparent 0%, rgba(0,217,255,0.25) 50%, transparent 100%)',
+              'linear-gradient(90deg, transparent 0%, rgb(var(--ts-accent-rgb)/0.25) 50%, transparent 100%)',
           }}
         />
       </div>

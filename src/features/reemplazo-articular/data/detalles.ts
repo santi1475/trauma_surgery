@@ -108,45 +108,46 @@ const detalles: Record<string, Detalle> = {
   // ─────────────────────────────────────────────────────────────────
   mano: {
     identidad: {
-      eyebrow: 'PRÓTESIS DE MANO',
-      nombreComercial: ['HORUS® TMC', 'TRAPECIOMETACARPIANA'],
+      eyebrow: 'PRÓTESIS DE MANO Y DEDOS',
+      nombreComercial: ['HORUS® TMC & DIGITALIS®', 'PRÓTESIS DE MANO'],
       tagline:
-        'Sistema completo para artroplastia trapeciometacarpiana (TM) con fijación {cementless} y tecnología modular.',
+        'Sistemas para artroplastia trapeciometacarpiana (TM) e implantes para articulaciones interfalángicas (MCP/PIP).',
       descripcion:
-        'Diseñado para restaurar la movilidad, aliviar el dolor y mejorar la calidad de vida de los pacientes.',
-      imagen: { src: '/IMG/MODEL/MANO.webp', alt: 'Sistema HORUS TMC' },
+        'Soluciones completas de reemplazo articular para mano: prótesis trapeciometacarpiana cementless Horus TMC y espaciadores Digitalis.',
+      imagen: { src: '/IMG/MODEL/MANO.webp', alt: 'Sistema HORUS TMC y Digitalis' },
     },
     sistema: {
       variante: 'thumbnails',
       componentes: [
         {
-          titulo: 'COPA TRAPECIANA',
-          texto: 'Copa trapeciana en polietileno altamente reticulado (PEXL-E).',
+          titulo: 'COPA TRAPECIANA (HORUS)',
+          texto: 'Copa trapeciana en polietileno altamente reticulado (PEXL-E) con vitamina E.',
         },
         {
-          titulo: 'CABEZA MODULAR',
-          texto: 'Cabeza modular de Co-Cr con rango de movimiento de hasta 68°.',
+          titulo: 'CABEZA MODULAR (HORUS)',
+          texto: 'Cabeza modular de Co-Cr con rango de movimiento intra-protésico de hasta 68°.',
         },
         {
-          titulo: 'VÁSTAGO CEMENTLESS',
+          titulo: 'VÁSTAGO CEMENTLESS (HORUS)',
           texto:
             'Vástago cementless con recubrimiento poroso de titanio para una fijación biológica estable.',
         },
         {
-          titulo: 'INSERTOS MODULARES',
-          texto: 'Insertos en polietileno en diferentes opciones (cementless y cemented).',
+          titulo: 'SISTEMA DIGITALIS (MCP / PIP)',
+          texto:
+            '5 implantes metacarpofalángicos y 4 interfalángicos proximales con set de instrumental completo.',
         },
       ],
     },
     caracteristicas: [
       { icono: 'Blocks', texto: 'Diseñado para artroplastia trapeciometacarpiana (TM) con fijación {cementless} y tecnología modular.' },
-      { icono: 'Crosshair', texto: 'Rango de movimiento {intra-protésico} de hasta 68°.' },
+      { icono: 'Hand', texto: 'Incluye {Sistema Digitalis}: espaciadores MCP y PIP para reconstrucción de articulaciones interfalángicas.' },
+      { icono: 'Crosshair', texto: 'Rango de movimiento {intra-protésico} de hasta 68° en pulgar y preservación de alineación digital.' },
       { icono: 'Anchor', texto: 'Fijación cementless con recubrimiento poroso de titanio para estabilidad primaria y duradera.' },
-      { icono: 'Share2', texto: 'Polietileno altamente reticulado (PEXL-E) con {vitamina E} para mayor resistencia al desgaste y al flujo en frío.' },
-      { icono: 'HeartPulse', texto: 'Reducción del dolor y mejora significativa de la función y {movilidad} del pulgar.' },
-      { icono: 'BadgeCheck', texto: 'Certificaciones de calidad {CE} y cumplimiento de normativas internacionales.' },
+      { icono: 'Share2', texto: 'Polietileno altamente reticulado (PEXL-E) con {vitamina E} y silicona grado médico de alta resistencia.' },
+      { icono: 'HeartPulse', texto: 'Reducción inmediata del dolor articular y restablecimiento funcional de la pinza y agarre.' },
+      { icono: 'BadgeCheck', texto: 'Certificaciones de calidad {CE} y cumplimiento de normativas ISO 13485.' },
     ],
-    // Mano no lleva footer: el cliente también descartó sus opciones de tamaño.
   },
 
   // ─────────────────────────────────────────────────────────────────
@@ -176,23 +177,6 @@ const detalles: Record<string, Detalle> = {
       { icono: 'ShieldCheck', texto: 'Compatible con técnicas quirúrgicas estándar y modernas.' },
       { icono: 'Atom', texto: 'Materiales biocompatibles y resistentes al desgaste.' },
       { icono: 'BadgeCheck', texto: 'Certificación {CE} y cumplimiento de normativa ISO 5832 y 13485.' },
-    ],
-  },
-
-  // ─────────────────────────────────────────────────────────────────
-  // Sin referencia visual del cliente. Contenido migrado de placas.ts.
-  placas: {
-    identidad: {
-      eyebrow: 'PLACAS Y TORNILLOS',
-      nombreComercial: ['SISTEMA DE', 'OSTEOSÍNTESIS'],
-      tagline: 'Sistemas de {fijación interna} para fracturas complejas.',
-      imagen: { src: '/placeholders/placas-comerciales.webp', alt: 'Placas y tornillos' },
-    },
-    caracteristicas: [
-      { icono: 'Anchor', texto: 'Fijación estable con {estabilidad primaria} para consolidación ósea óptima.' },
-      { icono: 'Bone', texto: 'Diseño {anatómicamente preformado} según región.' },
-      { icono: 'Layers', texto: 'Perfil bajo para reducir la irritación de tejidos blandos.' },
-      { icono: 'BadgeCheck', texto: 'Material certificado con trazabilidad por lote.' },
     ],
   },
 }

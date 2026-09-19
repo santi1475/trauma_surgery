@@ -122,8 +122,8 @@ export default function Header() {
           background: scrolled ? 'rgba(1,7,15,0.92)' : '#01070f',
           backdropFilter: scrolled ? 'blur(28px) saturate(180%)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(180%)' : 'none',
-          borderBottom: '1px solid rgba(0,217,255,0.18)',
-          boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.45)' : '0 1px 0 rgba(0,217,255,0.05)',
+          borderBottom: '1px solid rgb(var(--ts-accent-rgb)/0.18)',
+          boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.45)' : '0 1px 0 rgb(var(--ts-accent-rgb)/0.05)',
           transition: 'padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease',
         }}
       >
@@ -146,7 +146,7 @@ export default function Header() {
               color: '#ffffff',
             }}
           >
-            TRAUMA<span style={{ color: '#00d9ff' }}>SURGERY</span>
+            TRAUMA<span style={{ color: 'var(--ts-accent)' }}>SURGERY</span>
           </span>
         </a>
 
@@ -163,6 +163,7 @@ export default function Header() {
               style={{
                 color: 'rgba(255,255,255,0.55)',
                 textDecoration: 'none',
+                paddingBlock: 4,
                 fontWeight: 400,
                 letterSpacing: '0.08em',
                 fontSize: 12,
@@ -186,7 +187,7 @@ export default function Header() {
                   left: 0,
                   width: '100%',
                   height: 1,
-                  background: 'linear-gradient(90deg, #00d9ff, #00a8cc)',
+                  background: 'linear-gradient(90deg, var(--ts-accent), var(--ts-accent-deep))',
                   // Escalado en vez de width: se compone en GPU y no provoca layout.
                   // Tailwind v4 usa la propiedad `scale` (no `transform`), así que
                   // la transición debe apuntar ahí o el subrayado aparece de golpe.
@@ -206,8 +207,8 @@ export default function Header() {
             className="text-sm transition-all duration-200 active:scale-95"
             style={{
               background: 'transparent',
-              border: '1px solid rgba(0,217,255,0.6)',
-              color: '#00d9ff',
+              border: '1px solid rgb(var(--ts-accent-rgb)/0.6)',
+              color: 'var(--ts-accent)',
               fontWeight: 500,
               padding: '8px 22px',
               borderRadius: 6,
@@ -217,14 +218,14 @@ export default function Header() {
               textTransform: 'uppercase',
             }}
             onMouseEnter={(e) => {
-              ; (e.currentTarget as HTMLElement).style.background = '#00d9ff'
-                ; (e.currentTarget as HTMLElement).style.color = '#020d1a'
+              ; (e.currentTarget as HTMLElement).style.background = 'var(--ts-accent)'
+                ; (e.currentTarget as HTMLElement).style.color = 'var(--ts-bg-deep)'
                 ; (e.currentTarget as HTMLElement).style.boxShadow =
-                  '0 0 24px rgba(0,217,255,0.35)'
+                  '0 0 24px rgb(var(--ts-accent-rgb)/0.35)'
             }}
             onMouseLeave={(e) => {
               ; (e.currentTarget as HTMLElement).style.background = 'transparent'
-                ; (e.currentTarget as HTMLElement).style.color = '#00d9ff'
+                ; (e.currentTarget as HTMLElement).style.color = 'var(--ts-accent)'
                 ; (e.currentTarget as HTMLElement).style.boxShadow = 'none'
             }}
           >
@@ -238,7 +239,7 @@ export default function Header() {
           aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ color: '#00d9ff' }}
+          style={{ color: 'var(--ts-accent)' }}
         >
           <svg
             width="22"
@@ -276,7 +277,7 @@ export default function Header() {
               backgroundColor: 'rgba(2,13,26,0.97)',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
-              borderColor: 'rgba(0,217,255,0.12)',
+              borderColor: 'rgb(var(--ts-accent-rgb)/0.12)',
             }}
           >
             <nav className="flex flex-col gap-1 pt-3 px-6" aria-label="Menú móvil">
@@ -315,7 +316,7 @@ export default function Header() {
                       height: 20,
                       borderRadius: '50%',
                       overflow: 'hidden',
-                      border: '1px solid rgba(0,217,255,0.15)',
+                      border: '1px solid rgb(var(--ts-accent-rgb)/0.15)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -343,8 +344,8 @@ export default function Header() {
               <a
                 href={CTA_CONTACTO_HREF}
                 style={{
-                  background: '#00d9ff',
-                  color: '#020d1a',
+                  background: 'var(--ts-accent)',
+                  color: 'var(--ts-bg-deep)',
                   fontWeight: 700,
                   padding: '8px 18px',
                   borderRadius: 6,

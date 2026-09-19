@@ -199,12 +199,12 @@ export default function Visor3D({
     <section
       ref={sectionRef}
       className="relative w-full h-screen"
-      style={{ background: 'linear-gradient(180deg, #041830 0%, #020d1a 40%, #041830 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #041830 0%, var(--ts-bg-deep) 40%, #041830 100%)' }}
     >
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(10,58,96,0.6) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(ellipse 60% 70% at 50% 50%, rgb(var(--ts-primary-rgb)/0.6) 0%, transparent 70%)' }}
       />
 
       <VisorUIOverlay

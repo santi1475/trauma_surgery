@@ -1,6 +1,6 @@
 ---
 // Página: Sistemas de Osteosíntesis
-// Línea de producto — placas, tornillos y clavos intramedulares
+// Línea de producto — placas y tornillos
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
@@ -9,9 +9,9 @@ import SistemasGrid from '../../features/osteosintesis/components/SistemasGrid'
 const empresa = 'TraumaSurgery'
 const titulo = 'Sistemas de Osteosíntesis'
 const subtitulo =
-  'Placas, tornillos y clavos intramedulares para la fijación y estabilización de fracturas con precisión quirúrgica.'
+  'Placas anatómicas de bloqueo y tornillería canulada para la fijación interna de fracturas.'
 const descripcion =
-  'Sistemas de osteosíntesis: placas, tornillos y clavos intramedulares para fijación y estabilización de fracturas. Materiales certificados ISO y CE, fabricación de grado quirúrgico.'
+  'Sistemas de osteosíntesis: placas anatómicas de bloqueo y tornillos canulados. Catálogos oficiales del fabricante. Materiales certificados ISO y CE.'
 ---
 
 <Layout title={`${titulo} | ${empresa}`} description={descripcion}>
@@ -21,7 +21,7 @@ const descripcion =
     <!-- Hero — Línea de producto -->
     <section
       class="relative isolate overflow-hidden"
-      style="background: var(--bg-deep, #020b18);"
+      style="background: var(--ts-bg-deep);"
       aria-labelledby="hero-title"
     >
       <!-- Decorativos de atmósfera -->
@@ -29,15 +29,15 @@ const descripcion =
         aria-hidden="true"
         class="pointer-events-none absolute inset-0 opacity-60"
         style="background:
-          radial-gradient(55% 45% at 80% 10%, rgba(0,217,255,0.10), transparent 60%),
-          radial-gradient(50% 40% at 15% 90%, rgba(10,58,96,0.55), transparent 65%);"
+          radial-gradient(55% 45% at 80% 10%, rgb(var(--ts-accent-rgb)/0.10), transparent 60%),
+          radial-gradient(50% 40% at 15% 90%, rgb(var(--ts-primary-rgb)/0.55), transparent 65%);"
       ></div>
       <div
         aria-hidden="true"
         class="pointer-events-none absolute inset-0 opacity-[0.06]"
         style="background-image:
-          linear-gradient(rgba(0,217,255,0.4) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,217,255,0.4) 1px, transparent 1px);
+          linear-gradient(rgb(var(--ts-accent-rgb)/0.4) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(var(--ts-accent-rgb)/0.4) 1px, transparent 1px);
           background-size: 56px 56px;"
       ></div>
 
@@ -46,15 +46,15 @@ const descripcion =
         <span
           class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.18em]"
           style="
-            color: var(--ts-accent, #00d9ff);
-            border-color: rgba(0,217,255,0.25);
-            background: rgba(0,217,255,0.06);
+            color: var(--ts-accent);
+            border-color: rgb(var(--ts-accent-rgb)/0.25);
+            background: rgb(var(--ts-accent-rgb)/0.06);
           "
         >
           <span
             aria-hidden="true"
             class="h-1.5 w-1.5 rounded-full"
-            style="background: var(--ts-accent, #00d9ff); box-shadow: 0 0 8px rgba(0,217,255,0.7);"
+            style="background: var(--ts-accent); box-shadow: 0 0 8px rgb(var(--ts-accent-rgb)/0.7);"
           ></span>
           Línea de producto
         </span>
@@ -76,12 +76,12 @@ const descripcion =
         <div
           aria-hidden="true"
           class="mt-10 h-px w-24"
-          style="background: linear-gradient(90deg, var(--ts-accent, #00d9ff), transparent);"
+          style="background: linear-gradient(90deg, var(--ts-accent), transparent);"
         ></div>
       </div>
     </section>
 
-    <!-- Catálogo — 5 sistemas, cada uno abre su modal -->
+    <!-- Catálogo — los sistemas activos de sistemas.ts, cada uno abre su modal -->
     <SistemasGrid client:visible />
   </main>
 

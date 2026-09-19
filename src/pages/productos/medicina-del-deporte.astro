@@ -1,0 +1,93 @@
+---
+// Página: Medicina del Deporte
+// Línea de producto — artroscopia: fijación ligamentaria, anclajes de sutura y menisco
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import SistemasGrid from '../../features/osteosintesis/components/SistemasGrid'
+import {
+  GRUPOS_MEDICINA_DEPORTE,
+  sistemasMedicinaDeporte,
+} from '../../features/medicina-del-deporte/data/sistemas'
+
+const empresa = 'TraumaSurgery'
+const titulo = 'Medicina del Deporte'
+const subtitulo =
+  'Sistemas para cirugía artroscópica: fijación de ligamento cruzado y sindesmosis, anclajes de sutura, pequeñas articulaciones y reparación meniscal.'
+const descripcion =
+  'Medicina del deporte y artroscopia: tornillos de interferencia, botones corticales, anclajes de sutura y reparación de menisco. Catálogos oficiales del fabricante. Materiales certificados ISO y CE.'
+---
+
+<Layout title={`${titulo} | ${empresa}`} description={descripcion}>
+  <Header client:load />
+
+  <main id="contenido" class="block">
+    <!-- Hero — Línea de producto -->
+    <section
+      class="relative isolate overflow-hidden"
+      style="background: var(--ts-bg-deep);"
+      aria-labelledby="hero-title"
+    >
+      <!-- Decorativos de atmósfera -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 opacity-60"
+        style="background:
+          radial-gradient(55% 45% at 80% 10%, rgb(var(--ts-accent-rgb)/0.10), transparent 60%),
+          radial-gradient(50% 40% at 15% 90%, rgb(var(--ts-primary-rgb)/0.55), transparent 65%);"
+      ></div>
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style="background-image:
+          linear-gradient(rgb(var(--ts-accent-rgb)/0.4) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(var(--ts-accent-rgb)/0.4) 1px, transparent 1px);
+          background-size: 56px 56px;"
+      ></div>
+
+      <div class="relative mx-auto max-w-7xl px-6 pt-32 pb-24 sm:pt-40 sm:pb-32 lg:px-8">
+        <!-- Etiqueta superior -->
+        <span
+          class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.18em]"
+          style="
+            color: var(--ts-accent);
+            border-color: rgb(var(--ts-accent-rgb)/0.25);
+            background: rgb(var(--ts-accent-rgb)/0.06);
+          "
+        >
+          <span
+            aria-hidden="true"
+            class="h-1.5 w-1.5 rounded-full"
+            style="background: var(--ts-accent); box-shadow: 0 0 8px rgb(var(--ts-accent-rgb)/0.7);"
+          ></span>
+          Línea de producto
+        </span>
+
+        <!-- H1 único -->
+        <h1
+          id="hero-title"
+          class="mt-6 max-w-4xl text-balance font-heading text-4xl font-bold leading-[1.05] text-white sm:text-5xl lg:text-6xl"
+        >
+          {titulo}
+        </h1>
+
+        <!-- Subtítulo -->
+        <p class="mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
+          {subtitulo}
+        </p>
+
+        <!-- Línea acento -->
+        <div
+          aria-hidden="true"
+          class="mt-10 h-px w-24"
+          style="background: linear-gradient(90deg, var(--ts-accent), transparent);"
+        ></div>
+      </div>
+    </section>
+
+    <!-- Catálogo — los sistemas de medicina-del-deporte/data, cada uno abre su modal -->
+    <SistemasGrid client:visible sistemas={sistemasMedicinaDeporte} grupos={GRUPOS_MEDICINA_DEPORTE} />
+  </main>
+
+  <Footer client:visible />
+</Layout>

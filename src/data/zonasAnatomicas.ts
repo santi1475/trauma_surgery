@@ -1,7 +1,8 @@
+import type { ZonaIcono } from '@/components/IconoZona'
+
 export interface ZonaAnatomica {
-  id: string
+  id: ZonaIcono
   label: string
-  icon: string
   /** Centro aproximado de la zona en espacio 3D del modelo */
   position: [number, number, number]
   /** Radio de la esfera hitbox invisible */
@@ -31,7 +32,6 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
   {
     id: 'mano',
     label: 'Mano',
-    icon: '🖐️',
     // Coords aproximadas — recalibrar con debug={true} y click en consola
     position: [-0.30, 0.05, 0.05],
       hitboxRadius: 0.10,
@@ -52,7 +52,6 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
   {
     id: 'hombro',
     label: 'Hombro',
-    icon: '🦴',
     position: [-0.202, 0.585, 0.055],
     hitboxRadius: 0.10,
     categoria: 'Miembro Superior',
@@ -72,7 +71,6 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
   {
     id: 'cadera',
     label: 'Cadera',
-    icon: '🦴',
     position: [0.109, 0.134, 0.013],
     hitboxRadius: 0.15,
     categoria: 'Reemplazo Articular',
@@ -92,7 +90,6 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
   {
     id: 'rodilla',
     label: 'Rodilla',
-    icon: '🦴',
     position: [0.100, -0.356, -0.041],
     hitboxRadius: 0.13,
     categoria: 'Reemplazo Articular',
@@ -112,7 +109,6 @@ export const ZONAS_ANATOMICAS: ZonaAnatomica[] = [
   {
     id: 'pie',
     label: 'Pie y Tobillo',
-    icon: '🦶',
     position: [0.080, -0.72, -0.020],
     hitboxRadius: 0.10,
     categoria: 'Pie y Tobillo',

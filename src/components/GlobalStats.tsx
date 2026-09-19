@@ -4,19 +4,19 @@ import { staggerContainer, fadeInUp, reducedMotion } from '@/animations/variants
 import { NumberTicker } from './ui/number-ticker'
 
 const STATS = [
-  { value: 3, suffix: '', label: 'Países operativos', detail: 'Perú · Bolivia · Colombia' },
+  { value: 4, suffix: '', label: 'Países operativos', detail: 'Perú · Bolivia · Colombia · Paraguay' },
   { value: 15, suffix: '+', label: 'Años de experiencia', detail: 'Trayectoria comprobada' },
   { value: 500, suffix: '+', label: 'Cirujanos atendidos', detail: 'En toda la región' },
   { value: 24, suffix: '/7', label: 'Soporte técnico', detail: 'Disponibilidad permanente' },
 ]
 
 const VALORES = [
-  { icon: '⬡', label: 'Ética' },
-  { icon: '⬡', label: 'Pasión' },
-  { icon: '⬡', label: 'Cooperación' },
-  { icon: '⬡', label: 'Innovación' },
-  { icon: '⬡', label: 'Transparencia' },
-  { icon: '⬡', label: 'Compromiso' },
+  'Ética',
+  'Pasión',
+  'Cooperación',
+  'Innovación',
+  'Transparencia',
+  'Compromiso',
 ]
 
 export default function GlobalStats() {
@@ -30,7 +30,7 @@ export default function GlobalStats() {
       className="relative py-24 lg:py-32 overflow-hidden"
       style={{
         background:
-          'linear-gradient(180deg, #020d1a 0%, #041422 50%, #020d1a 100%)',
+          'linear-gradient(180deg, var(--ts-bg-deep) 0%, #041422 50%, var(--ts-bg-deep) 100%)',
       }}
       aria-label="Presencia regional y valores"
     >
@@ -40,7 +40,7 @@ export default function GlobalStats() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,58,96,0.3) 0%, transparent 70%)',
+            'radial-gradient(ellipse 70% 60% at 50% 50%, rgb(var(--ts-primary-rgb)/0.3) 0%, transparent 70%)',
         }}
       />
 
@@ -56,7 +56,7 @@ export default function GlobalStats() {
           <motion.span
             variants={item}
             className="text-xs font-mono uppercase tracking-widest"
-            style={{ color: 'var(--color-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
+            style={{ color: 'var(--ts-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
           >
             Alcance regional
           </motion.span>
@@ -68,13 +68,13 @@ export default function GlobalStats() {
               fontFamily: 'var(--font-heading)',
               fontWeight: 700,
               color: '#FFFFFF',
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+              fontSize: 'var(--text-display)',
               letterSpacing: '-0.02em',
               lineHeight: 1.15,
             }}
           >
             Presencia en{' '}
-            <span style={{ color: 'var(--color-accent)' }}>toda la región</span>
+            <span style={{ color: 'var(--ts-accent)' }}>toda la región</span>
           </motion.h2>
 
           <motion.p
@@ -83,12 +83,12 @@ export default function GlobalStats() {
             style={{
               color: 'rgba(255,255,255,0.55)',
               fontWeight: 400,
-              fontSize: '0.95rem',
+              fontSize: 14,
               lineHeight: 1.7,
               maxWidth: '42ch',
             }}
           >
-            Conectando cirujanos, hospitales y clínicas en Perú, Bolivia y Colombia
+            Conectando cirujanos, hospitales y clínicas en Perú, Bolivia, Colombia y Paraguay
             con dispositivos médicos de certificación internacional.
           </motion.p>
         </motion.div>
@@ -108,7 +108,7 @@ export default function GlobalStats() {
               className="flex flex-col items-center text-center p-8 rounded-2xl relative overflow-hidden"
               style={{
                 background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(0,168,204,0.12)',
+                border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.12)',
                 backdropFilter: 'blur(8px)',
               }}
             >
@@ -118,8 +118,8 @@ export default function GlobalStats() {
                 style={{
                   fontFamily: 'var(--font-heading)',
                   fontWeight: 800,
-                  fontSize: 'clamp(2rem, 4vw, 2.75rem)',
-                  color: 'var(--color-accent)',
+                  fontSize: 'var(--text-display)',
+                  color: 'var(--ts-accent)',
                   lineHeight: 1,
                 }}
               >
@@ -136,7 +136,7 @@ export default function GlobalStats() {
               <p
                 style={{
                   color: 'rgba(255,255,255,0.5)',
-                  fontSize: '0.75rem',
+                  fontSize: 14,
                   fontWeight: 400,
                 }}
               >
@@ -148,7 +148,7 @@ export default function GlobalStats() {
                 aria-hidden="true"
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full"
                 style={{
-                  background: 'radial-gradient(circle, rgba(0,168,204,0.15) 0%, transparent 70%)',
+                  background: 'radial-gradient(circle, rgb(var(--ts-accent-deep-rgb)/0.15) 0%, transparent 70%)',
                   filter: 'blur(8px)',
                 }}
               />
@@ -167,25 +167,25 @@ export default function GlobalStats() {
           <motion.p
             variants={item}
             className="text-xs font-mono uppercase tracking-widest mb-8"
-            style={{ color: 'rgba(0,168,204,0.6)', fontWeight: 500, letterSpacing: '0.15em' }}
+            style={{ color: 'rgb(var(--ts-accent-deep-rgb)/0.6)', fontWeight: 500, letterSpacing: '0.15em' }}
           >
             Nuestros valores
           </motion.p>
 
           <motion.div variants={container} className="flex flex-wrap justify-center gap-3">
-            {VALORES.map((v) => (
+            {VALORES.map((valor) => (
               <motion.span
-                key={v.label}
+                key={valor}
                 variants={item}
                 className="px-5 py-2 rounded-full text-sm font-medium"
                 style={{
-                  background: 'rgba(0,168,204,0.07)',
-                  border: '1px solid rgba(0,168,204,0.18)',
+                  background: 'rgb(var(--ts-accent-deep-rgb)/0.07)',
+                  border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.18)',
                   color: 'rgba(255,255,255,0.7)',
                   letterSpacing: '0.04em',
                 }}
               >
-                {v.label}
+                {valor}
               </motion.span>
             ))}
           </motion.div>

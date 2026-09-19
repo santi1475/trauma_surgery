@@ -9,7 +9,7 @@ export function TextoRico({ texto }: { texto: Texto }) {
     <>
       {partirResaltado(texto).map((tramo, i) =>
         tramo.h ? (
-          <span key={i} style={{ color: 'var(--ts-accent, #00d9ff)' }}>
+          <span key={i} style={{ color: 'var(--ts-accent)' }}>
             {tramo.t}
           </span>
         ) : (
