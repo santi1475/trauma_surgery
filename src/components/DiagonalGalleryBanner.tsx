@@ -99,11 +99,11 @@ function DiagonalPanel({
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
-          border: '1px solid rgba(0,217,255,0.25)',
+          border: '1px solid rgb(var(--ts-accent-rgb)/0.25)',
           borderRadius: 10,
           opacity: isHovered ? 1 : 0,
           boxShadow: isHovered
-            ? 'inset 0 0 30px rgba(0,217,255,0.08)'
+            ? 'inset 0 0 30px rgb(var(--ts-accent-rgb)/0.08)'
             : 'none',
         }}
       />
@@ -184,7 +184,7 @@ export default function DiagonalGalleryBanner({
           width: '60%',
           height: '90%',
           background:
-            'radial-gradient(ellipse at center, rgba(10,58,96,0.35) 0%, transparent 70%)',
+            'radial-gradient(ellipse at center, rgb(var(--ts-primary-rgb)/0.35) 0%, transparent 70%)',
         }}
       />
 
@@ -199,7 +199,7 @@ export default function DiagonalGalleryBanner({
           fontFamily: 'var(--font-heading)',
           fontSize: 'clamp(140px, 22vw, 260px)',
           fontWeight: 800,
-          color: 'rgba(0,168,204,0.028)',
+          color: 'rgb(var(--ts-accent-deep-rgb)/0.028)',
           lineHeight: 1,
           letterSpacing: '-0.04em',
           userSelect: 'none',
@@ -213,8 +213,8 @@ export default function DiagonalGalleryBanner({
         <div
           className="relative rounded-3xl overflow-hidden"
           style={{
-            backgroundColor: '#020d1a',
-            border: '1px solid rgba(0,168,204,0.15)',
+            backgroundColor: 'var(--ts-bg-deep)',
+            border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.15)',
             boxShadow:
               '0 32px 80px rgba(0,0,0,0.4), 0 0 60px rgba(0,100,180,0.06)',
           }}
@@ -229,7 +229,7 @@ export default function DiagonalGalleryBanner({
               width: '45%',
               height: '100%',
               background:
-                'radial-gradient(ellipse at 20% 30%, rgba(10,58,96,0.36) 0%, transparent 60%)',
+                'radial-gradient(ellipse at 20% 30%, rgb(var(--ts-primary-rgb)/0.36) 0%, transparent 60%)',
             }}
           />
 
@@ -247,9 +247,9 @@ export default function DiagonalGalleryBanner({
                 variants={itemVariants}
                 className="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded mb-6 w-fit"
                 style={{
-                  background: 'rgba(0,168,204,0.08)',
-                  border: '1px solid rgba(0,168,204,0.22)',
-                  color: 'var(--color-accent)',
+                  background: 'rgb(var(--ts-accent-deep-rgb)/0.08)',
+                  border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.22)',
+                  color: 'var(--ts-accent)',
                   letterSpacing: '0.14em',
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
@@ -274,7 +274,7 @@ export default function DiagonalGalleryBanner({
                 VUELVE A HACER
                 <br />
                 LO QUE{' '}
-                <span style={{ color: '#00d9ff' }}>AMAS</span>
+                <span style={{ color: 'var(--ts-accent)' }}>AMAS</span>
               </motion.h2>
 
               {/* Párrafo */}
@@ -282,7 +282,7 @@ export default function DiagonalGalleryBanner({
                 variants={itemVariants}
                 style={{
                   color: 'rgba(255,255,255,0.50)',
-                  fontSize: 'clamp(12px, 1.1vw, 14px)',
+                  fontSize: 14,
                   lineHeight: 1.75,
                   maxWidth: 380,
                   marginBottom: 32,
@@ -299,10 +299,8 @@ export default function DiagonalGalleryBanner({
                 // Apuntaba a #estilo-vida, que no existe en ninguna página.
                 // La galería de Instagram (#aliados) es donde están esas historias.
                 href="#aliados"
-                className="group inline-flex items-center gap-3 w-fit"
+                className="group inline-flex items-center gap-3 w-fit border-[1.5px] border-ts-accent/45 text-ts-accent hover:bg-ts-accent/10 hover:shadow-[0_0_24px_rgb(var(--ts-accent-rgb)/0.18)]"
                 style={{
-                  border: '1.5px solid rgba(0,217,255,0.45)',
-                  color: '#00d9ff',
                   fontSize: 11,
                   letterSpacing: '0.13em',
                   textTransform: 'uppercase',
@@ -312,10 +310,6 @@ export default function DiagonalGalleryBanner({
                   textDecoration: 'none',
                   transition: 'all 0.28s ease',
                   fontFamily: 'var(--font-mono)',
-                }}
-                whileHover={{
-                  backgroundColor: 'rgba(0,217,255,0.10)',
-                  boxShadow: '0 0 24px rgba(0,217,255,0.18)',
                 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -382,7 +376,7 @@ export default function DiagonalGalleryBanner({
         className="absolute bottom-0 left-0 right-0 h-px"
         style={{
           background:
-            'linear-gradient(90deg, transparent, rgba(0,168,204,0.22), transparent)',
+            'linear-gradient(90deg, transparent, rgb(var(--ts-accent-deep-rgb)/0.22), transparent)',
         }}
       />
     </section>

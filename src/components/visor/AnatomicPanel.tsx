@@ -24,7 +24,7 @@ function AnatomicPanelBase({
         background: 'rgba(2,6,18,0.82)',
         backdropFilter: 'blur(22px) saturate(180%)',
         WebkitBackdropFilter: 'blur(22px) saturate(180%)',
-        border: '1px solid rgba(0,217,255,0.10)',
+        border: '1px solid rgb(var(--ts-accent-rgb)/0.10)',
         borderRadius: 10,
         boxShadow: '0 0 48px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.02)',
         padding: '14px 12px',
@@ -38,21 +38,21 @@ function AnatomicPanelBase({
         gap: 7,
         paddingBottom: 10,
         marginBottom: 8,
-        borderBottom: '1px solid rgba(0,217,255,0.08)',
+        borderBottom: '1px solid rgb(var(--ts-accent-rgb)/0.08)',
       }}>
         <div style={{
           width: 6,
           height: 6,
           borderRadius: '50%',
-          background: '#00d9ff',
-          boxShadow: '0 0 7px #00d9ff',
+          background: 'var(--ts-accent)',
+          boxShadow: '0 0 7px var(--ts-accent)',
           flexShrink: 0,
         }} />
         <span style={{
           fontFamily: 'var(--font-mono)',
           fontSize: 11,
           letterSpacing: '0.16em',
-          color: 'rgba(0,217,255,0.75)',
+          color: 'rgb(var(--ts-accent-rgb)/0.75)',
           textTransform: 'uppercase',
         }}>
           Enfoque Anatómico
@@ -65,7 +65,7 @@ function AnatomicPanelBase({
         left: 0,
         right: 0,
         height: 1,
-        background: 'linear-gradient(90deg, transparent, rgba(0,217,255,0.3), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgb(var(--ts-accent-rgb)/0.3), transparent)',
         borderRadius: '10px 10px 0 0',
       }} />
 
@@ -94,13 +94,13 @@ function AnatomicPanelBase({
           padding: '6px 10px',
           borderRadius: 6,
           border: rotacionActiva
-            ? '1px solid rgba(0,217,255,0.22)'
+            ? '1px solid rgb(var(--ts-accent-rgb)/0.22)'
             : '1px solid rgba(255,255,255,0.06)',
-          background: rotacionActiva ? 'rgba(0,217,255,0.07)' : 'transparent',
+          background: rotacionActiva ? 'rgb(var(--ts-accent-rgb)/0.07)' : 'transparent',
           color: animando
             ? 'rgba(255,255,255,0.18)'
             : rotacionActiva
-              ? '#00d9ff'
+              ? 'var(--ts-accent)'
               : 'rgba(255,255,255,0.30)',
           fontFamily: 'var(--font-mono)',
           fontSize: 11,
@@ -116,8 +116,8 @@ function AnatomicPanelBase({
           height: 5,
           borderRadius: '50%',
           flexShrink: 0,
-          background: !animando && rotacionActiva ? '#00d9ff' : 'rgba(255,255,255,0.15)',
-          boxShadow: !animando && rotacionActiva ? '0 0 6px #00d9ff' : 'none',
+          background: !animando && rotacionActiva ? 'var(--ts-accent)' : 'rgba(255,255,255,0.15)',
+          boxShadow: !animando && rotacionActiva ? '0 0 6px var(--ts-accent)' : 'none',
           display: 'inline-block',
         }} />
         {animando ? 'Transitando...' : rotacionActiva ? 'Rotación activa' : 'Rotación pausada'}

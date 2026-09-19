@@ -43,9 +43,9 @@ function ImmersiveBanner() {
       className="mx-5 sm:mx-8 mt-6 rounded-lg overflow-hidden relative"
       style={{
         background:
-          'linear-gradient(135deg, rgba(0,217,255,0.10) 0%, rgba(10,58,96,0.35) 100%)',
-        border: '1px solid rgba(0,217,255,0.25)',
-        boxShadow: '0 0 24px rgba(0,217,255,0.10)',
+          'linear-gradient(135deg, rgb(var(--ts-accent-rgb)/0.10) 0%, rgb(var(--ts-primary-rgb)/0.35) 100%)',
+        border: '1px solid rgb(var(--ts-accent-rgb)/0.25)',
+        boxShadow: '0 0 24px rgb(var(--ts-accent-rgb)/0.10)',
       }}
     >
       <span
@@ -53,7 +53,7 @@ function ImmersiveBanner() {
         className="absolute top-0 left-0 right-0 h-px"
         style={{
           background:
-            'linear-gradient(90deg, transparent, rgba(0,217,255,0.55), transparent)',
+            'linear-gradient(90deg, transparent, rgb(var(--ts-accent-rgb)/0.55), transparent)',
         }}
       />
       <div className="flex items-start gap-3 p-4">
@@ -64,8 +64,8 @@ function ImmersiveBanner() {
             width: 36,
             height: 36,
             borderRadius: 8,
-            background: 'rgba(0,217,255,0.12)',
-            border: '1px solid rgba(0,217,255,0.30)',
+            background: 'rgb(var(--ts-accent-rgb)/0.12)',
+            border: '1px solid rgb(var(--ts-accent-rgb)/0.30)',
           }}
         >
           <svg
@@ -73,7 +73,7 @@ function ImmersiveBanner() {
             height="18"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#00d9ff"
+            stroke="var(--ts-accent)"
             strokeWidth="1.8"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -89,7 +89,7 @@ function ImmersiveBanner() {
               fontFamily: 'var(--font-mono)',
               fontSize: 11,
               letterSpacing: '0.16em',
-              color: '#00d9ff',
+              color: 'var(--ts-accent)',
               textTransform: 'uppercase',
               margin: 0,
               marginBottom: 4,
@@ -100,7 +100,7 @@ function ImmersiveBanner() {
           </p>
           <p
             style={{
-              fontSize: 13,
+              fontSize: 14,
               lineHeight: 1.5,
               color: 'rgba(255,255,255,0.78)',
               margin: 0,
@@ -114,7 +114,7 @@ function ImmersiveBanner() {
           type="button"
           onClick={() => setDismissed(true)}
           aria-label="Cerrar sugerencia"
-          className="shrink-0 -mr-1 -mt-1 p-1 rounded"
+          className="shrink-0 -mr-3 -mt-3 p-[15px] rounded"
           style={{ color: 'rgba(255,255,255,0.5)' }}
         >
           <svg
@@ -169,7 +169,7 @@ function ZoneCard({ zone }: { zone: ZonaAnatomica }) {
           aspectRatio: '4 / 3',
           background: `
             radial-gradient(ellipse at 50% 40%, ${accent}1a, transparent 70%),
-            linear-gradient(180deg, rgba(0,217,255,0.04), rgba(0,0,0,0.20))
+            linear-gradient(180deg, rgb(var(--ts-accent-rgb)/0.04), rgba(0,0,0,0.20))
           `,
           borderBottom: `1px solid ${accent}22`,
         }}
@@ -261,7 +261,7 @@ function ZoneCard({ zone }: { zone: ZonaAnatomica }) {
         <CardDescription
           style={{
             color: 'rgba(255,255,255,0.60)',
-            fontSize: 12,
+            fontSize: 14,
             lineHeight: 1.55,
             marginTop: 2,
           }}
@@ -317,7 +317,7 @@ function ZoneCard({ zone }: { zone: ZonaAnatomica }) {
           size="default"
           className={cn(
             'w-full h-9 rounded-md font-semibold tracking-[0.12em] uppercase text-[11px]',
-            'bg-[#0A3A60] text-white hover:bg-[#0A3A60]/90',
+            'bg-ts-primary text-white hover:bg-ts-primary/90',
             'border border-[color:var(--cta-accent)]/40',
           )}
           style={

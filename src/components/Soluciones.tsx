@@ -13,7 +13,7 @@ export default function Soluciones() {
     <section
       id="soluciones"
       className="py-24 lg:py-32"
-      style={{ background: 'var(--bg-deep, #020d1a)' }}
+      style={{ background: 'var(--ts-bg-deep)' }}
       aria-labelledby="soluciones-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -29,7 +29,7 @@ export default function Soluciones() {
             <motion.p
               variants={item}
               className="text-xs font-mono tracking-widest uppercase mb-4"
-              style={{ color: 'var(--color-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
+              style={{ color: 'var(--ts-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
             >
               Portafolio de productos
             </motion.p>

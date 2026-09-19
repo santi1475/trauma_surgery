@@ -29,7 +29,7 @@ function Corchete({ label }: { label?: string }) {
   return (
     <div className="absolute inset-y-3 left-1/2 flex w-full -translate-x-1/2 flex-col items-center">
       <Punta direccion="arriba" />
-      <span className="w-px flex-1" style={{ background: 'rgba(0,168,204,0.42)' }} />
+      <span className="w-px flex-1" style={{ background: 'rgb(var(--ts-accent-deep-rgb)/0.42)' }} />
       {label && (
         // Sin cota de altura: si se limita, el texto vertical se parte en
         // varias columnas y se desborda de la celda.
@@ -44,7 +44,7 @@ function Corchete({ label }: { label?: string }) {
           {label}
         </span>
       )}
-      <span className="w-px flex-1" style={{ background: 'rgba(0,168,204,0.42)' }} />
+      <span className="w-px flex-1" style={{ background: 'rgb(var(--ts-accent-deep-rgb)/0.42)' }} />
       <Punta direccion="abajo" />
     </div>
   )
@@ -55,7 +55,7 @@ function Punta({ direccion }: { direccion: 'arriba' | 'abajo' }) {
     <svg width="9" height="6" viewBox="0 0 9 6" aria-hidden="true" className="shrink-0">
       <path
         d={direccion === 'arriba' ? 'M4.5 0 9 6H0z' : 'M4.5 6 0 0h9z'}
-        fill="rgba(0,168,204,0.6)"
+        fill="rgb(var(--ts-accent-deep-rgb)/0.6)"
       />
     </svg>
   )
@@ -120,7 +120,7 @@ export function TablaCodigos({ datos }: { datos: Datos }) {
                     key={g.titulo ?? gi}
                     colSpan={anchoGrupo}
                     scope="colgroup"
-                    className="px-3 py-2 text-left text-[13px] font-bold uppercase tracking-[0.1em] text-[#00d9ff]"
+                    className="px-3 py-2 text-left text-[13px] font-bold uppercase tracking-[0.1em] text-ts-accent"
                     style={{
                       background: CABECERA,
                       borderLeft: gi ? `1px solid ${BORDE}` : undefined,

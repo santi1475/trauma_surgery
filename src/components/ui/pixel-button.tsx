@@ -72,7 +72,7 @@ export function PixelButton({
           rel={target === '_blank' ? 'noopener noreferrer' : undefined}
           onClick={onClick}
           aria-label={ariaLabel}
-          className={`relative z-10 w-full h-full px-6 py-4 bg-[#020b18]/45 text-white font-semibold rounded-lg hover:bg-[#020b18]/65 transition-all text-center flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ts-accent,#00d9ff)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-deep,#020b18)] ${className}`}
+          className={`relative z-10 w-full h-full px-6 py-4 bg-ts-bg-deep/45 text-white font-semibold rounded-lg hover:bg-ts-bg-deep/65 transition-all text-center flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ts-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ts-bg-deep)] ${className}`}
         >
           {children}
         </a>
@@ -81,7 +81,7 @@ export function PixelButton({
           type="button"
           onClick={onClick}
           aria-label={ariaLabel}
-          className={`relative z-10 w-full h-full px-6 py-4 bg-[#020b18]/45 text-white font-semibold rounded-lg hover:bg-[#020b18]/65 transition-all text-center flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ts-accent,#00d9ff)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-deep,#020b18)] ${className}`}
+          className={`relative z-10 w-full h-full px-6 py-4 bg-ts-bg-deep/45 text-white font-semibold rounded-lg hover:bg-ts-bg-deep/65 transition-all text-center flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ts-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ts-bg-deep)] ${className}`}
         >
           {children}
         </button>

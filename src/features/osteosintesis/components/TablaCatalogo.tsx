@@ -18,11 +18,11 @@ import { BORDE, SCROLLER, SCROLLER_STYLE, TD_MONO } from './estilosTabla'
  * expresamente: se traslada la función — agrupar los dos diámetros — al azul
  * marino de marca con rótulo en cian bright.
  */
-const BANDA_DIAMETRO = '#0a3a60'
+const BANDA_DIAMETRO = 'var(--ts-primary)'
 
 function Valor({ celda }: { celda: Celda }) {
   if (!celda) {
-    // El em-dash iba a white/25 → 2.15:1 sobre #020b18, por debajo del mínimo
+    // El em-dash iba a white/25 → 2.15:1 sobre var(--ts-bg-deep), por debajo del mínimo
     // AA. Se deja la celda vacía (como el original) y el dato va a lector de
     // pantalla, en vez de subir el alpha y llenar la tabla de guiones.
     return (
@@ -94,7 +94,7 @@ export function TablaCatalogo({
             <th
               colSpan={4}
               scope="colgroup"
-              className="px-2 py-2 text-center text-[13px] font-bold tracking-[0.12em] text-[#00d9ff]"
+              className="px-2 py-2 text-center text-[13px] font-bold tracking-[0.12em] text-ts-accent"
               style={{ background: BANDA_DIAMETRO, fontFamily: 'var(--font-mono)' }}
             >
               Ø2.2
@@ -102,7 +102,7 @@ export function TablaCatalogo({
             <th
               colSpan={4}
               scope="colgroup"
-              className="px-2 py-2 text-center text-[13px] font-bold tracking-[0.12em] text-[#00d9ff]"
+              className="px-2 py-2 text-center text-[13px] font-bold tracking-[0.12em] text-ts-accent"
               style={{
                 background: BANDA_DIAMETRO,
                 fontFamily: 'var(--font-mono)',
@@ -137,7 +137,7 @@ export function TablaCatalogo({
                   scope="colgroup"
                   className="px-2 py-1.5 text-center text-xs uppercase tracking-wider"
                   style={{
-                    color: 'var(--ts-accent, #00d9ff)',
+                    color: 'var(--ts-accent)',
                     borderLeft: i > 0 ? `1px solid ${BORDE}` : undefined,
                   }}
                 >
@@ -154,7 +154,7 @@ export function TablaCatalogo({
               key={f.largo + i}
               style={{
                 borderTop: `1px solid ${BORDE}`,
-                background: i % 2 ? 'rgba(0,217,255,0.02)' : undefined,
+                background: i % 2 ? 'rgb(var(--ts-accent-rgb)/0.02)' : undefined,
               }}
             >
               <th

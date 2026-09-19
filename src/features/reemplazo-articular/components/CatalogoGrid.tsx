@@ -20,7 +20,7 @@ interface Producto {
 
 // ─── Iconos anatómicos (SVG inline, sin assets externos) ────────────────
 
-const stroke = '#00d9ff'
+const stroke = 'var(--ts-accent)'
 const iconBase = {
   width: 80,
   height: 80,
@@ -126,8 +126,8 @@ function ProductCard({ producto, onSelect, reducedMotion }: ProductCardProps) {
   //  enter → width 0% → 100% en 400ms
   //  leave → opacity 1 → 0 en 200ms
   const handleEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.style.borderColor = 'rgba(0,217,255,0.35)'
-    e.currentTarget.style.boxShadow = '0 0 30px rgba(0,217,255,0.18)'
+    e.currentTarget.style.borderColor = 'rgb(var(--ts-accent-rgb)/0.35)'
+    e.currentTarget.style.boxShadow = '0 0 30px rgb(var(--ts-accent-rgb)/0.18)'
     if (reducedMotion || !lineRef.current) return
     gsap.killTweensOf(lineRef.current)
     gsap.fromTo(
@@ -137,7 +137,7 @@ function ProductCard({ producto, onSelect, reducedMotion }: ProductCardProps) {
     )
   }
   const handleLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.style.borderColor = 'rgba(0,217,255,0.12)'
+    e.currentTarget.style.borderColor = 'rgb(var(--ts-accent-rgb)/0.12)'
     e.currentTarget.style.boxShadow = 'none'
     if (reducedMotion || !lineRef.current) return
     gsap.killTweensOf(lineRef.current)
@@ -161,9 +161,9 @@ function ProductCard({ producto, onSelect, reducedMotion }: ProductCardProps) {
       style={{
         background:
           'linear-gradient(180deg, rgba(10,30,48,0.85) 0%, rgba(4,14,31,0.95) 100%)',
-        borderColor: 'rgba(0,217,255,0.12)',
-        ['--tw-ring-color' as any]: 'rgba(0,217,255,0.6)',
-        ['--tw-ring-offset-color' as any]: '#020b18',
+        borderColor: 'rgb(var(--ts-accent-rgb)/0.12)',
+        ['--tw-ring-color' as any]: 'rgb(var(--ts-accent-rgb)/0.6)',
+        ['--tw-ring-offset-color' as any]: 'var(--ts-bg-deep)',
       }}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
@@ -174,7 +174,7 @@ function ProductCard({ producto, onSelect, reducedMotion }: ProductCardProps) {
         aria-hidden="true"
         className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
-          background: 'radial-gradient(closest-side, rgba(0,217,255,0.20), transparent 70%)',
+          background: 'radial-gradient(closest-side, rgb(var(--ts-accent-rgb)/0.20), transparent 70%)',
         }}
       />
 
@@ -185,7 +185,7 @@ function ProductCard({ producto, onSelect, reducedMotion }: ProductCardProps) {
           className="absolute inset-0 rounded-xl"
           style={{
             background:
-              'radial-gradient(closest-side, rgba(0,217,255,0.08), transparent 75%)',
+              'radial-gradient(closest-side, rgb(var(--ts-accent-rgb)/0.08), transparent 75%)',
           }}
         />
         <Icono />
@@ -207,7 +207,7 @@ function ProductCard({ producto, onSelect, reducedMotion }: ProductCardProps) {
         ref={lineRef}
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 left-0 h-[2px]"
-        style={{ width: '0%', background: '#00d9ff', opacity: 1 }}
+        style={{ width: '0%', background: 'var(--ts-accent)', opacity: 1 }}
       />
     </button>
   )
@@ -292,7 +292,7 @@ export default function CatalogoGrid() {
     <section
       ref={sectionRef}
       className="catalog-section relative"
-      style={{ background: 'var(--bg-deep, #020b18)' }}
+      style={{ background: 'var(--ts-bg-deep)' }}
       aria-labelledby="catalogo-heading"
     >
       <div className="mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
@@ -303,7 +303,7 @@ export default function CatalogoGrid() {
             <p
               className="text-xs uppercase tracking-[0.22em]"
               style={{
-                color: 'var(--ts-accent, #00d9ff)',
+                color: 'var(--ts-accent)',
                 fontFamily: 'DM Mono, monospace',
                 fontWeight: 500,
               }}
@@ -336,7 +336,7 @@ export default function CatalogoGrid() {
             </span>
             <p
               className="relative border-l pl-6 text-base leading-relaxed text-white/75 sm:text-lg"
-              style={{ borderColor: '#00d9ff' }}
+              style={{ borderColor: 'var(--ts-accent)' }}
             >
               Soluciones avanzadas para cada región anatómica
             </p>
@@ -363,7 +363,7 @@ export default function CatalogoGrid() {
           <div
             className="trust-banner flex flex-wrap items-center justify-center gap-x-0 gap-y-2 rounded-full border px-6 py-3 backdrop-blur-sm sm:px-8 sm:py-4"
             style={{
-              borderColor: 'rgba(0,217,255,0.20)',
+              borderColor: 'rgb(var(--ts-accent-rgb)/0.20)',
               background: 'rgba(10,30,48,0.7)',
             }}
             role="list"
@@ -380,7 +380,7 @@ export default function CatalogoGrid() {
                   borderColor: 'rgba(0, 176, 207, 0.18)',
                 }}
               >
-                <span className="text-xs font-medium uppercase tracking-[0.18em] text-[#00d9ff]">
+                <span className="text-xs font-medium uppercase tracking-[0.18em] text-ts-accent">
                   {b.texto}
                 </span>
               </div>

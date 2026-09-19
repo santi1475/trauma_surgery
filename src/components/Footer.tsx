@@ -38,7 +38,7 @@ export default function Footer() {
       role="contentinfo"
       style={{
         background: 'linear-gradient(180deg, #010b16 0%, #010810 100%)',
-        borderTop: '1px solid rgba(0,217,255,0.08)',
+        borderTop: '1px solid rgb(var(--ts-accent-rgb)/0.08)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -53,7 +53,7 @@ export default function Footer() {
           width: '40%',
           height: '60%',
           background:
-            'radial-gradient(ellipse at top left, rgba(10,58,96,0.3) 0%, transparent 70%)',
+            'radial-gradient(ellipse at top left, rgb(var(--ts-primary-rgb)/0.3) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -68,7 +68,7 @@ export default function Footer() {
           right: 0,
           height: 1,
           background:
-            'linear-gradient(90deg, transparent, rgba(0,217,255,0.30) 40%, rgba(0,217,255,0.30) 60%, transparent)',
+            'linear-gradient(90deg, transparent, rgb(var(--ts-accent-rgb)/0.30) 40%, rgb(var(--ts-accent-rgb)/0.30) 60%, transparent)',
         }}
       />
 
@@ -96,13 +96,13 @@ export default function Footer() {
                   color: '#ffffff',
                 }}
               >
-                TRAUMA<span style={{ color: '#00d9ff' }}>SURGERY</span>
+                TRAUMA<span style={{ color: 'var(--ts-accent)' }}>SURGERY</span>
               </span>
             </a>
             <p
               style={{
                 color: 'rgba(255,255,255,0.5)',
-                fontSize: 12,
+                fontSize: 14,
                 lineHeight: 1.75,
                 maxWidth: 230,
                 marginBottom: 18,
@@ -120,7 +120,7 @@ export default function Footer() {
                     fontFamily: 'var(--font-mono)',
                     fontSize: 11,
                     letterSpacing: '0.10em',
-                    color: '#D4AF37',
+                    color: 'var(--ts-gold)',
                     background: 'rgba(212,175,55,0.08)',
                     border: '1px solid rgba(212,175,55,0.20)',
                     padding: '3px 8px',
@@ -142,7 +142,7 @@ export default function Footer() {
                   fontSize: 11,
                   letterSpacing: '0.16em',
                   textTransform: 'uppercase',
-                  color: 'rgba(0,217,255,0.75)',
+                  color: 'rgb(var(--ts-accent-rgb)/0.75)',
                   marginBottom: 16,
                   fontWeight: 600,
                 }}
@@ -160,6 +160,7 @@ export default function Footer() {
                         color: 'rgba(255,255,255,0.5)',
                         fontSize: 12,
                         textDecoration: 'none',
+                        paddingBlock: 4,
                         letterSpacing: '0.02em',
                         transition: 'color 0.18s',
                         display: 'inline-block',
@@ -183,7 +184,7 @@ export default function Footer() {
                 fontSize: 11,
                 letterSpacing: '0.16em',
                 textTransform: 'uppercase',
-                color: 'rgba(0,217,255,0.75)',
+                color: 'rgb(var(--ts-accent-rgb)/0.75)',
                 marginBottom: 16,
                 fontWeight: 600,
               }}
@@ -217,10 +218,12 @@ export default function Footer() {
                       fontSize: 11,
                       color: 'rgba(255,255,255,0.55)',
                       textDecoration: 'none',
+                      display: 'inline-block',
+                      paddingBlock: 6,
                       fontVariantNumeric: 'tabular-nums',
                       transition: 'color 0.18s',
                     }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#00d9ff')}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--ts-accent)')}
                     onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.55)')}
                   >
                     {c.value}
@@ -286,10 +289,12 @@ export default function Footer() {
                 fontSize: 11,
                 color: 'rgba(255,255,255,0.5)',
                 textDecoration: 'none',
+                display: 'inline-block',
+                paddingBlock: 6,
                 letterSpacing: '0.04em',
                 transition: 'color 0.2s',
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#00d9ff')}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--ts-accent)')}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.30)')}
             >
               traumasurgery.eirl@gmail.com
@@ -302,6 +307,10 @@ export default function Footer() {
               style={{
                 color: 'rgba(255,255,255,0.5)',
                 transition: 'color 0.2s',
+                display: 'inline-grid',
+                placeItems: 'center',
+                width: 24,
+                height: 24,
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#f09433')}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.30)')}

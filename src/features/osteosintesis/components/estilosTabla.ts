@@ -4,10 +4,10 @@
 // un borde en cian deep — border-hud-soft/strong son los dos únicos valores.
 
 /** border-hud-soft de DESIGN.md (#00d9ff2e). */
-export const BORDE = 'rgba(0,217,255,0.18)'
+export const BORDE = 'rgb(var(--ts-accent-rgb)/0.18)'
 /** border-hud-strong (#00d9ff4d) — separador entre grupos, la regla ancha del PDF. */
-export const BORDE_GRUPO = 'rgba(0,217,255,0.30)'
-export const SUPERFICIE = 'rgba(2,11,24,0.6)'
+export const BORDE_GRUPO = 'rgb(var(--ts-accent-rgb)/0.30)'
+export const SUPERFICIE = 'rgb(var(--ts-bg-deep-rgb)/0.6)'
 export const CABECERA = '#061626'
 /** Radio máximo del sistema para contenedores anchos. */
 export const RADIO = '10px'
@@ -33,6 +33,6 @@ export const SCROLLER_STYLE: React.CSSProperties = {
   borderColor: BORDE,
   background: SUPERFICIE,
   borderRadius: RADIO,
-  ['--tw-ring-color' as string]: 'rgba(0,217,255,0.30)',
-  ['--tw-ring-offset-color' as string]: '#020b18',
+  ['--tw-ring-color' as string]: 'rgb(var(--ts-accent-rgb)/0.30)',
+  ['--tw-ring-offset-color' as string]: 'var(--ts-bg-deep)',
 }

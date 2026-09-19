@@ -2,8 +2,6 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
     /* Fuentes self-hosted vía @fontsource — el sufijo "Variable" es el nombre
        de familia que registra el paquete; se deja el nombre corto como fallback. */
@@ -11,24 +9,18 @@
     --font-sans: 'DM Sans Variable', 'DM Sans', sans-serif;
     --font-mono: 'DM Mono', ui-monospace, monospace;
 
-    /* Paleta TraumaSurgery — Tailwind utilities */
-    --color-ts-primary: var(--ts-primary);
+    /* Paleta TraumaSurgery como utilidades Tailwind: bg-ts-accent, text-ts-accent/60, … */
     --color-ts-accent: var(--ts-accent);
-    --color-ts-text: var(--ts-text);
+    --color-ts-accent-deep: var(--ts-accent-deep);
+    --color-ts-primary: var(--ts-primary);
     --color-ts-gold: var(--ts-gold);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
+    --color-ts-bg-deep: var(--ts-bg-deep);
+    --color-ts-bg-panel: var(--ts-bg-panel);
+    --color-ts-bg-surface: var(--ts-bg-surface);
+    --color-ts-bg-card: var(--ts-bg-card);
+    --color-ts-text: var(--ts-text);
+
+    /* Tokens que consumen los componentes shadcn (ui/button, ui/card) */
     --color-ring: var(--ring);
     --color-input: var(--input);
     --color-border: var(--border);
@@ -57,92 +49,38 @@
 }
 
 :root {
-    /* Variables TraumaSurgery — Dark Theme (estándar) */
-    --ts-primary:  #0A3A60;
-    --ts-accent:   #00d9ff;
-    --ts-text:     rgba(255,255,255,0.6);
-    --ts-gold:     #D4AF37;
+    /* Paleta TraumaSurgery — DESIGN.md §2. Única fuente de color del sitio.
+       Las tripletas *-rgb existen para alphas: rgb(var(--ts-accent-rgb)/0.2). */
+    --ts-accent:          #00d9ff;  --ts-accent-rgb:      0 217 255;
+    --ts-accent-deep:     #00a8cc;  --ts-accent-deep-rgb: 0 168 204;
+    --ts-primary:         #0a3a60;  --ts-primary-rgb:     10 58 96;
+    --ts-gold:            #d4af37;
+    --ts-bg-deep:         #020b18;  --ts-bg-deep-rgb:     2 11 24;
+    --ts-bg-panel:        #030c1a;
+    --ts-bg-surface:      #040e1f;
+    --ts-bg-card:         #0a1e30;
+    --ts-text:            rgba(255,255,255,0.6);
 
-    /* Alias design system */
-    --color-primary: #0A3A60;
-    --color-accent:  #00d9ff;
-    --color-text:    rgba(255,255,255,0.6);
-    --color-gold:    #D4AF37;
-
-    /* Paleta de fondos oscuros — Hero system */
-    --color-hero-bg:  #020b18;   /* base hero / navbar */
-    --color-surface:  #040e1f;   /* overlays, panels secundarios */
-    --color-panel:    #030c1a;   /* panel de métricas */
-    --bg-deep:        #020b18;
-    --bg-mid:         #040e1f;
-    --bg-card:        #0a1e30;
-
-    --background: #020b18;
+    /* shadcn → paleta. El sitio es dark siempre; no hay tema claro ni clase .dark. */
+    --background: var(--ts-bg-deep);
     --foreground: #ffffff;
-    --card: #0a1e30;
+    --card: var(--ts-bg-card);
     --card-foreground: #ffffff;
-    --popover: #061826;
+    --popover: var(--ts-bg-surface);
     --popover-foreground: #ffffff;
-    --primary: oklch(0.488 0.243 264.376);
-    --primary-foreground: oklch(0.97 0.014 254.604);
-    --secondary: oklch(0.967 0.001 286.375);
-    --secondary-foreground: oklch(0.21 0.006 285.885);
-    --muted: oklch(0.967 0.001 286.375);
-    --muted-foreground: oklch(0.552 0.016 285.938);
-    --accent: oklch(0.967 0.001 286.375);
-    --accent-foreground: oklch(0.21 0.006 285.885);
+    --primary: var(--ts-primary);
+    --primary-foreground: #ffffff;
+    --secondary: var(--ts-bg-card);
+    --secondary-foreground: #ffffff;
+    --muted: var(--ts-bg-surface);
+    --muted-foreground: var(--ts-text);
+    --accent: var(--ts-bg-card);
+    --accent-foreground: #ffffff;
     --destructive: oklch(0.577 0.245 27.325);
-    --border: rgba(0,217,255,0.12);
-    --input: rgba(0,217,255,0.12);
-    --ring: rgba(0,217,255,0.3);
-    --chart-1: oklch(0.828 0.111 230.318);
-    --chart-2: oklch(0.685 0.169 237.323);
-    --chart-3: oklch(0.588 0.158 241.966);
-    --chart-4: oklch(0.5 0.134 242.749);
-    --chart-5: oklch(0.443 0.11 240.79);
+    --border: rgb(var(--ts-accent-rgb)/0.12);
+    --input: rgb(var(--ts-accent-rgb)/0.12);
+    --ring: rgb(var(--ts-accent-rgb)/0.3);
     --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.141 0.005 285.823);
-    --sidebar-primary: oklch(0.546 0.245 262.881);
-    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-    --sidebar-accent: oklch(0.967 0.001 286.375);
-    --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-    --sidebar-border: oklch(0.92 0.004 286.32);
-    --sidebar-ring: oklch(0.705 0.015 286.067);
-}
-
-.dark {
-    --background: oklch(0.141 0.005 285.823);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.21 0.006 285.885);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.21 0.006 285.885);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.424 0.199 265.638);
-    --primary-foreground: oklch(0.97 0.014 254.604);
-    --secondary: oklch(0.274 0.006 286.033);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.274 0.006 286.033);
-    --muted-foreground: oklch(0.705 0.015 286.067);
-    --accent: oklch(0.274 0.006 286.033);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.552 0.016 285.938);
-    --chart-1: oklch(0.828 0.111 230.318);
-    --chart-2: oklch(0.685 0.169 237.323);
-    --chart-3: oklch(0.588 0.158 241.966);
-    --chart-4: oklch(0.5 0.134 242.749);
-    --chart-5: oklch(0.443 0.11 240.79);
-    --sidebar: oklch(0.21 0.006 285.885);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.623 0.214 259.815);
-    --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-    --sidebar-accent: oklch(0.274 0.006 286.033);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.552 0.016 285.938);
 }
 
 @layer base {
@@ -157,7 +95,7 @@
     scroll-behavior: smooth;
     /* Firefox */
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 217, 255, 0.55) rgba(2, 13, 26, 0.45);
+    scrollbar-color: rgb(var(--ts-accent-rgb)/0.55) rgb(var(--ts-bg-deep-rgb)/0.45);
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
@@ -170,26 +108,26 @@
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(2, 13, 26, 0.45);
-  border-left: 1px solid rgba(0, 217, 255, 0.06);
+  background: rgb(var(--ts-bg-deep-rgb)/0.45);
+  border-left: 1px solid rgb(var(--ts-accent-rgb)/0.06);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(0, 217, 255, 0.55), rgba(0, 168, 204, 0.65));
+  background: linear-gradient(180deg, rgb(var(--ts-accent-rgb)/0.55), rgb(var(--ts-accent-deep-rgb)/0.65));
   border-radius: 10px;
-  border: 2px solid rgba(2, 13, 26, 0.55);
+  border: 2px solid rgb(var(--ts-bg-deep-rgb)/0.55);
   background-clip: padding-box;
-  box-shadow: inset 0 0 4px rgba(0, 217, 255, 0.18);
+  box-shadow: inset 0 0 4px rgb(var(--ts-accent-rgb)/0.18);
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #00d9ff, #00a8cc);
+  background: linear-gradient(180deg, var(--ts-accent), var(--ts-accent-deep));
   background-clip: padding-box;
   box-shadow:
     inset 0 0 6px rgba(255, 255, 255, 0.22),
-    0 0 10px rgba(0, 217, 255, 0.55);
+    0 0 10px rgb(var(--ts-accent-rgb)/0.55);
 }
 ::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(180deg, var(--ts-accent), #00a8cc);
+  background: linear-gradient(180deg, var(--ts-accent), var(--ts-accent-deep));
   background-clip: padding-box;
 }
 ::-webkit-scrollbar-corner {

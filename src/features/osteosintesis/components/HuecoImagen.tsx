@@ -47,9 +47,9 @@ export function HuecoImagen({
         // deja de leerse. Una línea mono de 11px necesita 14: se cede esa
         // diferencia, imperceptible en una cinta de 160 px de ancho.
         minHeight: 14,
-        border: '1px dashed rgba(0,168,204,0.34)',
+        border: '1px dashed rgb(var(--ts-accent-deep-rgb)/0.34)',
         background:
-          'linear-gradient(135deg, rgba(10,58,96,0.22), rgba(2,11,24,0.55))',
+          'linear-gradient(135deg, rgb(var(--ts-primary-rgb)/0.22), rgb(var(--ts-bg-deep-rgb)/0.55))',
         ...style,
       }}
     >
@@ -59,7 +59,7 @@ export function HuecoImagen({
         className="pointer-events-none absolute inset-0 opacity-[0.5]"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(135deg, rgba(0,168,204,0.16) 0 1px, transparent 1px 7px)',
+            'repeating-linear-gradient(135deg, rgb(var(--ts-accent-deep-rgb)/0.16) 0 1px, transparent 1px 7px)',
         }}
       />
       <span
@@ -71,7 +71,7 @@ export function HuecoImagen({
           transform: vertical ? 'rotate(180deg)' : undefined,
         }}
       >
-        <span className="text-[11px] tracking-[0.14em] text-[#00a8cc]">{hueco.ref}</span>
+        <span className="text-[11px] tracking-[0.14em] text-ts-accent-deep">{hueco.ref}</span>
         {!compacto && (
           <span className="text-[11px] tracking-[0.1em] text-white/50">no disponible</span>
         )}

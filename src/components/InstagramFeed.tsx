@@ -39,7 +39,7 @@ export default function InstagramFeed() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 70% 60% at 50% 30%, rgba(10,58,96,0.36) 0%, transparent 70%)',
+            'radial-gradient(ellipse 70% 60% at 50% 30%, rgb(var(--ts-primary-rgb)/0.36) 0%, transparent 70%)',
         }}
       />
 
@@ -47,7 +47,7 @@ export default function InstagramFeed() {
       <div
         aria-hidden="true"
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,168,204,0.20), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgb(var(--ts-accent-deep-rgb)/0.20), transparent)' }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
@@ -64,7 +64,7 @@ export default function InstagramFeed() {
             <motion.p
               variants={item}
               className="text-xs font-mono tracking-widest uppercase mb-4"
-              style={{ color: 'var(--color-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
+              style={{ color: 'var(--ts-accent)', fontWeight: 500, letterSpacing: '0.15em' }}
             >
               Comunidad médica
             </motion.p>
@@ -83,7 +83,7 @@ export default function InstagramFeed() {
             >
               Síguenos en{' '}
               <span
-                style={{ color: '#00d9ff' }}
+                style={{ color: 'var(--ts-accent)' }}
               >
                 Instagram
               </span>
@@ -102,7 +102,7 @@ export default function InstagramFeed() {
               border: '1px solid rgba(255,255,255,0.10)',
               fontWeight: 600,
               padding: '10px 20px',
-              borderRadius: '8px',
+              borderRadius: '10px',
               textDecoration: 'none',
               transition: 'all 0.2s',
               fontFamily: 'var(--font-mono)',
@@ -149,7 +149,7 @@ export default function InstagramFeed() {
               gridColumn: '1 / 3',
               gridRow: '1 / 3',
               background: 'rgba(4,24,48,0.5)',
-              border: '1px solid rgba(0,217,255,0.12)',
+              border: '1px solid rgb(var(--ts-accent-rgb)/0.12)',
             }}
             aria-label={`Ver imagen: ${featured.tag}`}
           >
@@ -197,7 +197,7 @@ export default function InstagramFeed() {
               className="relative rounded-xl overflow-hidden group"
               style={{
                 background: 'rgba(4,24,48,0.5)',
-                border: '1px solid rgba(0,217,255,0.08)',
+                border: '1px solid rgb(var(--ts-accent-rgb)/0.08)',
               }}
               aria-label={`Ver imagen: ${post.tag}`}
             >
@@ -262,7 +262,7 @@ export default function InstagramFeed() {
                   position: 'absolute',
                   inset: -1,
                   borderRadius: 14,
-                  border: '1px solid rgba(0,217,255,0.20)',
+                  border: '1px solid rgb(var(--ts-accent-rgb)/0.20)',
                   pointerEvents: 'none',
                 }}
               />
@@ -275,7 +275,7 @@ export default function InstagramFeed() {
                 onClick={() => setSelectedImage(null)}
                 className="absolute -top-12 right-0 md:-right-12 p-2 transition-colors"
                 style={{ color: 'rgba(255,255,255,0.5)' }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = '#00d9ff')}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--ts-accent)')}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.5)')}
                 aria-label="Cerrar vista"
               >
@@ -293,7 +293,7 @@ export default function InstagramFeed() {
       <div
         aria-hidden="true"
         className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,168,204,0.20), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgb(var(--ts-accent-deep-rgb)/0.20), transparent)' }}
       />
     </section>
   )
@@ -305,7 +305,7 @@ function PostTag({ tag }: { tag: string }) {
       className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end p-3"
       style={{
         background:
-          'linear-gradient(to top, rgba(2,11,24,0.92) 0%, rgba(2,11,24,0.55) 45%, transparent 100%)',
+          'linear-gradient(to top, rgb(var(--ts-bg-deep-rgb)/0.92) 0%, rgb(var(--ts-bg-deep-rgb)/0.55) 45%, transparent 100%)',
         paddingTop: 40,
       }}
     >
@@ -319,7 +319,7 @@ function PostTag({ tag }: { tag: string }) {
           color: 'rgba(255,255,255,0.85)',
           background: 'rgba(2,13,26,0.75)',
           backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(0,217,255,0.22)',
+          border: '1px solid rgb(var(--ts-accent-rgb)/0.22)',
           padding: '3px 9px',
           borderRadius: 4,
         }}

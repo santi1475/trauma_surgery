@@ -182,7 +182,7 @@ export function TechBackground() {
         className="tech-scanline absolute inset-x-0 top-0 z-0 pointer-events-none h-px opacity-40"
         style={{
           background:
-            'linear-gradient(90deg, transparent 0%, rgba(0,217,255,0.3) 50%, transparent 100%)',
+            'linear-gradient(90deg, transparent 0%, rgb(var(--ts-accent-rgb)/0.3) 50%, transparent 100%)',
           animation: 'tech-scanline 8s linear infinite',
           willChange: 'transform',
         }}

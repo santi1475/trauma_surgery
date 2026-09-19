@@ -63,8 +63,8 @@ export default function Contacto() {
       id="contacto"
       className="relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #020d1a 0%, #010b16 100%)',
-        borderTop: '1px solid rgba(0,217,255,0.07)',
+        background: 'linear-gradient(180deg, var(--ts-bg-deep) 0%, #010b16 100%)',
+        borderTop: '1px solid rgb(var(--ts-accent-rgb)/0.07)',
       }}
       aria-labelledby="contacto-heading"
     >
@@ -78,7 +78,7 @@ export default function Contacto() {
           transform: 'translateX(-50%)',
           width: '80%',
           height: '50%',
-          background: 'radial-gradient(ellipse at top center, rgba(10,58,96,0.42) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at top center, rgb(var(--ts-primary-rgb)/0.42) 0%, transparent 70%)',
         }}
       />
 
@@ -96,9 +96,9 @@ export default function Contacto() {
             variants={item}
             className="inline-block text-xs font-mono tracking-widest uppercase px-4 py-1.5 rounded mb-5"
             style={{
-              background: 'rgba(0,168,204,0.10)',
-              border: '1px solid rgba(0,168,204,0.28)',
-              color: 'var(--color-accent)',
+              background: 'rgb(var(--ts-accent-deep-rgb)/0.10)',
+              border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.28)',
+              color: 'var(--ts-accent)',
               letterSpacing: '0.15em',
             }}
           >
@@ -118,7 +118,7 @@ export default function Contacto() {
             }}
           >
             Hablemos sobre tu{' '}
-            <span style={{ color: '#00d9ff' }}>próximo caso</span>
+            <span style={{ color: 'var(--ts-accent)' }}>próximo caso</span>
           </motion.h2>
           <motion.p
             variants={item}
@@ -163,8 +163,8 @@ export default function Contacto() {
                     transition: 'border-color 0.2s, background 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.25)'
-                    ;(e.currentTarget as HTMLElement).style.background = 'rgba(0,217,255,0.05)'
+                    ;(e.currentTarget as HTMLElement).style.borderColor = 'rgb(var(--ts-accent-rgb)/0.25)'
+                    ;(e.currentTarget as HTMLElement).style.background = 'rgb(var(--ts-accent-rgb)/0.05)'
                   }}
                   onMouseLeave={(e) => {
                     ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.06)'
@@ -179,9 +179,9 @@ export default function Contacto() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#00d9ff',
-                      background: 'rgba(0,217,255,0.08)',
-                      border: '1px solid rgba(0,217,255,0.18)',
+                      color: 'var(--ts-accent)',
+                      background: 'rgb(var(--ts-accent-rgb)/0.08)',
+                      border: '1px solid rgb(var(--ts-accent-rgb)/0.18)',
                       flexShrink: 0,
                       transition: 'background 0.2s',
                     }}
@@ -212,7 +212,7 @@ export default function Contacto() {
                         lineHeight: 1.35,
                         transition: 'color 0.2s',
                       }}
-                      className="group-hover:text-[#00d9ff]"
+                      className="group-hover:text-ts-accent"
                     >
                       {dato.valor}
                     </p>
@@ -227,7 +227,7 @@ export default function Contacto() {
               className="flex items-start gap-4 p-5 rounded-xl"
               style={{
                 background: 'rgba(4,18,36,0.65)',
-                border: '1px solid rgba(0,217,255,0.10)',
+                border: '1px solid rgb(var(--ts-accent-rgb)/0.10)',
                 backdropFilter: 'blur(10px)',
               }}
             >
@@ -239,9 +239,9 @@ export default function Contacto() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#00d9ff',
-                  background: 'rgba(0,217,255,0.08)',
-                  border: '1px solid rgba(0,217,255,0.18)',
+                  color: 'var(--ts-accent)',
+                  background: 'rgb(var(--ts-accent-rgb)/0.08)',
+                  border: '1px solid rgb(var(--ts-accent-rgb)/0.18)',
                   flexShrink: 0,
                   marginTop: 2,
                 }}
@@ -266,7 +266,7 @@ export default function Contacto() {
                 </p>
                 <address
                   className="not-italic"
-                  style={{ color: '#ffffff', fontWeight: 600, fontSize: '0.92rem', lineHeight: 1.55 }}
+                  style={{ color: '#ffffff', fontWeight: 600, fontSize: 14, lineHeight: 1.55 }}
                 >
                   Av. Pablo Carriquiry N° 460
                   <br />
@@ -276,7 +276,7 @@ export default function Contacto() {
                   style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: 11,
-                    color: 'rgba(0,217,255,0.75)',
+                    color: 'rgb(var(--ts-accent-rgb)/0.75)',
                     letterSpacing: '0.08em',
                     marginTop: 6,
                   }}
@@ -291,8 +291,8 @@ export default function Contacto() {
               variants={item}
               className="mt-4 flex items-center gap-3 px-5 py-3 rounded-xl"
               style={{
-                background: 'rgba(0,217,255,0.05)',
-                border: '1px solid rgba(0,217,255,0.12)',
+                background: 'rgb(var(--ts-accent-rgb)/0.05)',
+                border: '1px solid rgb(var(--ts-accent-rgb)/0.12)',
               }}
             >
               <div
@@ -300,8 +300,8 @@ export default function Contacto() {
                   width: 7,
                   height: 7,
                   borderRadius: '50%',
-                  background: '#00d9ff',
-                  boxShadow: '0 0 8px #00d9ff',
+                  background: 'var(--ts-accent)',
+                  boxShadow: '0 0 8px var(--ts-accent)',
                   flexShrink: 0,
                 }}
               />
@@ -310,7 +310,7 @@ export default function Contacto() {
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
                   letterSpacing: '0.10em',
-                  color: 'rgba(0,217,255,0.8)',
+                  color: 'rgb(var(--ts-accent-rgb)/0.8)',
                   textTransform: 'uppercase',
                 }}
               >
@@ -331,7 +331,7 @@ export default function Contacto() {
             <div
               className="relative rounded-2xl overflow-hidden"
               style={{
-                border: '1px solid rgba(0,217,255,0.18)',
+                border: '1px solid rgb(var(--ts-accent-rgb)/0.18)',
                 boxShadow: '0 8px 48px rgba(0,0,0,0.50), 0 0 0 1px rgba(255,255,255,0.02)',
                 height: 420,
               }}
@@ -359,10 +359,10 @@ export default function Contacto() {
                   style={{
                     width: 14,
                     height: 14,
-                    borderTop: i < 2 ? '2px solid rgba(0,217,255,0.55)' : 'none',
-                    borderBottom: i >= 2 ? '2px solid rgba(0,217,255,0.55)' : 'none',
-                    borderLeft: i % 2 === 0 ? '2px solid rgba(0,217,255,0.55)' : 'none',
-                    borderRight: i % 2 === 1 ? '2px solid rgba(0,217,255,0.55)' : 'none',
+                    borderTop: i < 2 ? '2px solid rgb(var(--ts-accent-rgb)/0.55)' : 'none',
+                    borderBottom: i >= 2 ? '2px solid rgb(var(--ts-accent-rgb)/0.55)' : 'none',
+                    borderLeft: i % 2 === 0 ? '2px solid rgb(var(--ts-accent-rgb)/0.55)' : 'none',
+                    borderRight: i % 2 === 1 ? '2px solid rgb(var(--ts-accent-rgb)/0.55)' : 'none',
                     ...pos,
                   }}
                 />
@@ -387,7 +387,7 @@ export default function Contacto() {
               style={{
                 background: 'rgba(2,10,22,0.88)',
                 backdropFilter: 'blur(18px) saturate(180%)',
-                border: '1px solid rgba(0,217,255,0.18)',
+                border: '1px solid rgb(var(--ts-accent-rgb)/0.18)',
                 boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
               }}
             >
@@ -396,23 +396,23 @@ export default function Contacto() {
                   width: 36,
                   height: 36,
                   borderRadius: 8,
-                  background: '#00d9ff',
+                  background: 'var(--ts-accent)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
                 }}
               >
-                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="#020d1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="var(--ts-bg-deep)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 1.5C6.51 1.5 4.5 3.51 4.5 6c0 3.75 4.5 10.5 4.5 10.5s4.5-6.75 4.5-10.5c0-2.49-2.01-4.5-4.5-4.5z" />
                   <circle cx="9" cy="6" r="1.5" />
                 </svg>
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.84rem', marginBottom: 1 }}>
+                <p style={{ fontWeight: 700, color: '#ffffff', fontSize: 14, marginBottom: 1 }}>
                   TraumaSurgery EIRL
                 </p>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14 }}>
                   Av. Pablo Carriquiry 460 · San Isidro · Lima
                 </p>
               </div>
@@ -425,8 +425,9 @@ export default function Contacto() {
                   fontSize: 11,
                   letterSpacing: '0.10em',
                   textTransform: 'uppercase',
-                  color: '#00d9ff',
+                  color: 'var(--ts-accent)',
                   textDecoration: 'none',
+                  paddingBlock: 6,
                   flexShrink: 0,
                   display: 'inline-flex',
                   alignItems: 'center',

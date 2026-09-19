@@ -18,9 +18,9 @@ function IntroCardBase() {
         'bg-[rgba(2,6,18,0.86)] backdrop-blur-xl backdrop-saturate-150',
       )}
       style={{
-        border: '1px solid rgba(0,217,255,0.16)',
+        border: '1px solid rgb(var(--ts-accent-rgb)/0.16)',
         boxShadow:
-          '0 0 60px rgba(0,217,255,0.10), 0 30px 60px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.02)',
+          '0 0 60px rgb(var(--ts-accent-rgb)/0.10), 0 30px 60px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.02)',
       }}
     >
       <span
@@ -32,7 +32,7 @@ function IntroCardBase() {
           right: 0,
           height: 1,
           background:
-            'linear-gradient(90deg, transparent, rgba(0,217,255,0.45), transparent)',
+            'linear-gradient(90deg, transparent, rgb(var(--ts-accent-rgb)/0.45), transparent)',
         }}
       />
 
@@ -43,8 +43,8 @@ function IntroCardBase() {
               width: 6,
               height: 6,
               borderRadius: '50%',
-              background: '#00d9ff',
-              boxShadow: '0 0 8px #00d9ff',
+              background: 'var(--ts-accent)',
+              boxShadow: '0 0 8px var(--ts-accent)',
               display: 'inline-block',
             }}
           />
@@ -53,7 +53,7 @@ function IntroCardBase() {
               fontFamily: 'var(--font-mono)',
               fontSize: 11,
               letterSpacing: '0.18em',
-              color: 'rgba(0,217,255,0.75)',
+              color: 'rgb(var(--ts-accent-rgb)/0.75)',
               textTransform: 'uppercase',
             }}
           >
@@ -62,7 +62,7 @@ function IntroCardBase() {
         </div>
         <CardTitle
           style={{
-            fontFamily: 'var(--font-display, var(--font-mono))',
+            fontFamily: 'var(--font-heading)',
             fontSize: 22,
             fontWeight: 700,
             color: '#ffffff',
@@ -91,7 +91,7 @@ function IntroCardBase() {
           style={{
             height: 1,
             background:
-              'linear-gradient(90deg, transparent, rgba(0,217,255,0.20), transparent)',
+              'linear-gradient(90deg, transparent, rgb(var(--ts-accent-rgb)/0.20), transparent)',
             marginBottom: 12,
           }}
         />
@@ -123,7 +123,7 @@ function IntroCardBase() {
                 lineHeight: 1.5,
               }}
             >
-              <span style={{ color: '#00d9ff', flexShrink: 0, fontWeight: 700 }}>
+              <span style={{ color: 'var(--ts-accent)', flexShrink: 0, fontWeight: 700 }}>
                 {`0${i + 1}`}
               </span>
               <span>{tip}</span>

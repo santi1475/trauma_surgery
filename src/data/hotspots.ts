@@ -70,8 +70,9 @@ export const HOTSPOTS: HotspotData[] = [
     label: 'HOMBRO',
     sublabel: 'EXTREMIDAD SUPERIOR',
     position: [-0.202, 0.585, -0.0011],
-    labelOffset: [-130, -25],
-    side: 'left',
+    // A la derecha: a la izquierda chocaba con la tarjeta de intro en 1440px.
+    labelOffset: [170, -60],
+    side: 'right',
   },
   {
     id: 'cadera',

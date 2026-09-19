@@ -30,8 +30,8 @@ function ZoneButtonBase({ zone, active, onClick }: Props) {
       }}
       onMouseEnter={(e) => {
         if (active) return
-        ;(e.currentTarget as HTMLElement).style.background = 'rgba(0,217,255,0.06)'
-        ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,217,255,0.20)'
+        ;(e.currentTarget as HTMLElement).style.background = 'rgb(var(--ts-accent-rgb)/0.06)'
+        ;(e.currentTarget as HTMLElement).style.borderColor = 'rgb(var(--ts-accent-rgb)/0.20)'
       }}
       onMouseLeave={(e) => {
         if (active) return

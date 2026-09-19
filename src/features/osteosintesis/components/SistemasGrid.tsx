@@ -55,13 +55,13 @@ export default function SistemasGrid({ sistemas = SISTEMAS_OSTEO, grupos: GRUPOS
     <section
       id="catalogo"
       className="relative px-6 pb-28 lg:px-8"
-      style={{ background: 'var(--bg-deep, #020b18)' }}
+      style={{ background: 'var(--ts-bg-deep)' }}
       aria-labelledby="catalogo-title"
     >
       <div className="mx-auto max-w-7xl">
         <p
           className="text-xs font-medium uppercase tracking-[0.22em]"
-          style={{ color: 'var(--ts-accent, #00d9ff)' }}
+          style={{ color: 'var(--ts-accent)' }}
         >
           Catálogo
         </p>
@@ -87,7 +87,7 @@ export default function SistemasGrid({ sistemas = SISTEMAS_OSTEO, grupos: GRUPOS
                   style={MONO}
                 >
                   {g.titulo}
-                  <span className="tabular-nums" style={{ color: 'var(--ts-accent, #00d9ff)' }}>
+                  <span className="tabular-nums" style={{ color: 'var(--ts-accent)' }}>
                     {g.sistemas.length}
                   </span>
                 </a>
@@ -105,7 +105,7 @@ export default function SistemasGrid({ sistemas = SISTEMAS_OSTEO, grupos: GRUPOS
           >
             <header
               className="flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-end sm:justify-between"
-              style={{ borderColor: 'rgba(0,217,255,0.18)' }}
+              style={{ borderColor: 'rgb(var(--ts-accent-rgb)/0.18)' }}
             >
               <div>
                 <h3 id={`grupo-${g.id}-title`} className="font-heading text-xl font-bold text-white">
@@ -138,11 +138,11 @@ export default function SistemasGrid({ sistemas = SISTEMAS_OSTEO, grupos: GRUPOS
                     aria-label={`Ver detalles de ${[...s.titulo, s.subtitulo].filter(Boolean).join(' ')}`}
                     className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border text-left transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                     style={{
-                      borderColor: 'rgba(0,217,255,0.18)',
+                      borderColor: 'rgb(var(--ts-accent-rgb)/0.18)',
                       background:
-                        'linear-gradient(180deg, rgba(10,30,48,0.6), rgba(2,11,24,0.85))',
-                      ['--tw-ring-color' as string]: 'rgba(0,217,255,0.6)',
-                      ['--tw-ring-offset-color' as string]: '#020b18',
+                        'linear-gradient(180deg, rgba(10,30,48,0.6), rgb(var(--ts-bg-deep-rgb)/0.85))',
+                      ['--tw-ring-color' as string]: 'rgb(var(--ts-accent-rgb)/0.6)',
+                      ['--tw-ring-offset-color' as string]: 'var(--ts-bg-deep)',
                     }}
                   >
                     {/* Portada compuesta por el cliente (título, pilares y
@@ -166,11 +166,11 @@ export default function SistemasGrid({ sistemas = SISTEMAS_OSTEO, grupos: GRUPOS
 
                     <div
                       className="flex items-center justify-between gap-3 border-t px-4 py-3"
-                      style={{ borderColor: 'rgba(0,217,255,0.18)', ...MONO }}
+                      style={{ borderColor: 'rgb(var(--ts-accent-rgb)/0.18)', ...MONO }}
                     >
                       <span
                         className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.16em]"
-                        style={{ color: 'var(--ts-accent, #00d9ff)' }}
+                        style={{ color: 'var(--ts-accent)' }}
                       >
                         {s.pdf ? 'Ver catálogo oficial' : 'Ver sistema'}
                         <ArrowRight
@@ -183,7 +183,7 @@ export default function SistemasGrid({ sistemas = SISTEMAS_OSTEO, grupos: GRUPOS
 
                       {s.pdf && (
                         <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11px] uppercase tracking-[0.14em] text-white/50 tabular-nums">
-                          <FileText size={12} className="text-[#00d9ff]" aria-hidden="true" />
+                          <FileText size={12} className="text-ts-accent" aria-hidden="true" />
                           PDF · {s.pdf.paginas} pág
                         </span>
                       )}

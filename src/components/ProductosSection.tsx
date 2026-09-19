@@ -50,7 +50,7 @@ export default function ProductosSection() {
     <section
       id="productos"
       className="relative overflow-hidden"
-      style={{ backgroundColor: '#020d1a' }}
+      style={{ backgroundColor: 'var(--ts-bg-deep)' }}
       aria-label="Visor 3D — Soluciones adaptadas a cada anatomía"
     >
       <AnimatedGridPattern
@@ -60,8 +60,8 @@ export default function ProductosSection() {
         width={60}
         height={60}
         style={{
-          stroke: 'rgba(0,168,204,0.15)',
-          fill: 'rgba(0,168,204,0.04)',
+          stroke: 'rgb(var(--ts-accent-deep-rgb)/0.15)',
+          fill: 'rgb(var(--ts-accent-deep-rgb)/0.04)',
         }}
       />
 
@@ -71,7 +71,7 @@ export default function ProductosSection() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 70% at 50% 50%, rgba(10,58,96,0.6) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 70% at 50% 50%, rgb(var(--ts-primary-rgb)/0.6) 0%, transparent 70%)',
         }}
       />
 
@@ -93,9 +93,9 @@ export default function ProductosSection() {
           transition={{ duration: 0.5 }}
           className="inline-block text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded mb-3"
           style={{
-            background: 'rgba(0,168,204,0.10)',
-            border: '1px solid rgba(0,168,204,0.30)',
-            color: 'var(--color-accent)',
+            background: 'rgb(var(--ts-accent-deep-rgb)/0.10)',
+            border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.30)',
+            color: 'var(--ts-accent)',
             letterSpacing: '0.15em',
           }}
         >
@@ -116,7 +116,7 @@ export default function ProductosSection() {
           }}
         >
           Soluciones Adaptadas a{' '}
-          <span style={{ color: 'var(--color-accent)' }}>Cada Anatomía</span>
+          <span style={{ color: 'var(--ts-accent)' }}>Cada Anatomía</span>
         </motion.h2>
       </div>
 
@@ -142,7 +142,7 @@ export default function ProductosSection() {
               className="flex items-center gap-0 rounded-full p-1"
               style={{
                 background: 'rgba(4,24,48,0.85)',
-                border: '1px solid rgba(0,168,204,0.25)',
+                border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.25)',
                 backdropFilter: 'blur(16px)',
               }}
             >
@@ -152,8 +152,8 @@ export default function ProductosSection() {
                   onClick={() => handleModoChange(opt)}
                   className="px-6 py-2 rounded-full text-sm font-medium transition-all duration-200"
                   style={{
-                    background: modo === opt ? 'var(--color-accent)' : 'transparent',
-                    color: modo === opt ? '#020d1a' : 'rgba(255,255,255,0.6)',
+                    background: modo === opt ? 'var(--ts-accent)' : 'transparent',
+                    color: modo === opt ? 'var(--ts-bg-deep)' : 'rgba(255,255,255,0.6)',
                     fontWeight: modo === opt ? 700 : 500,
                   }}
                 >
@@ -171,7 +171,7 @@ export default function ProductosSection() {
       <div
         aria-hidden="true"
         className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(0,168,204,0.3), transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgb(var(--ts-accent-deep-rgb)/0.3), transparent)' }}
       />
     </section>
   )

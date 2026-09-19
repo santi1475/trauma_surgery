@@ -30,7 +30,7 @@ function tieneCatalogo(s: SistemaOsteo) {
 
 function Icono({ nombre, size = 18 }: { nombre?: IconoNombre; size?: number }) {
   const C = icono(nombre)
-  return <C size={size} color="#00d9ff" strokeWidth={1.5} aria-hidden="true" />
+  return <C size={size} color="var(--ts-accent)" strokeWidth={1.5} aria-hidden="true" />
 }
 
 /** Hexágono con icono — misma marca visual que en reemplazo articular. */
@@ -43,8 +43,8 @@ function Hex({ nombre, size = 44 }: { nombre?: IconoNombre; size?: number }) {
       <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <polygon
           points="50,4 92,28 92,72 50,96 8,72 8,28"
-          fill="rgba(0,217,255,0.06)"
-          stroke="rgba(0,217,255,0.4)"
+          fill="rgb(var(--ts-accent-rgb)/0.06)"
+          stroke="rgb(var(--ts-accent-rgb)/0.4)"
           strokeWidth="3"
           strokeLinejoin="round"
         />
@@ -83,14 +83,14 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
     <ModalProducto open={open} onClose={onClose} titleId={titleId}>
       <section
         className="px-6 pb-10 pt-12 sm:px-10 lg:px-14"
-        style={{ background: 'var(--bg-deep, #020b18)' }}
+        style={{ background: 'var(--ts-bg-deep)' }}
       >
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-96"
           style={{
             background:
-              'radial-gradient(60% 60% at 30% 0%, rgba(0,217,255,0.10), transparent 70%)',
+              'radial-gradient(60% 60% at 30% 0%, rgb(var(--ts-accent-rgb)/0.10), transparent 70%)',
           }}
         />
 
@@ -109,7 +109,7 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
               className="font-black leading-[1.05] tracking-tight"
               style={{ fontFamily: 'var(--font-heading)' }}
             >
-              <span className="block text-xl text-[#00d9ff] md:text-2xl">
+              <span className="block text-xl text-ts-accent md:text-2xl">
                 {datos.titulo[0]}
               </span>
               <span className="mt-1 block break-words text-3xl text-white md:text-4xl">
@@ -128,11 +128,11 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
 
             <div
               className="mt-4 h-px w-16"
-              style={{ background: 'var(--ts-accent, #00d9ff)' }}
+              style={{ background: 'var(--ts-accent)' }}
               aria-hidden="true"
             />
 
-            <p className="mt-4 max-w-sm text-[13px] leading-[1.7] text-white/60">
+            <p className="mt-4 max-w-sm text-sm leading-[1.7] text-white/60">
               <TextoRico texto={datos.descripcion} />
             </p>
 
@@ -143,8 +143,8 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
               className="relative mt-7 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl border lg:aspect-[3/4]"
               style={{
                 background:
-                  'radial-gradient(closest-side, rgba(0,217,255,0.14), transparent 72%), linear-gradient(180deg, rgba(10,30,48,0.8), rgba(2,11,24,0.95))',
-                borderColor: 'rgba(0,217,255,0.20)',
+                  'radial-gradient(closest-side, rgb(var(--ts-accent-rgb)/0.14), transparent 72%), linear-gradient(180deg, rgba(10,30,48,0.8), rgb(var(--ts-bg-deep-rgb)/0.95))',
+                borderColor: 'rgb(var(--ts-accent-rgb)/0.20)',
               }}
             >
               <div
@@ -152,7 +152,7 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
                 className="pointer-events-none absolute inset-0 opacity-[0.07]"
                 style={{
                   backgroundImage:
-                    'linear-gradient(rgba(0,217,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(0,217,255,0.5) 1px, transparent 1px)',
+                    'linear-gradient(rgb(var(--ts-accent-rgb)/0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--ts-accent-rgb)/0.5) 1px, transparent 1px)',
                   backgroundSize: '40px 40px',
                 }}
               />
@@ -208,7 +208,7 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
                       huecos={datos.huecosTornillos}
                     />
                     {datos.notaTabla && (
-                      <p className="mt-3 text-xs text-white/50">
+                      <p className="mt-3 text-sm text-white/50">
                         <TextoRico texto={datos.notaTabla} />
                       </p>
                     )}
@@ -251,7 +251,7 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
       {/* ── Banda de atributos — igual en los 5 ── */}
       <section
         className="border-t px-6 py-8 sm:px-10 lg:px-14"
-        style={{ borderColor: 'rgba(0,217,255,0.14)' }}
+        style={{ borderColor: 'rgb(var(--ts-accent-rgb)/0.14)' }}
         aria-label="Garantías del sistema"
       >
         <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
@@ -262,7 +262,7 @@ export default function ModalSistema({ sistema, open, onClose }: Props) {
                 <p className="text-xs font-bold uppercase leading-snug tracking-wide text-white">
                   {a.titulo}
                 </p>
-                <p className="mt-0.5 text-xs text-white/50">{a.texto}</p>
+                <p className="mt-0.5 text-sm text-white/50">{a.texto}</p>
               </div>
             </li>
           ))}

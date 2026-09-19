@@ -26,13 +26,13 @@ function BackButtonBase({ visible, disabled, onClick }: Props) {
         aria-label="Volver a la vista general del modelo"
         className={cn(
           'h-10 px-4 rounded-md',
-          'bg-[#0A3A60] text-white hover:bg-[#0A3A60]/90',
-          'border border-[#00d9ff]/40 hover:border-[#00d9ff]',
-          'shadow-[0_0_20px_rgba(0,217,255,0.25)] hover:shadow-[0_0_28px_rgba(0,217,255,0.5)]',
-          'focus-visible:ring-2 focus-visible:ring-[#00d9ff]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#020d1a]',
+          'bg-ts-primary text-white hover:bg-ts-primary/90',
+          'border border-ts-accent/40 hover:border-ts-accent',
+          'shadow-[0_0_20px_rgb(var(--ts-accent-rgb)/0.25)] hover:shadow-[0_0_28px_rgb(var(--ts-accent-rgb)/0.5)]',
+          'focus-visible:ring-2 focus-visible:ring-ts-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ts-bg-deep',
           'font-semibold tracking-[0.12em] uppercase text-xs',
         )}
-        style={{ fontFamily: 'var(--font-display, var(--font-mono))' }}
+        style={{ fontFamily: 'var(--font-mono)' }}
       >
         <svg
           width="14"

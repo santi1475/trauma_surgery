@@ -21,7 +21,7 @@ const descripcion =
     <!-- Hero — Línea de producto -->
     <section
       class="relative isolate overflow-hidden"
-      style="background: var(--bg-deep, #020b18);"
+      style="background: var(--ts-bg-deep);"
       aria-labelledby="hero-title"
     >
       <!-- Decorativos de atmósfera (no semánticos) -->
@@ -29,15 +29,15 @@ const descripcion =
         aria-hidden="true"
         class="pointer-events-none absolute inset-0 opacity-60"
         style="background:
-          radial-gradient(60% 50% at 20% 10%, rgba(0,217,255,0.10), transparent 60%),
-          radial-gradient(50% 40% at 80% 90%, rgba(10,58,96,0.55), transparent 65%);"
+          radial-gradient(60% 50% at 20% 10%, rgb(var(--ts-accent-rgb)/0.10), transparent 60%),
+          radial-gradient(50% 40% at 80% 90%, rgb(var(--ts-primary-rgb)/0.55), transparent 65%);"
       ></div>
       <div
         aria-hidden="true"
         class="pointer-events-none absolute inset-0 opacity-[0.06]"
         style="background-image:
-          linear-gradient(rgba(0,217,255,0.4) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,217,255,0.4) 1px, transparent 1px);
+          linear-gradient(rgb(var(--ts-accent-rgb)/0.4) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(var(--ts-accent-rgb)/0.4) 1px, transparent 1px);
           background-size: 56px 56px;"
       ></div>
 
@@ -49,7 +49,7 @@ const descripcion =
               <a
                 href="/"
                 class="transition-colors hover:underline focus-visible:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-sm"
-                style="color: #00d9ff; --tw-ring-color: rgba(0,217,255,0.6); --tw-ring-offset-color: #020b18;"
+                style="color: var(--ts-accent); --tw-ring-color: rgb(var(--ts-accent-rgb)/0.6); --tw-ring-offset-color: var(--ts-bg-deep);"
               >
                 Inicio
               </a>
@@ -63,15 +63,15 @@ const descripcion =
         <span
           class="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.18em]"
           style="
-            color: var(--ts-accent, #00d9ff);
-            border-color: rgba(0,217,255,0.25);
-            background: rgba(0,217,255,0.06);
+            color: var(--ts-accent);
+            border-color: rgb(var(--ts-accent-rgb)/0.25);
+            background: rgb(var(--ts-accent-rgb)/0.06);
           "
         >
           <span
             aria-hidden="true"
             class="h-1.5 w-1.5 rounded-full"
-            style="background: var(--ts-accent, #00d9ff); box-shadow: 0 0 8px rgba(0,217,255,0.7);"
+            style="background: var(--ts-accent); box-shadow: 0 0 8px rgb(var(--ts-accent-rgb)/0.7);"
           ></span>
           Línea de producto
         </span>
@@ -93,7 +93,7 @@ const descripcion =
         <div
           aria-hidden="true"
           class="hero-accent-line mt-10 h-px w-24"
-          style="background: linear-gradient(90deg, var(--ts-accent, #00d9ff), transparent); transform: scaleX(0); transform-origin: left center;"
+          style="background: linear-gradient(90deg, var(--ts-accent), transparent); transform: scaleX(0); transform-origin: left center;"
         ></div>
       </div>
     </section>
@@ -108,13 +108,13 @@ const descripcion =
     aria-label="Volver al inicio"
     class="fixed bottom-6 left-6 z-50 inline-flex min-h-[44px] items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition hover:scale-[1.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 lg:hidden"
     style="
-      background: rgba(0,217,255,0.10);
-      border: 1px solid rgba(0,217,255,0.30);
-      color: #00d9ff;
+      background: rgb(var(--ts-accent-rgb)/0.10);
+      border: 1px solid rgb(var(--ts-accent-rgb)/0.30);
+      color: var(--ts-accent);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      --tw-ring-color: rgba(0,217,255,0.6);
-      --tw-ring-offset-color: #020b18;
+      --tw-ring-color: rgb(var(--ts-accent-rgb)/0.6);
+      --tw-ring-offset-color: var(--ts-bg-deep);
     "
   >
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"

@@ -100,7 +100,7 @@ export default function ModalProducto({
       {open && (
         <motion.div
           key="modal-overlay"
-          className="fixed inset-0 z-50 overflow-y-auto bg-[#020b18]/85 backdrop-blur-md"
+          className="fixed inset-0 z-50 overflow-y-auto bg-ts-bg-deep/85 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -117,8 +117,8 @@ export default function ModalProducto({
             aria-labelledby={labelledBy}
             className="relative mx-auto my-8 w-[min(96rem,calc(100%-2rem))] rounded-2xl border shadow-2xl"
             style={{
-              background: 'var(--bg-deep, #020b18)',
-              borderColor: 'rgba(0,217,255,0.20)',
+              background: 'var(--ts-bg-deep)',
+              borderColor: 'rgb(var(--ts-accent-rgb)/0.20)',
             }}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -133,10 +133,10 @@ export default function ModalProducto({
               aria-label="Cerrar modal"
               className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border text-white/80 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
               style={{
-                background: 'rgba(0,217,255,0.08)',
-                borderColor: 'rgba(0,217,255,0.30)',
-                ['--tw-ring-color' as any]: 'rgba(0,217,255,0.6)',
-                ['--tw-ring-offset-color' as any]: '#020b18',
+                background: 'rgb(var(--ts-accent-rgb)/0.08)',
+                borderColor: 'rgb(var(--ts-accent-rgb)/0.30)',
+                ['--tw-ring-color' as any]: 'rgb(var(--ts-accent-rgb)/0.6)',
+                ['--tw-ring-offset-color' as any]: 'var(--ts-bg-deep)',
               }}
             >
               <svg

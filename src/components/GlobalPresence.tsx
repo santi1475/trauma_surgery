@@ -136,7 +136,7 @@ function DottedWorldMap() {
             cx={x}
             cy={row.y}
             r={0.5}
-            fill="rgba(0,168,204,0.18)"
+            fill="rgb(var(--ts-accent-deep-rgb)/0.18)"
           />
         )
       }
@@ -165,7 +165,7 @@ function PulsingNode({
           cy={node.y}
           r={2.5}
           fill="none"
-          stroke="rgba(0,217,255,0.35)"
+          stroke="rgb(var(--ts-accent-rgb)/0.35)"
           strokeWidth={0.3}
         >
           <animate
@@ -191,7 +191,7 @@ function PulsingNode({
           cy={node.y}
           r={1.8}
           fill="none"
-          stroke="rgba(0,217,255,0.2)"
+          stroke="rgb(var(--ts-accent-rgb)/0.2)"
           strokeWidth={0.2}
         >
           <animate
@@ -215,14 +215,14 @@ function PulsingNode({
         cx={node.x}
         cy={node.y}
         r={2}
-        fill="rgba(0,217,255,0.08)"
+        fill="rgb(var(--ts-accent-rgb)/0.08)"
       />
       {/* Punto central */}
       <circle
         cx={node.x}
         cy={node.y}
         r={1}
-        fill="#00d9ff"
+        fill="var(--ts-accent)"
       >
         {!prefersReduced && (
           <animate
@@ -266,7 +266,7 @@ export default function GlobalPresence({
     <section
       id="presencia-global"
       className="relative overflow-hidden"
-      style={{ backgroundColor: '#020d1a' }}
+      style={{ backgroundColor: 'var(--ts-bg-deep)' }}
       aria-label="Presencia Global"
     >
       {/* Glow superior izquierdo — más amplio e intenso */}
@@ -279,7 +279,7 @@ export default function GlobalPresence({
           width: '55%',
           height: '100%',
           background:
-            'radial-gradient(ellipse at top left, rgba(10,58,96,0.6) 0%, transparent 65%)',
+            'radial-gradient(ellipse at top left, rgb(var(--ts-primary-rgb)/0.6) 0%, transparent 65%)',
         }}
       />
 
@@ -293,7 +293,7 @@ export default function GlobalPresence({
           width: '45%',
           height: '70%',
           background:
-            'radial-gradient(ellipse at bottom right, rgba(0,120,200,0.14) 0%, transparent 65%)',
+            'radial-gradient(ellipse at bottom right, rgb(var(--ts-accent-deep-rgb)/0.14) 0%, transparent 65%)',
         }}
       />
 
@@ -308,7 +308,7 @@ export default function GlobalPresence({
           fontFamily: 'var(--font-heading)',
           fontSize: 'clamp(180px, 26vw, 340px)',
           fontWeight: 800,
-          color: 'rgba(0,168,204,0.028)',
+          color: 'rgb(var(--ts-accent-deep-rgb)/0.028)',
           lineHeight: 1,
           letterSpacing: '-0.04em',
           userSelect: 'none',
@@ -323,9 +323,9 @@ export default function GlobalPresence({
           className="relative rounded-3xl overflow-hidden"
           style={{
             backgroundColor: 'rgba(4,18,36,0.90)',
-            border: '1px solid rgba(0,168,204,0.18)',
+            border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.18)',
             boxShadow:
-              '0 40px 120px rgba(0,0,0,0.55), 0 0 80px rgba(0,100,180,0.10), inset 0 1px 0 rgba(0,217,255,0.08)',
+              '0 40px 120px rgba(0,0,0,0.55), 0 0 80px rgba(0,100,180,0.10), inset 0 1px 0 rgb(var(--ts-accent-rgb)/0.08)',
             minHeight: 560,
           }}
         >
@@ -335,7 +335,7 @@ export default function GlobalPresence({
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse 60% 80% at 25% 50%, rgba(10,58,96,0.48) 0%, transparent 60%)',
+                'radial-gradient(ellipse 60% 80% at 25% 50%, rgb(var(--ts-primary-rgb)/0.48) 0%, transparent 60%)',
             }}
           />
           {/* Scan line horizontal sutil */}
@@ -346,7 +346,7 @@ export default function GlobalPresence({
               left: 0, right: 0,
               top: '50%',
               height: 1,
-              background: 'linear-gradient(90deg, transparent 0%, rgba(0,217,255,0.06) 30%, rgba(0,217,255,0.10) 50%, rgba(0,217,255,0.06) 70%, transparent 100%)',
+              background: 'linear-gradient(90deg, transparent 0%, rgb(var(--ts-accent-rgb)/0.06) 30%, rgb(var(--ts-accent-rgb)/0.10) 50%, rgb(var(--ts-accent-rgb)/0.06) 70%, transparent 100%)',
             }}
           />
 
@@ -369,9 +369,9 @@ export default function GlobalPresence({
                   fontWeight: 700,
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-accent)',
-                  background: 'rgba(0,168,204,0.08)',
-                  border: '1px solid rgba(0,168,204,0.22)',
+                  color: 'var(--ts-accent)',
+                  background: 'rgb(var(--ts-accent-deep-rgb)/0.08)',
+                  border: '1px solid rgb(var(--ts-accent-deep-rgb)/0.22)',
                   padding: '4px 12px',
                   borderRadius: 4,
                 }}
@@ -394,7 +394,7 @@ export default function GlobalPresence({
               >
                 PRESENCIA
                 <br />
-                <span style={{ color: '#00d9ff', textShadow: '0 0 40px rgba(0,217,255,0.35)' }}>GLOBAL</span>
+                <span style={{ color: 'var(--ts-accent)', textShadow: '0 0 40px rgb(var(--ts-accent-rgb)/0.35)' }}>GLOBAL</span>
               </motion.h2>
 
               {/* Párrafo */}
@@ -402,7 +402,7 @@ export default function GlobalPresence({
                 variants={itemVariants}
                 style={{
                   color: 'rgba(255,255,255,0.55)',
-                  fontSize: 'clamp(13px, 1.15vw, 15px)',
+                  fontSize: 14,
                   lineHeight: 1.8,
                   maxWidth: 380,
                   marginBottom: 32,
@@ -429,8 +429,8 @@ export default function GlobalPresence({
                         fontFamily: 'var(--font-mono)',
                         fontSize: 11,
                         color: 'rgba(255,255,255,0.5)',
-                        background: 'rgba(0,217,255,0.05)',
-                        border: '1px solid rgba(0,217,255,0.12)',
+                        background: 'rgb(var(--ts-accent-rgb)/0.05)',
+                        border: '1px solid rgb(var(--ts-accent-rgb)/0.12)',
                         padding: '4px 10px',
                         borderRadius: 4,
                         letterSpacing: '0.06em',
@@ -455,11 +455,8 @@ export default function GlobalPresence({
               <motion.button
                 variants={itemVariants}
                 onClick={onOpenMap}
-                className="group inline-flex items-center gap-3 w-fit cursor-pointer"
+                className="group inline-flex items-center gap-3 w-fit cursor-pointer border-[1.5px] border-ts-accent/45 bg-transparent text-ts-accent hover:bg-ts-accent/10 hover:shadow-[0_0_24px_rgb(var(--ts-accent-rgb)/0.18)]"
                 style={{
-                  border: '1.5px solid rgba(0,217,255,0.45)',
-                  background: 'transparent',
-                  color: '#00d9ff',
                   fontSize: 11,
                   letterSpacing: '0.13em',
                   textTransform: 'uppercase',
@@ -468,10 +465,6 @@ export default function GlobalPresence({
                   borderRadius: 6,
                   transition: 'all 0.28s ease',
                   fontFamily: 'var(--font-mono)',
-                }}
-                whileHover={{
-                  backgroundColor: 'rgba(0,217,255,0.10)',
-                  boxShadow: '0 0 24px rgba(0,217,255,0.18)',
                 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -517,7 +510,7 @@ export default function GlobalPresence({
                   height: '80%',
                   transform: 'translate(-50%, -50%)',
                   background:
-                    'radial-gradient(ellipse, rgba(0,140,220,0.18) 0%, rgba(10,58,96,0.24) 50%, transparent 70%)',
+                    'radial-gradient(ellipse, rgb(var(--ts-accent-deep-rgb)/0.18) 0%, rgb(var(--ts-primary-rgb)/0.24) 50%, transparent 70%)',
                   filter: 'blur(8px)',
                 }}
               />
@@ -532,9 +525,9 @@ export default function GlobalPresence({
                 <defs>
                   {/* Gradiente para los arcos */}
                   <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#00d9ff" stopOpacity="0.75" />
-                    <stop offset="50%" stopColor="#00d9ff" stopOpacity="0.22" />
-                    <stop offset="100%" stopColor="#00d9ff" stopOpacity="0.75" />
+                    <stop offset="0%" stopColor="var(--ts-accent)" stopOpacity="0.75" />
+                    <stop offset="50%" stopColor="var(--ts-accent)" stopOpacity="0.22" />
+                    <stop offset="100%" stopColor="var(--ts-accent)" stopOpacity="0.75" />
                   </linearGradient>
 
                   {/* Glow filter para nodos — stdDeviation mayor */}
@@ -599,7 +592,7 @@ export default function GlobalPresence({
         className="absolute bottom-0 left-0 right-0 h-px"
         style={{
           background:
-            'linear-gradient(90deg, transparent, rgba(0,168,204,0.22), transparent)',
+            'linear-gradient(90deg, transparent, rgb(var(--ts-accent-deep-rgb)/0.22), transparent)',
         }}
       />
     </section>
