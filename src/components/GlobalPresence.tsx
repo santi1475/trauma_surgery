@@ -306,7 +306,7 @@ export default function GlobalPresence({
           top: '50%',
           transform: 'translateY(-50%)',
           fontFamily: 'var(--font-heading)',
-          fontSize: 'clamp(180px, 26vw, 340px)',
+          fontSize: 'var(--text-watermark)',
           fontWeight: 800,
           color: 'rgb(var(--ts-accent-deep-rgb)/0.028)',
           lineHeight: 1,
@@ -384,7 +384,7 @@ export default function GlobalPresence({
                 variants={itemVariants}
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(36px, 5vw, 68px)',
+                  fontSize: 'var(--text-display)',
                   fontWeight: 800,
                   lineHeight: 1.0,
                   letterSpacing: '-0.02em',

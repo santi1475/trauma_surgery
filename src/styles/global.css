@@ -61,6 +61,15 @@
     --ts-bg-card:         #0a1e30;
     --ts-text:            rgba(255,255,255,0.6);
 
+    /* Rampa tipográfica — DESIGN.md §3. Un titular de sección es `display`;
+       una marca de agua decorativa (aria-hidden) es `watermark`. */
+    --text-display:   clamp(32px, 5vw, 56px);
+    --text-headline:  clamp(13px, 2vw, 21px);
+    --text-title:     20px;
+    --text-body:      14px;
+    --text-label:     11px;
+    --text-watermark: clamp(140px, 22vw, 260px);
+
     /* shadcn → paleta. El sitio es dark siempre; no hay tema claro ni clase .dark. */
     --background: var(--ts-bg-deep);
     --foreground: #ffffff;

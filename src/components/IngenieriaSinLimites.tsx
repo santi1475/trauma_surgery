@@ -532,7 +532,7 @@ export default function IngenieriaSinLimites() {
           top: '50%',
           transform: 'translateY(-50%)',
           fontFamily: 'var(--font-heading)',
-          fontSize: 'clamp(140px, 22vw, 260px)',
+          fontSize: 'var(--text-watermark)',
           fontWeight: 800,
           color: 'rgb(var(--ts-accent-deep-rgb)/0.035)',
           lineHeight: 1,

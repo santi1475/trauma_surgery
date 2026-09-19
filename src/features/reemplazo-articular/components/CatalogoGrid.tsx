@@ -312,7 +312,7 @@ export default function CatalogoGrid() {
             </p>
             <h2
               id="catalogo-heading"
-              className="mt-5 font-heading text-3xl font-bold leading-[1.1] text-white sm:text-4xl lg:text-[2.75rem]"
+              className="mt-5 font-heading text-[length:var(--text-display)] font-bold leading-[1.1] text-white"
             >
               Tecnología que transforma cada movimiento
             </h2>
@@ -327,7 +327,7 @@ export default function CatalogoGrid() {
               aria-hidden="true"
               className="watermark-text pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 select-none whitespace-nowrap font-heading font-bold uppercase tracking-tighter text-white"
               style={{
-                fontSize: '10rem',
+                fontSize: 'var(--text-watermark)',
                 opacity: 0.04,
                 lineHeight: 1,
               }}

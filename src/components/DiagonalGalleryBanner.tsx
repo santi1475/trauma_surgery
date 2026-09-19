@@ -119,7 +119,7 @@ function DiagonalPanel({
         <motion.h3
           className="font-heading text-white font-bold tracking-wide"
           style={{
-            fontSize: 'clamp(14px, 1.5vw, 20px)',
+            fontSize: 'var(--text-title)',
             lineHeight: 1.2,
             marginBottom: 4,
             textShadow: '0 2px 8px rgba(0,0,0,0.6)',
@@ -136,7 +136,7 @@ function DiagonalPanel({
         <motion.p
           className="font-sans"
           style={{
-            fontSize: 'clamp(11px, 1vw, 13px)',
+            fontSize: 'var(--text-body)',
             color: 'rgba(255,255,255,0.55)',
             letterSpacing: '0.04em',
             textShadow: '0 1px 4px rgba(0,0,0,0.5)',
@@ -197,7 +197,7 @@ export default function DiagonalGalleryBanner({
           top: '50%',
           transform: 'translateY(-50%)',
           fontFamily: 'var(--font-heading)',
-          fontSize: 'clamp(140px, 22vw, 260px)',
+          fontSize: 'var(--text-watermark)',
           fontWeight: 800,
           color: 'rgb(var(--ts-accent-deep-rgb)/0.028)',
           lineHeight: 1,
@@ -263,7 +263,7 @@ export default function DiagonalGalleryBanner({
                 variants={itemVariants}
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(24px, 3.5vw, 44px)',
+                  fontSize: 'var(--text-display)',
                   fontWeight: 800,
                   lineHeight: 1.08,
                   letterSpacing: '-0.01em',

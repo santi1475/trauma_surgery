@@ -68,7 +68,7 @@ export default function GlobalStats() {
               fontFamily: 'var(--font-heading)',
               fontWeight: 700,
               color: '#FFFFFF',
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+              fontSize: 'var(--text-display)',
               letterSpacing: '-0.02em',
               lineHeight: 1.15,
             }}
@@ -118,7 +118,7 @@ export default function GlobalStats() {
                 style={{
                   fontFamily: 'var(--font-heading)',
                   fontWeight: 800,
-                  fontSize: 'clamp(2rem, 4vw, 2.75rem)',
+                  fontSize: 'var(--text-display)',
                   color: 'var(--ts-accent)',
                   lineHeight: 1,
                 }}

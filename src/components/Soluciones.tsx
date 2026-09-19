@@ -39,7 +39,7 @@ export default function Soluciones() {
               style={{
                 fontWeight: 700,
                 color: '#ffffff',
-                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                fontSize: 'var(--text-display)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,
               }}

@@ -75,7 +75,7 @@ export default function InstagramFeed() {
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 700,
                 color: '#ffffff',
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+                fontSize: 'var(--text-display)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,
                 margin: 0,
