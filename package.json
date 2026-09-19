@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check:tokens": "node scripts/check-tokens.mjs",
     "check:catalogo": "node src/features/osteosintesis/data/catalogo.check.ts",
+    "prebuild": "npm run check:tokens",
     "astro": "astro"
   },
   "dependencies": {

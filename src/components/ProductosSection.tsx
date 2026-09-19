@@ -109,7 +109,7 @@ export default function ProductosSection() {
           className="text-center font-bold uppercase"
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(13px, 2vw, 21px)',
+            fontSize: 'var(--text-headline)',
             letterSpacing: '0.12em',
             color: '#ffffff',
             margin: 0,

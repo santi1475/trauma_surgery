@@ -73,7 +73,7 @@ export function TechBackground() {
         p.y = (p.y + p.vy + height) % height
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0,217,255,${p.a})`
+        ctx.fillStyle = `rgba(0,217,255,${p.a})` // token-ok: canvas 2D no resuelve var()
         ctx.fill()
       }
       rafRef.current = requestAnimationFrame(tick)

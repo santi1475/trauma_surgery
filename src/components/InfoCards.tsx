@@ -24,7 +24,7 @@ const DIFERENCIALES: Diferencial[] = [
     icon: <Gem size={20} strokeWidth={1.5} />,
     title: 'Aleación de titanio',
     description: 'Titanio médico Grado 4. Biocompatible, ligero y de alta resistencia mecánica para implantes de larga duración.',
-    accentColor: '#00d9ff',
+    accentColor: '#00d9ff', // token-ok: se concatena con sufijo de alpha (`${accentColor}40`)
   },
   {
     id: 'anatomico',
@@ -45,14 +45,14 @@ const DIFERENCIALES: Diferencial[] = [
     icon: <BadgeCheck size={20} strokeWidth={1.5} />,
     title: 'Calidad certificada',
     description: 'ISO 13485 · CE Mark · DIGEMID · INVIMA. Trazabilidad completa desde la fabricación hasta la implantación.',
-    accentColor: '#D4AF37',
+    accentColor: '#D4AF37', // token-ok: ídem
   },
   {
     id: 'innovacion',
     icon: <Cpu size={20} strokeWidth={1.5} />,
     title: 'Innovación continua',
     description: 'I+D constante en colaboración con cirujanos especializados en traumatología, ortopedia y reemplazos articulares.',
-    accentColor: '#00a8cc',
+    accentColor: '#00a8cc', // token-ok: ídem
   },
 ]
 
